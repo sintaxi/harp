@@ -1,0 +1,15 @@
+{
+  "name": "harp",
+  "version": "0.1.0",
+  "description": "Opinionated static site generator for building apps.",
+  "author": "Brock Whitten <brock@chloi.io>",
+  "main": "harp.js",
+  "dependencies":{
+    "commander": "1.1.1",
+    "connect": "2.7.0",
+    "fs-extra": "0.3.2"
+  },
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "bin": { "harp": "./bin/harp" }
+}

@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+var path    = require('path')
+var program = require('commander')
+var pkg     = require('../package.json')
+var harp    = require('../')
+
+program
+  .version(pkg.version)
+  .usage('[project-path] [options]')
+  .option('-s, --server [port]', 'start a server for harp app (dynamically generates assets)')
+  .option('-c, --compile [output-path]', 'compiles static assets. (relative to project-path)')
+  .parse(process.argv)
+
+if(program.args.length > 0){
+  var projectPath = path.resolve(program.args[0])
+}else{
+  var cwd         = process.cwd()
+  var projectPath = path.resolve(cwd)
+}
+
+if(program.server){
+  port = program.server === true
+    ? null
+    : program.server
+  harp.server(projectPath, port)
+}else if(program.compile){
+  outputPath = program.compile === true
+    ? null
+    : program.compile
+  harp.compile(projectPath, outputPath, function(err, out){
+    if(err){
+      console.log(err)
+    }else{
+      console.log("harp application compiled to", out)
+    }
+  })
+}else{
+  program.help()
+}
