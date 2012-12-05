@@ -29,10 +29,11 @@ if(program.server){
     ? null
     : program.compile
   harp.compile(projectPath, outputPath, function(err, out){
+    console.log("hey")
     if(err){
       console.log(err)
     }else{
-      console.log("harp application compiled to", out)
+      console.log("harp application compiled to", projectPath)
     }
   })
 }else{
