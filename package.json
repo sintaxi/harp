@@ -8,9 +8,9 @@
     "commander": "1.1.1",
     "connect": "2.7.0",
     "fs-extra": "0.3.2",
-    "jade": "",
-    "mkdirp": "",
-    "async": ""
+    "jade": "0.27.7",
+    "mkdirp": "0.3.4",
+    "async": "0.1.22"
   },
   "license": "MIT",
   "readmeFilename": "README.md",
