@@ -10,7 +10,8 @@
     "fs-extra": "0.3.2",
     "jade": "0.27.7",
     "mkdirp": "0.3.4",
-    "async": "0.1.22"
+    "async": "0.1.22",
+    "less": ""
   },
   "license": "MIT",
   "readmeFilename": "README.md",
