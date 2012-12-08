@@ -1,6 +1,6 @@
 {
   "name": "harp",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "description": "Opinionated static site generator for building apps.",
   "author": "Brock Whitten <brock@chloi.io>",
   "main": "harp.js",
