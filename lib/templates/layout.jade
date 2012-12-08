@@ -1,0 +1,66 @@
+!!!
+html
+  head
+    block stylesheet
+      style
+      
+        body{
+          font-family: "verdana";
+          font-size: 92%;
+          padding: 0 20px 80px;
+        }
+
+        h1, h2, h5, h6{
+          margin-top:30px;
+          margin-bottom:25px;
+        }
+
+        pre {
+          margin-top:20px;
+          margin-bottom:20px;
+          border-color: #E1E1E8;
+          border-width:1px 0;
+          .border-radius(0px);
+          background:#F7F7F9;
+          
+          color:#555;
+          font-weight:400;
+          font-size:0.6em;
+          padding:30px;
+          overflow:scroll
+        }
+
+        p{
+          font-size:15px;
+          line-height:25px;
+          margin:20px 0;
+        }
+
+        a{
+          border-bottom:1px solid lightblue;
+          color:#333;
+          margin-right:10px;
+          text-decoration:none;          
+        }
+        
+        a:hover{
+          background:#FFE;
+        }
+      
+        #header{
+          border-bottom:1px solid #eee;
+          padding:30px 0px;
+        }
+  body
+    #header
+      h1 Harp
+      div#resources
+        a(href="documentation.harp.io") docs
+        | 
+        a(href="guides.harp.io") guides
+        | 
+        a(href="guides.harp.io") support
+        | 
+        a(href="harp.io") platform
+    block content
+
