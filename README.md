@@ -2,17 +2,13 @@
 
 ## description
 
-Harp is an open source static site generator for rapidly building responsive HTML5 applications.
-
-What makes Harp unique is that is has a Platform built from the ground up for hosting Harp applications through Dropbox. See [harp.io](http://harp.io) for more details.
-
-Harp makes it easy to build single codebase applications for PhoneGap.
+Harp is an open source static site generator for rapidly building responsive HTML5 applications. What makes Harp unique is that is has a Platform built from the ground up for hosting Harp applications through Dropbox. See [harp.io](http://harp.io) for more details.
 
 ## features
 
-  - *Asset Pipeline:* built-in asset pipeline for seamlessly serving of `jade` and `less` files.
-  - *Selected State:* harp gives you helpers for determining current page on every request.
-  - *AppCache:* auto-generates html `cache manifest` file for offline support (coming soon)
+  - *Asset Pipeline:* built-in asset pipeline for seamlessly serving of [jade](http://jade-lang.com/) and [less](http://lesscss.org/) files.
+  - *Selected State:* harp passes in a `current` variable on every request for determining the current page.
+  - *AppCache:* auto-generates html `cache manifest` file for offline support (coming soon).
   - *Server:* harp ships with a built-in server (great for development).
   - *PhoneGap:* dead simple way to generate your `www` folder for PhoneGap.
 
