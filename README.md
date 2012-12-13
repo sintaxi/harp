@@ -2,13 +2,57 @@
 
 ## description
 
-Harp is an opinionated static site generator for building apps. It also acts as a server for harp applications.
+Harp is an open source static site generator for rapidly building responsive HTML5 applications.
+
+What makes Harp unique is that is has a Platform built from the ground up for hosting Harp applications through Dropbox. See [harp.io](http://harp.io) for more details.
+
+Harp makes it easy to build single codebase applications for PhoneGap.
+
+## features
+
+  - *Asset Pipeline:* built-in asset pipeline for seamlessly serving of `jade` and `less` files.
+  - *Selected State:* harp gives you helpers for determining current page on every request.
+  - *AppCache:* auto-generates html `cache manifest` file for offline support (coming soon)
+  - *Server:* harp ships with a built-in server (great for development).
+  - *PhoneGap:* dead simple way to generate your `www` folder for PhoneGap.
 
 ## install
 
+Harp may be install as a global package by running the following...
+
     npm install -g harp
+
+## anatomy of a harp application
+
+    yourproject/                  <-- root of your application
+      |
+      |- public                   <-- your application assets belong in the public dir
+      |   |
+      |   ` index.jade            <-- must have an index.html or index.jade file
+      |
+      `- harp.json                <-- configuration and such goes here
+
+## run the server
+
+Start the server in root of your application by running...
+
+    harp -s
     
-## usage
+You may optionally supply a port for the assets...
+
+    harp -s 8002
+    
+## compile the assets
+
+Compile an application from the root of your application by running...
+
+    harp -c
+    
+You may optionally pass in a path to where you want the compiled assets to go...
+
+    harp -c /path/to/phonegap/project/www
+
+## cli usage
 
     Usage: harp [app-path] [options]
 
@@ -20,7 +64,9 @@ Harp is an opinionated static site generator for building apps. It also acts as 
         -h, --help                    Output usage information.
 
 
-## usage as lib
+## lib usage
+
+You may also use harp as a node library for compiling or running as a server.
 
     var harp = require("harp")
 
