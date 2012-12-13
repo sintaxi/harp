@@ -7,10 +7,12 @@ Harp is an open source static site generator for rapidly building responsive HTM
 ## features
 
   - *Asset Pipeline:* built-in asset pipeline for seamlessly serving of [jade](http://jade-lang.com/) and [less](http://lesscss.org/) files.
+  - *Local Variables:* specify local data in `harp.json` file for passing local variables into your templates.
   - *Selected State:* harp passes in a `current` variable on every request for determining the current page.
   - *AppCache:* auto-generates html `cache manifest` file for offline support (coming soon).
   - *Server:* harp ships with a built-in server (great for development).
-  - *PhoneGap:* dead simple way to generate your `www` folder for PhoneGap.
+
+*note* - harp is a dead simple way to generate your `www` folder for PhoneGap.
 
 ## install
 
@@ -26,7 +28,7 @@ Harp may be install as a global package by running the following...
       |   |
       |   ` index.jade            <-- must have an index.html or index.jade file
       |
-      `- harp.json                <-- configuration and such goes here
+      `- harp.json                <-- configuration, locals goes here.
 
 ## run the server
 
@@ -34,7 +36,7 @@ Start the server in root of your application by running...
 
     harp -s
     
-You may optionally supply a port for the assets...
+You may optionally supply a port to listen on...
 
     harp -s 8002
     
@@ -76,7 +78,7 @@ compile harp application
 
 ## license
 
-Copyright 2011/2012 Chloi Inc. All rights reserved.
+Copyright 2012 Chloi Inc. All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
