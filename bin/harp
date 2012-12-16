@@ -20,12 +20,12 @@ if(program.args.length > 0){
 }
 
 if(program.server){
-  port = program.server === true
+  var port = program.server === true
     ? null
     : program.server
   harp.server(projectPath, port)
 }else if(program.compile){
-  outputPath = program.compile === true
+  var outputPath = program.compile === true
     ? null
     : program.compile
   harp.compile(projectPath, outputPath, function(err, out){
