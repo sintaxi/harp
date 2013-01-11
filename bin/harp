@@ -35,6 +35,7 @@ if(program.server){
       console.log("harp application compiled to", projectPath)
     }
   })
+
 }else{
   program.help()
 }
