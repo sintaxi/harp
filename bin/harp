@@ -32,8 +32,6 @@ if(program.server){
     if(err){
       console.log(err)
     }else{
-      console.log("harp application compiled to", projectPath)
-      console.log("with config...")
       console.log(JSON.stringify(out, null, 2))
     }
   })
