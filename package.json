@@ -1,7 +1,7 @@
 {
   "name": "harp",
-  "version": "0.5.0",
-  "description": "Opinionated static site generator for building apps.",
+  "version": "0.5.1",
+  "description": "Harp is an Asset Pipeline Framework for easily building rhobust web applications.",
   "author": "Brock Whitten <brock@chloi.io>",
   "main": "harp.js",
   "dependencies":{
