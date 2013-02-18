@@ -10,6 +10,7 @@ program
   .usage('[project-path] [options]')
   .option('-s, --server [port]', 'start a server for harp app (dynamically generates assets)')
   .option('-c, --compile [output-path]', 'compiles static assets. (relative to project-path)')
+  .option('-h, --host [port]', 'hosts a folder of harp apps.')
   .parse(process.argv)
 
 if(program.args.length > 0){
@@ -24,6 +25,12 @@ if(program.server){
     ? null
     : program.server
   harp.server(projectPath, port)
+}else if(program.host){
+  var appsPath = projectPath
+  var port = program.host === true
+    ? null
+    : program.host
+  harp.server(appsPath, port, true)
 }else if(program.compile){
   var outputPath = program.compile === true
     ? null
