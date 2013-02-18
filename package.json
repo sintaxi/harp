@@ -1,6 +1,6 @@
 {
   "name": "harp",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Harp is an Asset Pipeline Framework for easily building rhobust web applications.",
   "author": "Brock Whitten <brock@chloi.io>",
   "main": "harp.js",
