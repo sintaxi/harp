@@ -22,15 +22,19 @@ if(program.args.length > 0){
 
 if(program.server){
   var port = program.server === true
-    ? null
+    ? 9966
     : program.server
-  harp.server(projectPath, port)
+  harp.server(projectPath, { port: port }, function(){
+    console.log("harp is listening on port", port)
+  })
 }else if(program.host){
   var appsPath = projectPath
   var port = program.host === true
-    ? null
+    ? 9966
     : program.host
-  harp.server(appsPath, port, true)
+  harp.server(appsPath, { port: port, hostMode: true }, function(){
+    console.log("harp is hosting apps on port", port)
+  })
 }else if(program.compile){
   var outputPath = program.compile === true
     ? null

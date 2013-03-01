@@ -10,7 +10,9 @@ describe("basic", function(){
     
   before(function(done){
     harp.compile(projectPath, outputPath, function(){
-      done()
+      harp.server(projectPath, { port: 8100 }, function(){
+        done()
+      })
     })
   })
   

@@ -18,6 +18,9 @@
     "mocha": "1.8.1",
     "should": "1.2.2"
   },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
   "license": "MIT",
   "readmeFilename": "README.md",
   "bin": { "harp": "./bin/harp" }
