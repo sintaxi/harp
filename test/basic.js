@@ -24,9 +24,9 @@ describe("basic", function(){
   })
   
   it("should have current vars", function(done){
-    var globals = require(path.join(outputPath, "current.json"))
-    globals.should.have.property("path")
-    globals.should.have.property("source")
+    var current = require(path.join(outputPath, "current.json"))
+    current.should.have.property("path")
+    current.should.have.property("source")
     done()
   })
   
