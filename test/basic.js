@@ -1,8 +1,9 @@
-var should = require("should")
-var path   = require("path")
-var fs     = require("fs")
-var exec   = require("child_process").exec
-var harp   = require("../")
+var should      = require("should")
+var superagent  = require('superagent')
+var path        = require("path")
+var fs          = require("fs")
+var exec        = require("child_process").exec
+var harp        = require("../")
 
 describe("basic", function(){
   var projectPath = path.join(__dirname, "apps/basic")
@@ -20,7 +21,15 @@ describe("basic", function(){
     var globals = require(path.join(outputPath, "globals.json"))
     globals.should.have.property("environment", "production")
     globals.should.have.property("public")
-    done()
+    var agent = superagent.agent()
+    
+    agent.get('http://localhost:8100/globals.json').end(function(err, rsp){
+      rsp.should.have.status(200)
+      var dynamicGlobals = JSON.parse(rsp.text)
+      dynamicGlobals.should.have.property("environment", "development")
+      dynamicGlobals.should.have.property("public")
+      done()
+    })
   })
   
   it("should have current vars", function(done){
