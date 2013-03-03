@@ -14,13 +14,19 @@ describe("basic", function(){
         done()
       })
     })
-  })
+  })  
   
   it("should have global vars", function(done){
-    // var index   = fs.readFileSync(path.join(outputPath, "globals.json"))
-    // var globals = JSON.parse(index)
-    // globals.should.have.property("environment", "production")
-    // globals.should.have.property("public")
+    var globals = require(path.join(outputPath, "globals.json"))
+    globals.should.have.property("environment", "production")
+    globals.should.have.property("public")
+    done()
+  })
+  
+  it("should have current vars", function(done){
+    var globals = require(path.join(outputPath, "current.json"))
+    globals.should.have.property("path")
+    globals.should.have.property("source")
     done()
   })
   
