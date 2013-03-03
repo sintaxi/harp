@@ -4,5 +4,8 @@
   },
   "current": {
     "layout": false
+  },
+  "404": {
+    "layout": false
   }
 }

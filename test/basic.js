@@ -30,6 +30,22 @@ describe("basic", function(){
     done()
   })
   
+  it("should have index file that uses the layout", function(done){
+    var index = fs.readFile(path.join(outputPath, "index.html"), function(err, contents){
+      contents.toString().should.include("MyHarpApp")
+      contents.toString().should.include("Home")
+      done()
+    })
+  })
+  
+  it("should have 404 page that does not use layout", function(done){
+    var index = fs.readFile(path.join(outputPath, "404.html"), function(err, contents){
+      contents.toString().should.not.include("MyHarpApp")
+      contents.toString().should.include("My404Page")
+      done()
+    })
+  })
+  
   after(function(done){
     exec("rm -rf " + outputPath, function(){
       done()
