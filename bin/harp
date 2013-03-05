@@ -10,7 +10,7 @@ program
   .usage('[project-path] [options]')
   .option('-s, --server [port]', 'start a server for harp app (dynamically generates assets)')
   .option('-c, --compile [output-path]', 'compiles static assets. (relative to project-path)')
-  .option('-h, --host [port]', 'hosts a folder of harp apps.')
+  .option('-d, --dirmode [port]', 'hosts a directory of harp apps.')
   .parse(process.argv)
 
 if(program.args.length > 0){
@@ -27,11 +27,11 @@ if(program.server){
   harp.server(projectPath, { port: port }, function(){
     console.log("harp is listening on port", port)
   })
-}else if(program.host){
+}else if(program.dirmode){
   var appsPath = projectPath
-  var port = program.host === true
+  var port = program.dirmode === true
     ? 9966
-    : program.host
+    : program.dirmode
   harp.server(appsPath, { port: port, hostMode: true }, function(){
     console.log("harp is hosting apps on port", port)
   })

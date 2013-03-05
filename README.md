@@ -138,7 +138,7 @@ Harp can be used as a library or as a command line utility.
     
         -s, --server [port]           start a server for harp app (dynamically generates assets)
         -c, --compile [output-dir]    compiles static assets. (relative to project-path)
-        -d, --dir-mode [port]         host a directory of harp apps (available at http://harp.nu)
+        -d, --dirmode [port]          host a directory of harp apps (available at http://harp.nu)
 
 Start the server in root of your application by running...
 
