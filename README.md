@@ -32,7 +32,7 @@ What is an Asset Pipeline Framework you ask? An Asset Pipeline Framework offers 
   - **asset ordering** - easy to list the order your assets are referenced.
   - **server** - harp ships with a built-in server (great for development).
 
-Maintained by [@sintaxi](http://twitter.com/HarpPlatform). Made for the [@HarpPlatform](http://twitter.com/HarpPlatform).
+Maintained by [@sintaxi](http://twitter.com/sintaxi). Made for the [@HarpPlatform](http://twitter.com/HarpPlatform).
 
 <a name="installation"/>
 ### Installation
@@ -47,11 +47,11 @@ Rather than offering a complex feature set, harp has simple rules on how it work
 <a name="rules-1"/>
 ### 1) Convention over Configuration.
 
-**Explanation:** Harp will function with as little as a `public/index.html` file and doesn't require any configuration to get going. To add more routes just add more files. All harp's features are based off conventions that you will discover by learning the rest of these rules.
+Harp will function with as little as a `public/index.html` file and doesn't require any configuration to get going. To add more routes just add more files. All harp's features are based off conventions that you will discover by learning the rest of these rules. Harp is about offering a sane development framework which follows established best practices. Harp is not designed to be everything to everyone, but what it does, it does perfectly.
 
-**Design Rationale:** By using convention over configuration, harp is easier to learn. If you want a tool that is highly configurable there are many out there (such as grunt). Harp gives you a sane development.
+**Design Rationale:** By using convention over configuration, harp is easier to learn, which makes you more productive. 
 
-**Diagram:**
+**Anatomy of a typical harp application:**
 
     myapp.harp.io/                    <-- root of your application (assets in the root not served)
       |- harp.json                    <-- configuration, globals goes here.
@@ -67,7 +67,7 @@ Rather than offering a complex feature set, harp has simple rules on how it work
 <a name="rules-2"/>
 ### 2) Public Directory is public.
 
-Your `public` directory defines what will be served and what URL your application exposes. Public assets belong in the `public` directory and assets outside of the `public` directory will be ignored.
+Your `public` directory is required to have a functioning harp application. It defines what will be served publicly and what URLs your application exposes. Public assets belong in the `public` directory and assets outside of the `public` directory will not be served.
 
     myapp.harp.io/
       |- README.md                    <--- won't be served
@@ -78,11 +78,11 @@ Your `public` directory defines what will be served and what URL your applicatio
 <a name="rules-3"/>
 ### 3) Ignore those which start with underscore.
 
-**Explanation:** Any files or directories that begin with underscore will be ignored by the server which makes it the recommended naming convention for `layout` and `partial` files. 
+Any files or directories that begin with underscore will be ignored by the server. This is the recommended naming convention for `layout` and `partial` files. Harp will honour this rule for both files and directories.
 
-**Design Rationale:** TBD
+**Design Rationale:** By having a simple convention. It is easy to specify and identify which assets will not be served to the end user.
 
-**Diagram:**
+**Example:**
 
     myapp.harp.io/
       +- public/
@@ -114,7 +114,34 @@ If you like, you may specify which mime type the file will be served with by pre
 <a name="rules-5"/>
 ### 5) Flexible metadata
 
-You Files named `_data.json` make data available to templates.
+You Files named `_data.json` are special and make data available to templates.
+
+    myapp.harp.io/
+      +- public/
+          |- index.jade
+          +- aritcles/
+              |- _data.json           <-- articles metadata goes here
+              |- hello-world.jade     <-- hello world article
+              +- hello-brazil.jade    <-- hello brazil article
+              
+Your `_data.json` file may look contain the following...
+
+    {                                                           <-- avaliable to all templates as `globals.public.articles.data`
+      "hello-world": {                                          <-- because this matches the filename, these variables will be
+        "title": "Hello World. My very first Article.",             made available in the hello-world.jade template when being
+        "date": "Feb 28, 2013"                                      served. This object is also available in all the templates
+      },                                                            as `globals.public.articles.data.hello-world`.
+      "hello-brazil": {
+        "title": "Hello Brazil. I like Brazil too.",
+        "date": "March 4, 2013"
+      }
+    }
+
+In our templates we may iterate over the articles with the following in your jade file...
+
+    for article, slug in globals.public.articles.data
+      a(href="/articles/#{ slug }")
+        h2= article.title
 
 <a name="documentation"/>
 ## Documentation
@@ -176,6 +203,8 @@ If you find a bug you would like fixed. Open up a [ticket](https://github.com/si
 3. Commit a fix that makes the test pass (`git commit -am "fixes that thing"`)
 4. Push to the branch (`git push origin fix-for-that-thing`)
 5. Open a [Pull Request](https://github.com/sintaxi/harp/pulls)
+
+Please keep your branch up to date by rebasing upstream changes from master.
 
 ### New Functionality
 
