@@ -5,7 +5,7 @@ Harp is an open source Asset Pipeline Framework (aka Static Site Generator) for 
 
 What is an Asset Pipeline Framework you ask? An Asset Pipeline Framework offers the best tradeoffs between Static Site Generator (such as Jekyll) and a Full Stack Framework such as (Ruby on Rails).
 
-**Table of Contents**:
+## Table of Contents
 
 - [Features](#features)
 - [Installation](#installation)
@@ -46,7 +46,7 @@ Maintained by [@sintaxi](http://twitter.com/HarpPlatform). Made for the [@HarpPl
 Rather than offering a complex feature set, harp has simple rules on how it works. Harp is a katana, not a swiss army knife. By understanding the rules, one will know how to effectively use harp.
 
 <a name="rules-1"/>
-### Rule 1) Convention over Configuration.
+### 1) Convention over Configuration.
 
 **Explanation:** Harp will function with as little as a `public/index.html` file and doesn't require any configuration to get going. To add more routes just add more files. All harp's features are based off conventions that you will discover by learning the rest of these rules.
 
@@ -54,10 +54,16 @@ Rather than offering a complex feature set, harp has simple rules on how it work
 
 **Diagram:**
 
-    myapp.harp.io/
-      |- harp.json                    <-- optional configuration file
-      +- public/
-          +- index.html
+    myapp.harp.io/                    <-- root of your application (assets in the root not served)
+      |- harp.json                    <-- configuration, globals goes here.
+      +- public/                      <-- your application assets belong in the public dir
+          |- _layout.jade             <-- optional layout file
+          |- index.jade               <-- must have an index.html or index.jade file
+          |- _shared/                 <-- arbitrary directory for shared partials
+          |   +- nav.jade             <-- a partial for navigation
+          +- aritcles/                <-- pages in here will have "/articles/" in URL (old school style)
+              |- _data.json           <-- articles metadata goes here
+              +- hello-world.jade     <-- must have an index.html or index.jade file
 
 <a name="rules-2"/>
 ### Rule 2) Public Directory is public.
@@ -123,16 +129,16 @@ You Files named `_data.json` make data available to templates.
 
 Harp can be used as a library or as a command line utility.
 
-<a name="cli"/>
-### CLI Usage
+<a name="cli-usage"/>
+## CLI Usage
 
     Usage: harp [app-path] [options]
 
     Options:
     
-        -s, --server                  Start a server for harp app (dynamically compiles).
-        -c, --compile <output-dir>    Compiles down to static assets.
-        -h, --help                    Output usage information.
+        -s, --server [port]           start a server for harp app (dynamically generates assets)
+        -c, --compile [output-dir]    compiles static assets. (relative to project-path)
+        -d, --dir-mode [port]         host a directory of harp apps (available at http://harp.nu)
 
 Start the server in root of your application by running...
 
@@ -150,7 +156,8 @@ You may optionally pass in a path to where you want the compiled assets to go...
 
     harp -c /path/to/phonegap/project/www
 
-### Lib Usage
+<a name="lib-usage"/>
+## Lib Usage
 
 You may also use harp as a node library for compiling or running as a server.
 
@@ -162,7 +169,10 @@ serve up harp application
 
 compile harp application
 
-    harp.compile(projectPath, outputPath, callback)
+    harp.compile(projectPath [,outputPath] [, callback])
+    
+<a name="contributing"/>
+## Contributing
 
 <a name="license"/>
 ## License
