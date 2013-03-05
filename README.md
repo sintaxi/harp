@@ -170,14 +170,14 @@ compile harp application
 
 ### Bug Fixes
 
-If you find a bug you would like fixed. Open up a [ticket][https://github.com/sintaxi/harp/issues/new] with a detailed description of the bug and the expected behaviour. If you would like to fix the problem yourself please do the following steps.
+If you find a bug you would like fixed. Open up a [ticket](https://github.com/sintaxi/harp/issues/new) with a detailed description of the bug and the expected behaviour. If you would like to fix the problem yourself please do the following steps.
 
 1. Fork it.
 2. Create a branch (`git checkout -b fix-for-that-thing`)
 3. Commit a failing test (`git commit -am "adds a failing test to demonstrate that thing"`)
 3. Commit a fix that makes the test pass (`git commit -am "fixes that thing"`)
 4. Push to the branch (`git push origin fix-for-that-thing`)
-5. Open a [Pull Request][https://github.com/sintaxi/harp/pulls]
+5. Open a [Pull Request](https://github.com/sintaxi/harp/pulls)
 
 ### New Functionality
 
