@@ -126,11 +126,11 @@ You Files named `_data.json` are special and make data available to templates.
               
 Your `_data.json` file may look contain the following...
 
-    {                                                           <-- avaliable to all templates as `globals.public.articles.data`
-      "hello-world": {                                          <-- because this matches the filename, these variables will be
-        "title": "Hello World. My very first Article.",             made available in the hello-world.jade template when being
-        "date": "Feb 28, 2013"                                      served. This object is also available in all the templates
-      },                                                            as `globals.public.articles.data.hello-world`.
+    {                                                       <-- avaliable to all templates as `globals.public.articles.data`
+      "hello-world": {                                      <-- because this matches the filename, these variables will be
+        "title": "Hello World. My very first Article.",         made available in the hello-world.jade template when being
+        "date": "Feb 28, 2013"                                  served. This object is also available in all the templates
+      },                                                        as `globals.public.articles.data.hello-world`.
       "hello-brazil": {
         "title": "Hello Brazil. I like Brazil too.",
         "date": "March 4, 2013"
