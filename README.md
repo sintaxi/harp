@@ -3,7 +3,7 @@
 
 Harp is an open source Asset Pipeline Framework (aka Static Site Generator) for rapidly building responsive HTML5 applications. What makes Harp unique is that it has a Platform built from the ground up for hosting Harp applications (through Dropbox no less). See [harp.io](http://harp.io) for more details.
 
-What is an Asset Pipeline Framework you ask? An Asset Pipeline Framework offers the best tradeoffs between Static Site Generator (such as Jekyll) and a Full Stack Framework such as (Ruby on Rails).
+What is an Asset Pipeline Framework you ask? An Asset Pipeline Framework offers the best tradeoffs between Static Site Generator (such as Jekyll) and a Full Stack Framework such as (Ruby on Rails). It compiles to static assets but has some runtime functionality that SSGs typically don't have (such as redirects and auth). The asset pipeline is fist-class requiring no configuration to get started.
 
 ## Table of Contents
 
@@ -99,22 +99,16 @@ Both `jade` and `less` are built into harp. Just add an extension of `.jade` or 
 
 Harp knows how to handle jade and less files as html and css respectively. Just add the file, and reference its counterpart.
     
-    source                            output
-    ---------------------------------------------
     myfile.jade             ->        myfile.html
     myfile.less             ->        myfile.css
 
 If you like, you may specify which mime type the file will be served with by prefixing the extension with the desired extension.
 
-    source                            output
-    ---------------------------------------------
     myfile.jade             ->        myfile.html
     myfile.xml.jade         ->        myfile.xml
 
 ...but this is optional as every extension has a default output extension. The following is the same as above...
 
-    source                            output
-    ---------------------------------------------
     myfile.less             ->        myfile.css
     myfile.css.less         ->        myfile.css
 
@@ -173,6 +167,21 @@ compile harp application
     
 <a name="contributing"/>
 ## Contributing
+
+### Bug Fixes
+
+If you find a bug you would like fixed. Open up a [ticket][https://github.com/sintaxi/harp/issues/new] with a detailed description of the bug and the expected behaviour. If you would like to fix the problem yourself please do the following steps.
+
+1. Fork it.
+2. Create a branch (`git checkout -b fix-for-that-thing`)
+3. Commit a failing test (`git commit -am "adds a failing test to demonstrate that thing"`)
+3. Commit a fix that makes the test pass (`git commit -am "fixes that thing"`)
+4. Push to the branch (`git push origin fix-for-that-thing`)
+5. Open a [Pull Request][https://github.com/sintaxi/harp/pulls]
+
+### New Functionality
+
+If you wish to add new functionality to harp, please provide [@sintaxi](mailto:brock@sintaxi.com) a harp application that demonstrates deficiency in current design or desired additional behaviour. Optionally, you may submit a pull request with the steps above. 
 
 <a name="license"/>
 ## License
