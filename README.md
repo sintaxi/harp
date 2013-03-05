@@ -25,6 +25,7 @@ What is an Asset Pipeline Framework you ask? An Asset Pipeline Framework offers 
 ### Features
 
   - **asset pipeline** - built-in asset pipeline for seamlessly serving of [jade](http://jade-lang.com/) and [less](http://lesscss.org/) files.
+  - **layouts and partials** - the beloved layout/partial templating paradigm you know and love.
   - **global variables** - specify global variables to be available in all your templates.
   - **selected state** - a `current` object is available in all your templates for determining the current page.
   - **traverse filesystem** - iterate over your filesystem to easily generate things like an html5 cache manifest file.
@@ -39,9 +40,7 @@ Maintained by [@sintaxi](http://twitter.com/HarpPlatform). Made for the [@HarpPl
     npm install -g harp
 
 <a name="rules"/>
-----------------
-# The Rules
-----------------
+## The Rules
 
 Rather than offering a complex feature set, harp has simple rules on how it works. Harp is a katana, not a swiss army knife. By understanding the rules, one will know how to effectively use harp.
 
@@ -66,7 +65,7 @@ Rather than offering a complex feature set, harp has simple rules on how it work
               +- hello-world.jade     <-- must have an index.html or index.jade file
 
 <a name="rules-2"/>
-### Rule 2) Public Directory is public.
+### 2) Public Directory is public.
 
 Your `public` directory defines what will be served and what URL your application exposes. Public assets belong in the `public` directory and assets outside of the `public` directory will be ignored.
 
@@ -77,7 +76,7 @@ Your `public` directory defines what will be served and what URL your applicatio
           +- index.html               <--- will be served
 
 <a name="rules-3"/>
-### Rule 3) Ignore those which start with underscore.
+### 3) Ignore those which start with underscore.
 
 **Explanation:** Any files or directories that begin with underscore will be ignored by the server which makes it the recommended naming convention for `layout` and `partial` files. 
 
@@ -93,7 +92,7 @@ Your `public` directory defines what will be served and what URL your applicatio
               +- nav.jade
 
 <a name="rules-4"/>
-### Rule 4) Dead simple asset pipeline.
+### 4) Dead simple asset pipeline.
 
 Both `jade` and `less` are built into harp. Just add an extension of `.jade` or `.less` to your file and harp's asset pipeline will do the rest.
 
@@ -113,18 +112,17 @@ If you like, you may specify which mime type the file will be served with by pre
     myfile.css.less         ->        myfile.css
 
 <a name="rules-5"/>
-### Rule 5) Flexible metadata
+### 5) Flexible metadata
 
 You Files named `_data.json` make data available to templates.
 
 <a name="documentation"/>
-# Documentation
---------------------
+## Documentation
 
 Harp can be used as a library or as a command line utility.
 
 <a name="cli-usage"/>
-## CLI Usage
+### CLI Usage
 
     Usage: harp [app-path] [options]
 
@@ -151,7 +149,7 @@ You may optionally pass in a path to where you want the compiled assets to go...
     harp -c /path/to/phonegap/project/www
 
 <a name="lib-usage"/>
-## Lib Usage
+### Lib Usage
 
 You may also use harp as a node library for compiling or running as a server.
 
