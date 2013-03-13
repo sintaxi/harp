@@ -4,6 +4,7 @@ var helpers = require("../lib/helpers")
 describe("helpers", function(){
   
   describe("walkData", function(){
+    
     var globals = {
       "public": {
         "articles": {
@@ -13,27 +14,6 @@ describe("helpers", function(){
         }
       }
     }
-    
-    // var g = { contents:
-    //    [ '404.html',
-    //      'about.html',
-    //      'feed.html',
-    //      'foo.atom',
-    //      'index.html',
-    //      'profile.html' ],
-    //   data: { '404': { layout: false } },
-    //   articles:
-    //    { contents: [ 'hello-world.html', 'you-half-assed-it.html' ],
-    //      data: { 'hello-world': "found me", 'you-half-assed-it': "stuff" } },
-    //   css: { contents: [ 'main.css' ] } }
-    // 
-    // var p = [ 'articles', 'hello-world' ]
-    // 
-    // it("should return local data", function(done){
-    //   var result = helpers.walkData(p, g)
-    //   result.should.eql("found me")
-    //   done()
-    // })
 
     it("should return null if no locals exist", function(done){
       var result = helpers.walkData(["public", "articles", "hello-brazil"], globals)
@@ -52,6 +32,41 @@ describe("helpers", function(){
       result.should.eql("You Found Me!")
       done()
     })
+    
+  })
+  
+  describe("outputFilename", function(){
+    
+    it("should return html file if given html file", function(done){
+      var result = helpers.outputFilename("foo.html")
+      result.should.eql("foo.html")
+      done()
+    })
+    
+    it("should return html file if given jade file", function(done){
+      var result = helpers.outputFilename("foo.jade")
+      result.should.eql("foo.html")
+      done()
+    })
+    
+    it("should return html file if explicitly ask for", function(done){
+      var result = helpers.outputFilename("foo.html.jade")
+      result.should.eql("foo.html")
+      done()
+    })
+    
+    it("should return json file if explicitly ask for", function(done){
+      var result = helpers.outputFilename("foo.json.jade")
+      result.should.eql("foo.json")
+      done()
+    })
+    
+    it("should return file with no extension", function(done){
+      var result = helpers.outputFilename("foo")
+      result.should.eql("foo")
+      done()
+    })
+    
   })
   
 })
