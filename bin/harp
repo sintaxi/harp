@@ -4,6 +4,7 @@ var nodePath    = require('path')
 var program = require('commander')
 var pkg     = require('../package.json')
 var harp    = require('../')
+var fse     = require("fs-extra")
 
 program
   .version(pkg.version)
@@ -13,8 +14,21 @@ program
   .description('initalize new harp application in current directory')
   .action(function(path, program){
     var projectPath = nodePath.resolve(path || process.cwd())
-    console.log('initializing project at', projectPath)
+
+    if(path){
+      var src  = nodePath.resolve(__dirname, "../test/apps/basic")
+      var dest = nodePath.join(projectPath)      
+    }else{
+      var src  = nodePath.resolve(__dirname, "../test/apps/basic/public")
+      var dest = nodePath.join(projectPath, "public")
+    }
+    
+    fse.copy(src, dest, function(err){
+      console.log(err)
+      console.log('initializing project at', projectPath)
+    })
   })
+  
 program
   .command('server [path]')
   .option('-p, --port <port>', 'specify port to listen on')
@@ -40,6 +54,7 @@ program
   
 program
   .command('multihost [path]')
+  .option('-p, --port <port>', 'specify port to listen on')
   .description('start harp server to host directory of harp apps')
   .action(function(path, program){
     var projectPath = nodePath.resolve(path || process.cwd())
