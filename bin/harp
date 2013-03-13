@@ -5,40 +5,22 @@ var program = require('commander')
 var pkg     = require('../package.json')
 var harp    = require('../')
 
-program
-  .version(pkg.version)
-  .usage('[project-path] [options]')
-  .option('-s, --server [port]', 'start a server for harp app (dynamically generates assets)')
-  .option('-c, --compile [output-path]', 'compiles static assets. (relative to project-path)')
-  .option('-d, --dirmode [port]', 'hosts a directory of harp apps.')
-  .parse(process.argv)
-
-if(program.args.length > 0){
-  var projectPath = path.resolve(program.args[0])
-}else{
-  var cwd         = process.cwd()
-  var projectPath = path.resolve(cwd)
+var init = function(program){
+  var projectPath = path.resolve(program.project || process.cwd())
+  console.log('init')
 }
 
-if(program.server){
-  var port = program.server === true
-    ? 9966
-    : program.server
+var server = function(program){
+  var projectPath = path.resolve(program.project || process.cwd())      
+  var port        = program.port || 9966
   harp.server(projectPath, { port: port }, function(){
     console.log("harp is listening on port", port)
   })
-}else if(program.dirmode){
-  var appsPath = projectPath
-  var port = program.dirmode === true
-    ? 9966
-    : program.dirmode
-  harp.server(appsPath, { port: port, hostMode: true }, function(){
-    console.log("harp is hosting apps on port", port)
-  })
-}else if(program.compile){
-  var outputPath = program.compile === true
-    ? null
-    : program.compile
+}
+
+var compile = function(program){
+  var projectPath = path.resolve(program.project || process.cwd())
+  var outputPath  = program.output || null
   harp.compile(projectPath, outputPath, function(err, out){
     if(err){
       console.log(err)
@@ -46,7 +28,29 @@ if(program.server){
       console.log(JSON.stringify(out, null, 2))
     }
   })
+}
 
-}else{
+program
+  .version('0.0.1')
+  .option('-p, --project <path>', 'path to harp project')
+  .option('-o, --output <path>', 'specify output directory for compiled assets (compile)')
+  .option('-P, --port <port>', 'specify port to listen on')
+  .option('-D, --dirmode', 'change the working directory (server)')
+program
+  .command('init')
+  .description('initalize new harp application in current directory')
+  .action(init)
+program
+  .command('server')
+  .description('start harp server')
+  .action(server)
+program
+  .command('compile')
+  .description('compile project to satic assets')
+  .action(compile)
+
+program.parse(process.argv)
+
+if(program.args.length < 1){
   program.help()
 }
