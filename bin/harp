@@ -1,53 +1,53 @@
 #!/usr/bin/env node
 
-var path    = require('path')
+var nodePath    = require('path')
 var program = require('commander')
 var pkg     = require('../package.json')
 var harp    = require('../')
 
-var init = function(program){
-  var projectPath = path.resolve(program.project || process.cwd())
-  console.log('init')
-}
-
-var server = function(program){
-  var projectPath = path.resolve(program.project || process.cwd())      
-  var port        = program.port || 9966
-  harp.server(projectPath, { port: port }, function(){
-    console.log("harp is listening on port", port)
-  })
-}
-
-var compile = function(program){
-  var projectPath = path.resolve(program.project || process.cwd())
-  var outputPath  = program.output || null
-  harp.compile(projectPath, outputPath, function(err, out){
-    if(err){
-      console.log(err)
-    }else{
-      console.log(JSON.stringify(out, null, 2))
-    }
-  })
-}
+program
+  .version(pkg.version)
 
 program
-  .version('0.0.1')
-  .option('-p, --project <path>', 'path to harp project')
-  .option('-o, --output <path>', 'specify output directory for compiled assets (compile)')
-  .option('-P, --port <port>', 'specify port to listen on')
-  .option('-D, --dirmode', 'change the working directory (server)')
-program
-  .command('init')
+  .command('init [path]')
   .description('initalize new harp application in current directory')
-  .action(init)
+  .action(function(path, program){
+    var projectPath = nodePath.resolve(path || process.cwd())
+    console.log('initializing project at', projectPath)
+  })
 program
-  .command('server')
+  .command('server [path]')
+  .option('-p, --port <port>', 'specify port to listen on')
   .description('start harp server')
-  .action(server)
+  .action(function(path, program){
+    var projectPath = nodePath.resolve(path || process.cwd())      
+    var port        = program.port || 9966
+    harp.server(projectPath, { port: port, hostmode: false }, function(){
+      console.log("server is listening on port", port)
+    })
+  })
 program
-  .command('compile')
+  .command('compile [path]')
+  .option('-o, --output <path>', 'specify output directory for compiled assets (relative to project path)')
   .description('compile project to satic assets')
-  .action(compile)
+  .action(function(path, program){
+    var projectPath = nodePath.resolve(path || process.cwd())
+    var outputPath  = program.output || null
+    harp.compile(projectPath, outputPath, function(errors, output){
+      console.log(JSON.stringify(errors || output, null, 2))
+    })
+  })
+  
+program
+  .command('multihost [path]')
+  .description('start harp server to host directory of harp apps')
+  .action(function(path, program){
+    var projectPath = nodePath.resolve(path || process.cwd())
+    var port        = program.port || 9966
+    harp.server(projectPath, { port: port, hostmode: true }, function(){
+      console.log("server is hosting multiple projects on port", port)
+    })
+  })
 
 program.parse(process.argv)
 
