@@ -3,6 +3,14 @@
   "version": "0.6.1",
   "description": "Harp is an Asset Pipeline Framework for easily building robust web applications.",
   "author": "Brock Whitten <brock@chloi.io>",
+  "contributors": [
+    { "name": "Brock Whitten", "email": "brock@chloi.io" },
+    { "name": "Rob Ellis", "email": "rob@chloi.io" },
+    { "name": "Jorge Pedret", "email": "jorge@chloi.io" },
+    { "name": "Michael Brooks", "email": "michael@michaelbrooks.ca" },
+    { "name": "Tommy-Carlos Williams", "email": "tommy@devgeeks.org" },
+    { "name": "Darryl Pogue", "email": "darryl@dpogue.ca" }
+  ],
   "main": "harp.js",
   "dependencies":{
     "commander": "1.1.1",
