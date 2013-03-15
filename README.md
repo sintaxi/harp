@@ -170,7 +170,7 @@ Harp can be used as a library or as a command line utility.
 
       init [path]                 initalize new harp application in current directory
       server [path] [options]     start harp server
-      compile [path] [options]    compile project to satic assets
+      compile [path] [options]    compile project to static assets
       multihost [path] [options]  start harp server to host directory of harp apps
 
     Options:
