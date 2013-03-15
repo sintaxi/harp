@@ -1,11 +1,17 @@
 {
-  "globals": {
+  "404":{
     "layout": false
   },
-  "current": {
+  "feed":{
     "layout": false
   },
-  "404": {
+  "globals":{
     "layout": false
+  },
+  "current":{
+    "layout": false
+  },
+  "about": {
+    "name": "Brock"
   }
 }

@@ -1,6 +1,19 @@
 !!!
 html
   head
+    link(rel="stylesheet", href="/css/main.css")
+    link(rel="alternate", type="application/atom+xml", title="#{ globals.brand }", href="#{ globals.uri }/feed.atom")
+    script
+      var showDebug = function(){
+        document.getElementById('debug').style.display = 'block';
+        return false;
+      }
   body
-    h1 MyHarpApp
+    #header
+      h1= globals.brand
+      include shared/_nav
       != yield
+      a(href="#", onclick="showDebug()") open debug panel
+      .well#debug(style="display:none;")
+        != partial("shared/_debug")
+      

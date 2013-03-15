@@ -15,18 +15,31 @@ program
   .action(function(path, program){
     var projectPath = nodePath.resolve(path || process.cwd())
 
+    var done = function(err){
+      console.log('initializd project at', projectPath)
+    }
+
     if(path){
       var src  = nodePath.resolve(__dirname, "../test/apps/basic")
-      var dest = nodePath.join(projectPath)      
+      var dest = nodePath.join(projectPath)
+      fse.copy(src, dest, done)
     }else{
       var src  = nodePath.resolve(__dirname, "../test/apps/basic/public")
       var dest = nodePath.join(projectPath, "public")
+      
+      var readmeSrc = nodePath.join(__dirname, "../test/apps/basic/README.md")
+      var readmeDest = nodePath.join(projectPath, "README.md")
+      
+      var harpJsonSrc = nodePath.join(__dirname, "../test/apps/basic/harp.json")
+      var harpJsonDest = nodePath.join(projectPath, "harp.json")
+      
+      fse.copy(src, dest, function(err){
+        fse.copy(readmeSrc, readmeDest, function(err){
+          fse.copy(harpJsonSrc, harpJsonDest, done)
+        })
+      })
     }
     
-    fse.copy(src, dest, function(err){
-      console.log(err)
-      console.log('initializing project at', projectPath)
-    })
   })
   
 program

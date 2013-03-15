@@ -47,12 +47,12 @@ describe("basic", function(){
   
   it("should have index file that uses the layout", function(done){
     fs.readFile(path.join(outputPath, "index.html"), function(err, contents){
-      contents.toString().should.include("MyHarpApp")
+      contents.toString().should.include("Kitchen Sink")
       contents.toString().should.include("Home")
       var agent = superagent.agent()
       agent.get('http://localhost:8100/').end(function(err, rsp){
         rsp.should.have.status(200)
-        rsp.text.should.include("MyHarpApp")
+        rsp.text.should.include("Kitchen Sink")
         rsp.text.should.include("Home")
         done()
       })
@@ -61,13 +61,13 @@ describe("basic", function(){
   
   it("should have 404 page that does not use layout", function(done){
     fs.readFile(path.join(outputPath, "404.html"), function(err, contents){
-      contents.toString().should.not.include("MyHarpApp")
-      contents.toString().should.include("My404Page")
+      contents.toString().should.not.include("Kitchen Sink")
+      contents.toString().should.include("404")
       var agent = superagent.agent()
       agent.get('http://localhost:8100/some-missing-path').end(function(err, rsp){
         rsp.should.have.status(404)
-        rsp.text.should.not.include("MyHarpApp")
-        rsp.text.should.include("My404Page")
+        rsp.text.should.not.include("Kitchen Sink")
+        rsp.text.should.include("404")
         done()
       })
     })
