@@ -9,6 +9,7 @@ What is an Asset Pipeline Framework you ask? An Asset Pipeline Framework offers 
 
 - [Features](#features)
 - [Installation](#installation)
+- [Quick Start](#quickstart)
 - [The Rules (how it works)](#rules)
   - [Rule 1 - Convention over configuration](#rules-1)
   - [Rule 2 - Public directory is public](#rules-2)
@@ -39,6 +40,15 @@ Maintained by [@sintaxi](http://twitter.com/sintaxi). Made for the [@HarpPlatfor
 
     npm install -g harp
 
+<a name="quickstart"/>
+### Quick Start
+
+After installation you can creating a new harp application is a breeze...
+
+    mkdir myproj; cd myproj
+    harp init
+    harp server
+    
 <a name="rules"/>
 ## The Rules
 
@@ -151,29 +161,35 @@ Harp can be used as a library or as a command line utility.
 <a name="cli-usage"/>
 ### CLI Usage
 
-    Usage: harp [app-path] [options]
+    Usage: harp [command] [options]
+
+    Commands:
+
+      init [path]                 initalize new harp application in current directory
+      server [path] [options]     start harp server
+      compile [path] [options]    compile project to satic assets
+      multihost [path] [options]  start harp server to host directory of harp apps
 
     Options:
-    
-        -s, --server [port]           start a server for harp app (dynamically generates assets)
-        -c, --compile [output-dir]    compiles static assets. (relative to project-path)
-        -d, --dirmode [port]          host a directory of harp apps (available at http://harp.nu)
+
+      -h, --help     output usage information
+      -V, --version  output the version number
 
 Start the server in root of your application by running...
 
-    harp -s
+    harp server
 
 You may optionally supply a port to listen on...
 
-    harp -s 8002
+    harp server --port 8002
 
 Compile an application from the root of your application by running...
 
-    harp -c
+    harp compile
 
 You may optionally pass in a path to where you want the compiled assets to go...
 
-    harp -c /path/to/phonegap/project/www
+    harp compile --output /path/to/phonegap/project/www
 
 <a name="lib-usage"/>
 ### Lib Usage
