@@ -43,10 +43,13 @@ Maintained by [@sintaxi](http://twitter.com/sintaxi). Made for the [@HarpPlatfor
 <a name="quickstart"/>
 ### Quick Start
 
-After installation you can creating a new harp application is a breeze...
+Creating a new harp application is a breeze...
 
     mkdir myproj; cd myproj
     harp init
+
+Now lets spin up the server and view the project at http://localhost:9966
+
     harp server
     
 <a name="rules"/>
