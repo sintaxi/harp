@@ -56,7 +56,7 @@ program
 program
   .command('compile [path]')
   .option('-o, --output <path>', 'specify output directory for compiled assets (relative to project path)')
-  .description('compile project to satic assets')
+  .description('compile project to static assets')
   .action(function(path, program){
     var projectPath = nodePath.resolve(path || process.cwd())
     var outputPath  = program.output || null
