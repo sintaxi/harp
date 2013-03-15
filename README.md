@@ -73,7 +73,7 @@ Harp will function with as little as a `public/index.html` file and doesn't requ
           |- index.jade               <-- must have an index.html or index.jade file
           |- _shared/                 <-- arbitrary directory for shared partials
           |   +- nav.jade             <-- a partial for navigation
-          +- aritcles/                <-- pages in here will have "/articles/" in URL (old school style)
+          +- articles/                <-- pages in here will have "/articles/" in URL (old school style)
               |- _data.json           <-- articles metadata goes here
               +- hello-world.jade     <-- must have an index.html or index.jade file
 
@@ -132,7 +132,7 @@ You Files named `_data.json` are special and make data available to templates.
     myapp.harp.io/
       +- public/
           |- index.jade
-          +- aritcles/
+          +- articles/
               |- _data.json           <-- articles metadata goes here
               |- hello-world.jade     <-- hello world article
               +- hello-brazil.jade    <-- hello brazil article
