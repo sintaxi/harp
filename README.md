@@ -3,7 +3,7 @@
 
 Harp is an open source Asset Pipeline Framework (aka Static Site Generator) for rapidly building responsive HTML5 applications. What makes Harp unique is that it has a Platform built from the ground up for hosting Harp applications (through Dropbox no less). See [harp.io](http://harp.io) for more details.
 
-What is an Asset Pipeline Framework you ask? An Asset Pipeline Framework offers the best tradeoffs between Static Site Generator (such as Jekyll) and a Full Stack Framework such as (Ruby on Rails). It compiles to static assets but has some runtime functionality that SSGs typically don't have (such as redirects and auth). The asset pipeline is fist-class requiring no configuration to get started.
+What is an Asset Pipeline Framework you ask? An Asset Pipeline Framework offers the best tradeoffs between Static Site Generator (such as Jekyll) and a Full Stack Framework such as (Ruby on Rails). It compiles to static assets but has some runtime functionality that SSGs typically don't have (such as redirects and auth). The asset pipeline is first-class requiring no configuration to get started.
 
 ## Table of Contents
 
@@ -127,7 +127,7 @@ If you like, you may specify which mime type the file will be served with by pre
 <a name="rules-5"/>
 ### 5) Flexible metadata
 
-You Files named `_data.json` are special and make data available to templates.
+Your files named `_data.json` are special and make data available to templates.
 
     myapp.harp.io/
       +- public/
