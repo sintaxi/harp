@@ -16,7 +16,7 @@ program
     var projectPath = nodePath.resolve(path || process.cwd())
 
     var done = function(err){
-      console.log('initializd project at', projectPath)
+      console.log('initialized project at', projectPath)
     }
 
     if(path){
