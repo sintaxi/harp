@@ -8,30 +8,20 @@ html
           font-family: "verdana";
           font-size: 92%;
           padding: 0 20px 80px;
-        }
-
-        h1, h2, h5, h6{
-          margin-top:30px;
-          margin-bottom:25px;
-        }
-        
-        h3{
-          font-size:0.9em;
+          padding:0;
+          margin:0px;
+          background:#F7F7F9;
         }
 
         pre {
           margin-top:20px;
           margin-bottom:20px;
-          border-color: #E1E1E8;
-          border-width:1px 0;
-          .border-radius(0px);
-          background:#F7F7F9;
-          
+          border-left: 2px solid #104ba7;
           color:#555;
           font-weight:400;
           font-size:1.2em;
-          padding:30px;
-          overflow:scroll
+          padding:0 0 0 20px;
+          overflow:scroll;
         }
         
         code{
@@ -44,8 +34,8 @@ html
         }
 
         p{
-          font-size:15px;
-          line-height:25px;
+          font-size:13px;
+          line-height:22px;
           margin:20px 0;
         }
 
@@ -60,20 +50,59 @@ html
           background:#FFE;
         }
       
-        #header{
-          border-bottom:1px solid #eee;
-          padding:30px 0px;
+        .header{
+          padding:40px 60px;
+          background: #FFF;
+          color: #2F3339;
+          background: #3f4461;
+          background: #fff;
+          position:relative;
         }
+        
+        .header h1{
+          margin:0px;
+          font-size: 20px;
+          color: #Fe7373;
+        }
+        
+        .header p{
+          margin:3px 0px;
+          color:#CCC;
+          font-size:15px;
+          font-family: Georgia;
+        }
+        
+        .error-info{
+          background: #fefe73;
+          background: #fefe96;
+          padding: 18px 60px;
+          margin: 0;
+          color: #444;
+        }
+        
+        .error-info h2{
+          margin: 10px 0;
+        }
+        
+        .error-info h3 {
+          font-size: 16px;
+          margin: 15px 0;
+          font-weight: 300;
+        }
+        
+        .content{
+          padding:30px 60px;
+        }
+        
+        .footer{
+          padding:40px 60px;
+          background: #E7E7E9;
+        }
+      
   body
-    #header
-      h1 Harp
-      div#resources
-        a(href="#") docs
-        | 
-        a(href="#") guides
-        | 
-        a(href="#") support
-        | 
-        a(href="https://harp.io") platform
+    .header
+      h1= project
     block content
+    
+
 
