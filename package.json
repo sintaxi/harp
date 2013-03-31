@@ -13,6 +13,7 @@
   ],
   "main": "harp.js",
   "dependencies":{
+    "polymer": "0.2.0",
     "commander": "1.1.1",
     "connect": "2.7.0",
     "fs-extra": "0.3.2",
