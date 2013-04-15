@@ -19,7 +19,8 @@ describe("errors", function(){
     var agent = superagent.agent()
     agent.get('http://localhost:8101/').end(function(err, rsp){
       rsp.should.have.status(500)
-      harp.compile(projectPath, outputPath, function(){
+      harp.compile(projectPath, outputPath, function(error){
+        should.exist(error)
         done()
       })
     })

@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-var nodePath    = require('path')
-var program = require('commander')
-var pkg     = require('../package.json')
-var harp    = require('../')
-var fse     = require("fs-extra")
+var nodePath  = require('path')
+var program   = require('commander')
+var pkg       = require('../package.json')
+var harp      = require('../')
+var fse       = require("fs-extra")
 
 program
   .version(pkg.version)
@@ -26,28 +26,28 @@ program
     }else{
       var src  = nodePath.resolve(__dirname, "../test/apps/basic/public")
       var dest = nodePath.join(projectPath, "public")
-      
+
       var readmeSrc = nodePath.join(__dirname, "../test/apps/basic/README.md")
       var readmeDest = nodePath.join(projectPath, "README.md")
-      
+
       var harpJsonSrc = nodePath.join(__dirname, "../test/apps/basic/harp.json")
       var harpJsonDest = nodePath.join(projectPath, "harp.json")
-      
+
       fse.copy(src, dest, function(err){
         fse.copy(readmeSrc, readmeDest, function(err){
           fse.copy(harpJsonSrc, harpJsonDest, done)
         })
       })
     }
-    
+
   })
-  
+
 program
   .command('server [path]')
   .option('-p, --port <port>', 'specify port to listen on')
   .description('start harp server')
   .action(function(path, program){
-    var projectPath = nodePath.resolve(path || process.cwd())      
+    var projectPath = nodePath.resolve(path || process.cwd())
     var port        = program.port || 9966
     harp.server(projectPath, { port: port, hostmode: false }, function(){
       console.log("server is listening on port", port)
@@ -64,7 +64,7 @@ program
       console.log(JSON.stringify(errors || output, null, 2))
     })
   })
-  
+
 program
   .command('multihost [path]')
   .option('-p, --port <port>', 'specify port to listen on')
