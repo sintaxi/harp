@@ -63,7 +63,6 @@ describe("basic", function(){
     fs.readFile(path.join(outputPath, "404.html"), function(err, contents){
       contents.toString().should.not.include("Kitchen Sink")
       contents.toString().should.include("404")
-      console.log(contents.toString())
       var agent = superagent.agent()
       agent.get('http://localhost:8100/some-missing-path').end(function(err, rsp){
         rsp.should.have.status(404)
