@@ -49,19 +49,8 @@ program
   .action(function(path, program){
     var projectPath = nodePath.resolve(path || process.cwd())
     var port        = program.port || 9966
-    harp.server(projectPath, { port: port, hostmode: false }, function(){
+    harp.server(projectPath, { port: port }, function(){
       console.log("server is listening on port", port)
-    })
-  })
-program
-  .command('compile [path]')
-  .option('-o, --output <path>', 'specify output directory for compiled assets (relative to project path)')
-  .description('compile project to static assets')
-  .action(function(path, program){
-    var projectPath = nodePath.resolve(path || process.cwd())
-    var outputPath  = program.output || null
-    harp.compile(projectPath, outputPath, function(errors, output){
-      console.log(JSON.stringify(errors || output, null, 2))
     })
   })
 
@@ -72,8 +61,20 @@ program
   .action(function(path, program){
     var projectPath = nodePath.resolve(path || process.cwd())
     var port        = program.port || 9966
-    harp.server(projectPath, { port: port, hostmode: true }, function(){
+    harp.multihost(projectPath, { port: port }, function(){
       console.log("server is hosting multiple projects on port", port)
+    })
+  })
+
+program
+  .command('compile [path]')
+  .option('-o, --output <path>', 'specify output directory for compiled assets (relative to project path)')
+  .description('compile project to static assets')
+  .action(function(path, program){
+    var projectPath = nodePath.resolve(path || process.cwd())
+    var outputPath  = program.output || null
+    harp.compile(projectPath, outputPath, function(errors, output){
+      console.log(JSON.stringify(errors || output, null, 2))
     })
   })
 
