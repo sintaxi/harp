@@ -3,7 +3,7 @@ html
   head
     block stylesheet
       style
-      
+
         body{
           font-family: "verdana";
           font-size: 92%;
@@ -23,11 +23,11 @@ html
           padding:0 0 0 20px;
           overflow:scroll;
         }
-        
+
         code{
           background:#F7F7F9;
         }
-        
+
         pre code{
           background:transparent;
         }
@@ -39,16 +39,15 @@ html
         }
 
         a{
-          border-bottom:1px solid lightblue;
-          color:#333;
+          color:#09F;
           margin-right:10px;
-          text-decoration:none;          
+          text-decoration:none;
         }
-        
+
         a:hover{
           background:#FFE;
         }
-      
+
         .header{
           padding:40px 60px;
           background: #FFF;
@@ -57,50 +56,48 @@ html
           background: #fff;
           position:relative;
         }
-        
+
         .header h1{
           margin:0px;
           font-size: 20px;
           color: #Fe7373;
         }
-        
+
         .header p{
           margin:3px 0px;
           color:#CCC;
           font-size:15px;
           font-family: Georgia;
         }
-        
+
         .error-info{
           background: #fefe96;
           padding: 18px 60px;
           margin: 0;
           color: #444;
         }
-        
+
         .error-info h2{
           margin: 10px 0;
         }
-        
+
         .error-info h3 {
           font-size: 16px;
           margin: 15px 0;
           font-weight: 300;
         }
-        
+
         .content{
           padding:30px 60px;
         }
-        
+
         .footer{
           padding:40px 60px;
           background: #E7E7E9;
         }
-      
+
   body
-    .header
-      h1= project
-    block content
-    
+    != yield
+
 
 

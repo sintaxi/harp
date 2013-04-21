@@ -1,16 +1,13 @@
-extends layout
+h1 Hurray, you have a Harp App!
+h3 1) Now add a <code>public/index.jade</code> file to your project and refresh your browser.
+pre
+  code
+    | #{ projectName }/
+    |   |
+    |   +- public/
+    |       |
+    |       +- index.jade       <-- add this file!
 
-block content
-  h1 Hurray, you have a Harp App!
-  h3 1) Now add a <code>public/index.jade</code> file to your project and refresh your browser.
-  pre
-    code
-      | #{ projectName }/
-      |   |
-      |   +- public/
-      |       |
-      |       +- index.jade       <-- add this file!
-      
-  h5 Error Message:
-  pre
-    code= error.output
+h5 Error Message:
+pre
+  code= error.output

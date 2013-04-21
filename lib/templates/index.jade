@@ -1,0 +1,50 @@
+style
+  ul.projects{
+    margin:0;
+    padding:0;
+  }
+  li.project{
+    list-style-type: none;
+    background: #fff;
+    padding: 10px 30px;
+    margin-bottom: 10px;
+  }
+  ul.info li{
+    list-style-type:none;
+    font-weight: bold;
+    padding: 5px;
+  }
+  ul.info li a{
+    font-weight: 300;
+  }
+  h3 em {
+    padding: 5px 10px;
+    border-radius: 3px;
+    background: #eeee86;
+  }
+  code{
+    font-weight:400;
+    font-size:1.2em;
+    padding:3px;
+  }
+.header
+  h1 Harp - Welcome
+.error-info
+  h2 Your Local Development Server is Running!
+  h3 Harp <em>v#{ pkg.version }</em>
+.content
+  ul.projects
+    for project in projects
+      li.project
+        h2= project.name
+        ul.info
+          li Development:&nbsp;
+            a(href="#{ project.localUrl }")= project.localUrl
+          li Production:&nbsp;
+            a(href="#{ project.remoteUrl }")= project.remoteUrl
+          li Manage:&nbsp;
+            a(href="#{ project.portalUrl }")= project.portalUrl
+          li Path:&nbsp;
+            code= project.localPath
+
+
