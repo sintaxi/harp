@@ -9,12 +9,18 @@ describe("basic", function(){
   var projectPath = path.join(__dirname, "apps/basic")
   var outputPath  = path.join(__dirname, "out/basic")
 
+  var config;
+
   before(function(done){
-    harp.compile(projectPath, outputPath, function(){
-      harp.server(projectPath, { port: 8100 }, function(){
-        done()
-      })
+    harp.compile(projectPath, outputPath, function(errors, output){
+      config = output
+      harp.server(projectPath, { port: 8100 }, done)
     })
+  })
+
+  it("should have node version in config", function(done){
+    config.should.have.property("harp_version")
+    done()
   })
 
   it("should have global vars", function(done){
