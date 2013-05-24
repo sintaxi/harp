@@ -1,6 +1,6 @@
 {
   "name": "harp",
-  "version": "0.7.6",
+  "version": "0.7.7",
   "description": "Harp is an Asset Pipeline Framework for easily building robust web applications.",
   "author": "Brock Whitten <brock@chloi.io>",
   "contributors": [
