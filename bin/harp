@@ -27,12 +27,12 @@ var output = function(msg){
   console.log("           /:::/    /               /:::/    /           |::| l::/____/                l::/____/    ")
   console.log("          /:::/    /               /:::/    /            |::|  ~|                       ~~          ")
   console.log("         /:::/    /               /:::/    /             |::|   |                                   ")
-  console.log("        /:::/    /               /:::/    /              l::|   |         Harp v"+v+"               ")
-  console.log("        l::/    /                l::/    /                l:|   |         Made by Chloi Inc.        ")
-  console.log("         l/____/                  l/____/                  l|___|         2012-2013                 ")
+  console.log("        /:::/    /               /:::/    /              l::|   |       Harp v"+v+"                 ")
+  console.log("        l::/    /                l::/    /                l:|   |       Asset Pipeline Framework    ")
+  console.log("         l/____/                  l/____/                  l|___|       By Chloi Inc. 2012-2013     ")
   if(msg){
     console.log('')
-    console.log('  ' + msg)
+    console.log(msg)
     console.log('')
   }
 }
@@ -82,7 +82,7 @@ program
     var projectPath = nodePath.resolve(path || process.cwd())
     var port        = program.port || 9966
     harp.server(projectPath, { port: port }, function(){
-      output("Your server is listening at http://localhost:" + port)
+      output("Your server is listening at http://localhost:" + port + "...")
     })
   })
 
@@ -99,7 +99,7 @@ program
       }else{
         var loc = "http://harp.nu:" + port
       }
-      output("Your server is hosting multiple projects at " + loc)
+      output("Your server is hosting multiple projects at " + loc + "...")
     })
   })
 
