@@ -6,6 +6,38 @@ var pkg       = require('../package.json')
 var harp      = require('../')
 var fse       = require("fs-extra")
 
+var output = function(msg){
+  var v = pkg.version
+  console.log("")
+  console.log("          _____                    _____                    _____                    _____          ")
+  console.log("         /l    l                  /l    l                  /l    l                  /l    l         ")
+  console.log("        /::l____l                /::l    l                /::l    l                /::l    l        ")
+  console.log("       /:::/    /               /::::l    l              /::::l    l              /::::l    l       ")
+  console.log("      /:::/    /               /::::::l    l            /::::::l    l            /::::::l    l      ")
+  console.log("     /:::/    /               /:::/l:::l    l          /:::/l:::l    l          /:::/l:::l    l     ")
+  console.log("    /:::/____/               /:::/__l:::l    l        /:::/__l:::l    l        /:::/__l:::l    l    ")
+  console.log("   /::::l    l              /::::l   l:::l    l      /::::l   l:::l    l      /::::l   l:::l    l   ")
+  console.log("  /::::::l    l   _____    /::::::l   l:::l    l    /::::::l   l:::l    l    /::::::l   l:::l    l  ")
+  console.log(" /:::/l:::l    l /l    l  /:::/l:::l   l:::l    l  /:::/l:::l   l:::l____l  /:::/l:::l   l:::l____l ")
+  console.log("/:::/  l:::l    /::l____l/:::/  l:::l   l:::l____l/:::/  l:::l   l:::|    |/:::/  l:::l   l:::|    |")
+  console.log("l::/    l:::l  /:::/    /l::/    l:::l  /:::/    /l::/   |::::l  /:::|____|l::/    l:::l  /:::|____|")
+  console.log(" l/____/ l:::l/:::/    /  l/____/ l:::l/:::/    /  l/____|:::::l/:::/    /  l/_____/l:::l/:::/    / ")
+  console.log("          l::::::/    /            l::::::/    /         |:::::::::/    /            l::::::/    /  ")
+  console.log("           l::::/    /              l::::/    /          |::|l::::/    /              l::::/    /   ")
+  console.log("           /:::/    /               /:::/    /           |::| l::/____/                l::/____/    ")
+  console.log("          /:::/    /               /:::/    /            |::|  ~|                       ~~          ")
+  console.log("         /:::/    /               /:::/    /             |::|   |                                   ")
+  console.log("        /:::/    /               /:::/    /              l::|   |         Harp v"+v+"               ")
+  console.log("        l::/    /                l::/    /                l:|   |         Made by Chloi Inc.        ")
+  console.log("         l/____/                  l/____/                  l|___|         2012-2013                 ")
+  if(msg){
+    console.log('')
+    console.log('  ' + msg)
+    console.log('')
+  }
+}
+
+
 program
   .version(pkg.version)
 
@@ -50,7 +82,7 @@ program
     var projectPath = nodePath.resolve(path || process.cwd())
     var port        = program.port || 9966
     harp.server(projectPath, { port: port }, function(){
-      console.log("server is listening on port", port)
+      output("Your server is listening at http://localhost:" + port)
     })
   })
 
@@ -62,7 +94,12 @@ program
     var projectPath = nodePath.resolve(path || process.cwd())
     var port        = program.port || 9966
     harp.multihost(projectPath, { port: port }, function(){
-      console.log("server is hosting multiple projects on port", port)
+      if(port == "80"){
+        var loc = "http://harp.nu"
+      }else{
+        var loc = "http://harp.nu:" + port
+      }
+      output("Your server is hosting multiple projects at " + loc)
     })
   })
 
