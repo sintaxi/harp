@@ -43,7 +43,7 @@ program
 
 program
   .command('init [path]')
-  .description('initalize new harp application in current directory')
+  .description('initialize new harp application in current directory')
   .action(function(path, program){
     var projectPath = nodePath.resolve(path || process.cwd())
 
