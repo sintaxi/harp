@@ -28,14 +28,14 @@ configuration is required.
 
 <a name="features"/>
 ### Features
-  - **zero configuration** - you wont believe how simple it is.
+  - **zero configuration** - just start building your app.
   - **asset pipeline** - built-in asset pipeline for seamlessly serving of [jade](http://jade-lang.com/), [markdown](http://daringfireball.net/projects/markdown/), [stylus](http://learnboost.github.io/stylus/), and [less](http://lesscss.org/) files.
   - **layouts and partials** - the beloved layout/partial templating paradigm you know and love.
   - **global variables** - specify global variables to be available in all your templates.
   - **selected state** - a `current` object is available in all your templates for determining the current page.
   - **traverse filesystem** - iterate over your filesystem to easily generate things like an html5 cache manifest file.
   - **asset ordering** - easy to list the order your assets are referenced.
-  - **server** - harp ships with a built-in server (great for development).
+  - **server** - harp ships with a built-in server (with LRU caching in production mode).
 
 Maintained by [@sintaxi](http://twitter.com/sintaxi). Made for the [@HarpPlatform](http://twitter.com/HarpPlatform).
 
