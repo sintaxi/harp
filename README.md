@@ -2,13 +2,12 @@
 
 > Harp is an open source Asset Pipeline Framework for developing Front-End applications.
 
-What is an Asset Pipeline Framework you ask? An Asset Pipeline Framework offers the best 
+**What is an Asset Pipeline Framework?** An Asset Pipeline Framework offers the best 
 tradeoffs between Static Site Generator (such as Jekyll) and a Full Stack Framework such 
-as (Ruby on Rails / ExpressJS). Harp automatically translates Stylus and Less to CSS. Harp
-also allows you to write your markup with Jade and Markdown. 
-
-###
-
+as (Ruby on Rails / ExpressJS). Harp comes with a built-in web-server that automatically 
+pre-processes [jade](http://jade-lang.com/), [markdown](http://daringfireball.net/projects/markdown/), 
+[stylus](http://learnboost.github.io/stylus/), and [less](http://lesscss.org/). Zero 
+configuration is required.
 
 ## Table of Contents
 
@@ -29,8 +28,8 @@ also allows you to write your markup with Jade and Markdown.
 
 <a name="features"/>
 ### Features
-
-  - **asset pipeline** - built-in asset pipeline for seamlessly serving of [jade](http://jade-lang.com/) [markdown](http://daringfireball.net/projects/markdown/), [stylus](http://learnboost.github.io/stylus/), and [less](http://lesscss.org/) files.
+  - **zero configuration** - you wont believe how simple it is.
+  - **asset pipeline** - built-in asset pipeline for seamlessly serving of [jade](http://jade-lang.com/), [markdown](http://daringfireball.net/projects/markdown/), [stylus](http://learnboost.github.io/stylus/), and [less](http://lesscss.org/) files.
   - **layouts and partials** - the beloved layout/partial templating paradigm you know and love.
   - **global variables** - specify global variables to be available in all your templates.
   - **selected state** - a `current` object is available in all your templates for determining the current page.
