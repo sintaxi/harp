@@ -14,7 +14,7 @@
   ],
   "main": "./lib/index.js",
   "dependencies":{
-    "terraform": "0.4.5",
+    "terraform": "0.4.7",
     "commander": "1.1.1",
     "connect": "2.7.0",
     "fs-extra": "0.3.2",
