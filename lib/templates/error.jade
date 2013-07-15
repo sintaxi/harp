@@ -1,8 +1,10 @@
 .header
   h1= project
 .error-info
-  h2= name
-  h3= filename
+  h4 #{ error.source } -> #{ error.dest } (#{error.name})
+  h3 #{ error.filename }
 .content
+  h3= error.message
+
   pre
-    code= stack
+    code= error.stack
