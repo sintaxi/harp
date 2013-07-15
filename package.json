@@ -10,7 +10,8 @@
     { "name": "Michael Brooks", "email": "michael@michaelbrooks.ca" },
     { "name": "Tommy-Carlos Williams", "email": "tommy@devgeeks.org" },
     { "name": "Darryl Pogue", "email": "darryl@dpogue.ca" },
-    { "name": "Boris Mann", "email": "boris@bmannconsulting.com" }
+    { "name": "Boris Mann", "email": "boris@bmannconsulting.com" },
+    { "name": "Kenneth Ormandy", "email": "kenneth@chloi.io" }
   ],
   "main": "./lib/index.js",
   "dependencies":{
