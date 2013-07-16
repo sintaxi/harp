@@ -6,7 +6,7 @@
 tradeoffs between Static Site Generator (such as Jekyll) and a Full Stack Framework such 
 as (Ruby on Rails / ExpressJS). Harp comes with a built-in web-server that automatically 
 pre-processes [jade](http://jade-lang.com/), [markdown](http://daringfireball.net/projects/markdown/), 
-[stylus](http://learnboost.github.io/stylus/), and [less](http://lesscss.org/). Zero 
+[stylus](http://learnboost.github.io/stylus/), [less](http://lesscss.org/), and [coffeescript](http://coffeescript.org/). Zero 
 configuration is required.
 
 ## Table of Contents
@@ -29,7 +29,7 @@ configuration is required.
 <a name="features"/>
 ### Features
   - **zero configuration** - just start building your app.
-  - **asset pipeline** - built-in asset pipeline for seamlessly serving of [jade](http://jade-lang.com/), [markdown](http://daringfireball.net/projects/markdown/), [stylus](http://learnboost.github.io/stylus/), and [less](http://lesscss.org/) files.
+  - **asset pipeline** - built-in asset pipeline for seamlessly serving of [jade](http://jade-lang.com/), [markdown](http://daringfireball.net/projects/markdown/), [stylus](http://learnboost.github.io/stylus/), [less](http://lesscss.org/), and [coffeescript](http://coffeescript.org/) files.
   - **layouts and partials** - the beloved layout/partial templating paradigm you know and love.
   - **global variables** - specify global variables to be available in all your templates.
   - **selected state** - a `current` object is available in all your templates for determining the current page.
