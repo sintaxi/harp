@@ -1,101 +1,10 @@
 !!!
 html
   head
-    block stylesheet
-      style
-
-        body{
-          font-family: "verdana";
-          font-size: 92%;
-          padding: 0 20px 80px;
-          padding:0;
-          margin:0px;
-          background:#F7F7F9;
-        }
-
-        pre {
-          margin-top:20px;
-          margin-bottom:20px;
-          border-left: 2px solid #104ba7;
-          color:#555;
-          font-weight:400;
-          font-size:1.2em;
-          padding:0 0 0 20px;
-          overflow:scroll;
-        }
-
-        code{
-          background:#F7F7F9;
-        }
-
-        pre code{
-          background:transparent;
-        }
-
-        p{
-          font-size:13px;
-          line-height:22px;
-          margin:20px 0;
-        }
-
-        a{
-          color:#09F;
-          margin-right:10px;
-          text-decoration:none;
-        }
-
-        a:hover{
-          background:#FFE;
-        }
-
-        .header{
-          padding:40px 60px;
-          background: #FFF;
-          color: #2F3339;
-          background: #3f4461;
-          background: #fff;
-          position:relative;
-        }
-
-        .header h1{
-          margin:0px;
-          font-size: 20px;
-          color: #Fe7373;
-        }
-
-        .header p{
-          margin:3px 0px;
-          color:#CCC;
-          font-size:15px;
-          font-family: Georgia;
-        }
-
-        .error-info{
-          background: #fefe96;
-          padding: 18px 60px;
-          margin: 0;
-          color: #444;
-        }
-
-        .error-info h2{
-          margin: 10px 0;
-        }
-
-        .error-info h3 {
-          font-size: 16px;
-          margin: 15px 0;
-          font-weight: 300;
-        }
-
-        .content{
-          padding:30px 60px;
-        }
-
-        .footer{
-          padding:40px 60px;
-          background: #E7E7E9;
-        }
-
+    title Harp
+    | <style type="text/css">
+    include css/harp.css    
+    | </style>
   body
     != yield
 
