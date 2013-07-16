@@ -65,34 +65,34 @@ describe("errors", function(){
     })
   })
 
-  // describe("err-missing-public", function(){
-  //   var projectPath = path.join(__dirname, "apps/err-missing-public")
-  //   var outputPath  = path.join(__dirname, "out/err-missing-public")
-  //   var port        = 8113
+  describe("err-missing-public", function(){
+    var projectPath = path.join(__dirname, "apps/err-missing-public")
+    var outputPath  = path.join(__dirname, "out/err-missing-public")
+    var port        = 8113
 
-  //   before(function(done){
-  //     harp.server(projectPath, { port: port }, function(){
-  //       done()
-  //     })
-  //   })
+    before(function(done){
+      harp.server(projectPath, { port: port }, function(){
+        done()
+      })
+    })
 
-  //   it("should get error message for invalid _data.json", function(done){
-  //     var agent = superagent.agent()
-  //     agent.get('http://localhost:'+ port +'/').end(function(err, rsp){
-  //       rsp.should.have.status(500)
-  //       harp.compile(projectPath, outputPath, function(error){
-  //         should.exist(error)
-  //         error.should.have.property("source")
-  //         error.should.have.property("dest")
-  //         error.should.have.property("filename")
-  //         error.should.have.property("message")
-  //         error.should.have.property("stack")
-  //         error.should.have.property("lineno")
-  //         done()
-  //       })
-  //     })
-  //   })
-  // })
+    it("should get error message for invalid _data.json", function(done){
+      var agent = superagent.agent()
+      agent.get('http://localhost:'+ port +'/').end(function(err, rsp){
+        rsp.should.have.status(500)
+        harp.compile(projectPath, outputPath, function(error){
+          should.exist(error)
+          error.should.have.property("source")
+          error.should.have.property("dest")
+          error.should.have.property("filename")
+          error.should.have.property("message")
+          error.should.have.property("stack")
+          error.should.have.property("lineno")
+          done()
+        })
+      })
+    })
+  })
 
   after(function(done){
     exec("rm -rf " + path.join(__dirname, "out"), function(){
