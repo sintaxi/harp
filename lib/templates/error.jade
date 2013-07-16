@@ -1,10 +1,61 @@
-.header
-  h1= project
-.error-info
-  h4 #{ error.source } -> #{ error.dest } (#{error.name})
-  h3 #{ error.filename }
-.content
-  h3= error.message
+header.header(role="banner")
+	.container.container--large
+		.row
+			.col-lg-7.col-offset-2
+				.header-title
+					h1 #{error.name}
+					strong.header-subtitle #{ error.message }
+		//-
+			.col-lg-3
+				p #{ project }
+		.row
+			.col-lg-8.col-offset-2
+				.header-content
+					p
+						| Your Harp app could not be built because of a #{error.name} in 
+						code.word-break #{ error.filename }
+.container.container--large
+	.row
+		.col-lg-2
+			ul.process-list
+				li.process-step.animated.fadeInDown(class="process-step--#{ error.source.toLowerCase() }")= error.source
+				li.process-step.animated.fadeInDown(class="process-step--#{ error.dest.toLowerCase() }")= error.dest
+			//- 
+				h2 Support
+				ul
+					li
+						a(href="http://docs.harp.io/apf", title="How to build a Harp app.")
+							| Harp Documentation
+					li
+						a(href="#", title="")
+							| Ask for help on IRC
+					li
+						a(href="https://github.com/sintaxi/harp", title="Harp, an open source Asset Pipeline Framework")
+							| Harp on GitHub
 
-  pre
-    code= error.stack
+		.col-lg-10
+			pre.code.os-window
+				code= error.stack
+	.row
+		.col-lg-8.col-offset-2
+			input.toggle-input(id="section-current", name="section-current", type="checkbox")
+			label.toggle-label(for="section-current", id="current") Current Variables
+			.toggle-content.toggle-content--large
+				pre.code.code--subordinate
+					code= JSON.stringify(current, null, 2)
+
+			input.toggle-input(id="section-globals", name="section-globals", type="checkbox")
+			label.toggle-label(for="section-globals", id="globals") Global Variables
+			.toggle-content.toggle-content--large
+				pre.code.code--subordinate
+					code= JSON.stringify(globals, null, 2)
+
+footer.content-info(role="content-info")
+	.container.container--large
+		.col-lg-1.col-offset-2
+			a.header-logo(href="http://harpjs.com", title="Harp")
+				.logo
+					!= partial("shared/wordmark")
+					nav.nav--right.col-10
+		.col-lg-1
+			p 0.8.2
