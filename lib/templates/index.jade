@@ -36,15 +36,15 @@ style
   ul.projects
     for project in projects
       li.project
-        h2= project.name
+        h2: a(href="#{ project.localUrl }")= project.name
         ul.info
-          li Development:&nbsp;
-            a(href="#{ project.localUrl }")= project.localUrl
-          li Production:&nbsp;
-            a(href="#{ project.remoteUrl }")= project.remoteUrl
-          li Manage:&nbsp;
-            a(href="#{ project.portalUrl }")= project.portalUrl
-          li Path:&nbsp;
-            code= project.localPath
+          //- li Development:&nbsp;
+          //-   a(href="#{ project.localUrl }")= Development project.localUrl
+          //- li Production:&nbsp;
+          //-   a(href="#{ project.remoteUrl }")= project.remoteUrl
+          //- li Manage:&nbsp;
+          //-   a(href="#{ project.portalUrl }")= project.portalUrl
+          //- li Path:&nbsp;
+          code= project.localPath
 
 
