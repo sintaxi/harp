@@ -31,7 +31,7 @@
     "superagent": "0.12.4"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/mocha --reporter spec"
   },
   "license": "MIT",
   "readmeFilename": "README.md",

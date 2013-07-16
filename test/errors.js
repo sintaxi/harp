@@ -6,28 +6,67 @@ var exec        = require("child_process").exec
 var harp        = require("../")
 
 describe("errors", function(){
-  var projectPath = path.join(__dirname, "apps/err-invalid-config")
-  var outputPath  = path.join(__dirname, "out/err-invalid-config")
 
-  before(function(done){
-    harp.server(projectPath, { port: 8101 }, function(){
-      done()
+  describe("err-invalid-config", function(){
+    var projectPath = path.join(__dirname, "apps/err-invalid-config")
+    var outputPath  = path.join(__dirname, "out/err-invalid-config")
+    var port        = 8111
+
+    before(function(done){
+      harp.server(projectPath, { port: port }, function(){
+        done()
+      })
+    })
+
+    it("should get error message for invalid harp.json", function(done){
+      var agent = superagent.agent()
+      agent.get('http://localhost:'+ port +'/').end(function(err, rsp){
+        rsp.should.have.status(500)
+        harp.compile(projectPath, outputPath, function(error){
+          should.exist(error)
+          error.should.have.property("source")
+          error.should.have.property("dest")
+          error.should.have.property("filename")
+          error.should.have.property("message")
+          error.should.have.property("stack")
+          error.should.have.property("lineno")
+          done()
+        })
+      })
     })
   })
 
-  it("should get error message for invalid harp.json", function(done){
-    var agent = superagent.agent()
-    agent.get('http://localhost:8101/').end(function(err, rsp){
-      rsp.should.have.status(500)
-      harp.compile(projectPath, outputPath, function(error){
-        should.exist(error)
+  describe("err-invalid-data", function(){
+    var projectPath = path.join(__dirname, "apps/err-invalid-data")
+    var outputPath  = path.join(__dirname, "out/err-invalid-data")
+    var port        = 8112
+
+    before(function(done){
+      harp.server(projectPath, { port: port }, function(){
         done()
+      })
+    })
+
+    it("should get error message for invalid _data.json", function(done){
+      var agent = superagent.agent()
+      agent.get('http://localhost:'+ port +'/').end(function(err, rsp){
+        rsp.should.have.status(500)
+        harp.compile(projectPath, outputPath, function(error){
+          should.exist(error)
+          error.should.have.property("source")
+          error.should.have.property("dest")
+          error.should.have.property("filename")
+          error.should.have.property("message")
+          error.should.have.property("stack")
+          error.should.have.property("lineno")
+          done()
+        })
       })
     })
   })
 
   after(function(done){
-    exec("rm -rf " + outputPath, function(){
+    exec("rm -rf " + path.join(__dirname, "out"), function(){
       done()
     })
   })
