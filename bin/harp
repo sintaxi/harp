@@ -111,7 +111,8 @@ program
     var projectPath = nodePath.resolve(path || process.cwd())
     var outputPath  = program.output || null
     harp.compile(projectPath, outputPath, function(errors, output){
-      console.log(JSON.stringify(errors || output, null, 2))
+      if(errors) console.log(JSON.stringify(errors, null, 2))
+      //console.log(JSON.stringify(errors || output, null, 2))
     })
   })
 
