@@ -1,50 +1,46 @@
-style
-  ul.projects{
-    margin:0;
-    padding:0;
-  }
-  li.project{
-    list-style-type: none;
-    background: #fff;
-    padding: 10px 30px;
-    margin-bottom: 10px;
-  }
-  ul.info li{
-    list-style-type:none;
-    font-weight: bold;
-    padding: 5px;
-  }
-  ul.info li a{
-    font-weight: 300;
-  }
-  h3 em {
-    padding: 5px 10px;
-    border-radius: 3px;
-    background: #eeee86;
-  }
-  code{
-    font-weight:400;
-    font-size:1.2em;
-    padding:3px;
-  }
-.header
-  h1 Harp - Welcome
-.error-info
-  h2 Your Local Development Server is Running!
-  h3 Harp <em>v#{ pkg.version }</em>
-.content
-  ul.projects
-    for project in projects
-      li.project
-        h2: a(href="#{ project.localUrl }")= project.name
-        ul.info
-          //- li Development:&nbsp;
-          //-   a(href="#{ project.localUrl }")= Development project.localUrl
-          //- li Production:&nbsp;
-          //-   a(href="#{ project.remoteUrl }")= project.remoteUrl
-          //- li Manage:&nbsp;
-          //-   a(href="#{ project.portalUrl }")= project.portalUrl
-          //- li Path:&nbsp;
-          code= project.localPath
+header.header.header--error(role="banner")
+	.container
+		.row
+			a.header-logo.col-2(href="http://harpjs.com", title="Harp")
+				.logo
+					!= partial("shared/wordmark")
+				sup.logo-version #{ pkg.version }
+			nav.nav--right.col-10
+				ul.nav-list
+					li.nav-list-item
+						a.nav-list-item-link(href="https://github.com/sintaxi/harp", title="Harp, an open source Asset Pipeline Framework")
+							!= "GitHub"
+					li.nav-list-item
+						a.nav-list-item-link(href="http://docs.harp.io/apf", title="How to build a Harp app.")
+							!= "Docs"
+					//- li.nav-list-item
+					//- 	a.nav-list-item-link(href="https://harp.io", title="The platform for Harp apps")
+					//- 		!= "Platform"
+		.row
+			.header-title.col-lg-8
+				h1 Welcome to Harp
+				p Your local Development Server is Running!
+.container
+	.col-lg-12.projects
+		if projects == ""
+			p You have no apps yet, but you are ready to create one!
+			p Inside your apps directory, run <code>harp init myproject</code> and then <code>harp server myproject</code>.
+		else		
+			header.header
+				h2 Your apps
+				ol.project-list
+					for project in projects
+						li
+							a.project-list-item(href="#{ project.localUrl }")
+								.project
+									h2.project-name= project.name
+									code.project-path= project.localPath
 
-
+						//- ul.info
+						//- 	li Development:&nbsp;
+						//- 	  a(href="#{ project.localUrl }")= Development project.localUrl
+						//- 	li Production:&nbsp;
+						//- 	  a(href="#{ project.remoteUrl }")= project.remoteUrl
+						//- 	li Manage:&nbsp;
+						//- 	  a(href="#{ project.portalUrl }")= project.portalUrl
+						//- 	li Path:&nbsp;

@@ -15,47 +15,45 @@ header.header(role="banner")
 						| Your Harp app could not be built because of a #{error.name} in 
 						code.word-break #{ error.filename }
 .container.container--large
-	.row
-		.col-lg-2
-			ul.process-list
-				li.process-step.animated.fadeInDown(class="process-step--#{ error.source.toLowerCase() }")= error.source
-				li.process-step.animated.fadeInDown(class="process-step--#{ error.dest.toLowerCase() }")= error.dest
-			//- 
-				h2 Support
-				ul
-					li
-						a(href="http://docs.harp.io/apf", title="How to build a Harp app.")
-							| Harp Documentation
-					li
-						a(href="#", title="")
-							| Ask for help on IRC
-					li
-						a(href="https://github.com/sintaxi/harp", title="Harp, an open source Asset Pipeline Framework")
-							| Harp on GitHub
+	.col-lg-2
+		ul.process-list
+			li.process-step.animated.fadeInDown(class="process-step--#{ error.source != null?error.source.toLowerCase() : 'null' }")= error.source != null?error.source.toLowerCase() : 'missing'
+			if (error.source != null && error.dest != null) && (error.source != error.dest)
+				li.process-step.animated.fadeInDown(class="process-step--#{ error.dest!=null?error.dest.toLowerCase():'null' }")= error.dest!=null?error.dest.toLowerCase():'missing'
+		//- 
+			h2 Support
+			ul
+				li
+					a(href="http://docs.harp.io/apf", title="How to build a Harp app.")
+						| Harp Documentation
+				li
+					a(href="#", title="")
+						| Ask for help on IRC
+				li
+					a(href="https://github.com/sintaxi/harp", title="Harp, an open source Asset Pipeline Framework")
+						| Harp on GitHub
 
+	if error.stack != undefined
 		.col-lg-10
 			pre.code.os-window
-				code= error.stack
-	.row
-		.col-lg-8.col-offset-2
+				code #{ error.stack }
+	.col-lg-8(class="#{ error.stack!=undefined?'col-offset-2':'' }")
+		.toggle
 			input.toggle-input(id="section-current", name="section-current", type="checkbox")
 			label.toggle-label(for="section-current", id="current") Current Variables
 			.toggle-content.toggle-content--large
 				pre.code.code--subordinate
 					code= JSON.stringify(current, null, 2)
 
+		.toggle
 			input.toggle-input(id="section-globals", name="section-globals", type="checkbox")
 			label.toggle-label(for="section-globals", id="globals") Global Variables
 			.toggle-content.toggle-content--large
 				pre.code.code--subordinate
 					code= JSON.stringify(globals, null, 2)
 
-footer.content-info(role="content-info")
-	.container.container--large
-		.col-lg-1.col-offset-2
+		footer.content-info(role="content-info")
 			a.header-logo(href="http://harpjs.com", title="Harp")
 				.logo
 					!= partial("shared/wordmark")
-					nav.nav--right.col-10
-		.col-lg-1
-			p 0.8.2
+				//- .logo-version= pkg.version
