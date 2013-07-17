@@ -1,12 +1,9 @@
 !!!
 html
-  head
-    title Harp
-    | <style type="text/css">
-    include css/harp.css    
-    | </style>
-  body
-    != yield
-
-
-
+	head
+		| <style type="text/css">
+		include css/harp.css
+		| </style>
+	body
+		#main.main(role="main")
+			!= yield
