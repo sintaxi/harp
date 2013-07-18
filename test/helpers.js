@@ -1,5 +1,7 @@
-var should = require("should")
+var should  = require("should")
 var helpers = require("../lib/helpers")
+var fse     = require("fs-extra")
+var path    = require("path")
 
 describe("helpers", function(){
 
@@ -58,6 +60,32 @@ describe("helpers", function(){
       helpers.willAllow("/foo/_bar/myproject", "/foo").should.be.false
       helpers.willAllow("/foo/_bar/_myproject", "/foo").should.be.false
       done()
+    })
+  })
+
+  describe("prime(outputPath)", function(){
+    before(function(done){
+      fse.mkdirp(path.join(__dirname, "temp"), done)
+    })
+
+    before(function(done){
+      fse.mkdirSync(path.join(__dirname, "temp", "myproj"))
+      fse.mkdirSync(path.join(__dirname, "temp", "foo"))
+      fse.writeFileSync(path.join(__dirname, "temp", "bar"), "hello bar")
+      done()
+    })
+
+    it("should only remove directories that do not begin with underscore", function(done){
+      helpers.prime(path.join(__dirname, "temp"), { ignore: "myproj" }, function(error){
+        fse.existsSync(path.join(__dirname, "temp", "myproj")).should.be.true
+        fse.existsSync(path.join(__dirname, "temp", "foo")).should.be.false
+        fse.existsSync(path.join(__dirname, "temp", "bar")).should.be.false
+        done()
+      })
+    })
+
+    after(function(done){
+      fse.remove(path.join(__dirname, "temp"), done)
     })
   })
 
