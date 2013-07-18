@@ -47,7 +47,7 @@ program
   .description('initialize new harp application in current directory')
   .action(function(path, program){
     var projectPath     = nodePath.resolve(process.cwd(), path)
-    var boilerplatePath = nodePath.resolve(__dirname, "..", "test", "apps", "basic")
+    var boilerplatePath = nodePath.resolve(__dirname, "..", "lib", "sample")
 
     var done = function(err){
       console.log('initialized project at', projectPath)
