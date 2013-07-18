@@ -55,6 +55,8 @@ describe("helpers", function(){
 
     it("should not allow project to compile one directory back if source directory starts with underscore", function(done){
       helpers.willAllow("/foo/bar/_myproject", "/foo").should.be.false
+      helpers.willAllow("/foo/_bar/myproject", "/foo").should.be.false
+      helpers.willAllow("/foo/_bar/_myproject", "/foo").should.be.false
       done()
     })
   })
