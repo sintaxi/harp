@@ -64,15 +64,14 @@ describe("helpers", function(){
   })
 
   describe("prime(outputPath)", function(){
-    before(function(done){
-      fse.mkdirp(path.join(__dirname, "temp"), done)
-    })
 
     before(function(done){
-      fse.mkdirSync(path.join(__dirname, "temp", "myproj"))
-      fse.mkdirSync(path.join(__dirname, "temp", "foo"))
-      fse.writeFileSync(path.join(__dirname, "temp", "bar"), "hello bar")
-      done()
+      fse.mkdirp(path.join(__dirname, "temp"), function(){
+        fse.mkdirSync(path.join(__dirname, "temp", "myproj"))
+        fse.mkdirSync(path.join(__dirname, "temp", "foo"))
+        fse.writeFileSync(path.join(__dirname, "temp", "bar"), "hello bar")
+        done()
+      })
     })
 
     it("should only remove directories that do not begin with underscore", function(done){
