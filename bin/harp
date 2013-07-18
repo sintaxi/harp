@@ -5,6 +5,7 @@ var program   = require('commander')
 var pkg       = require('../package.json')
 var harp      = require('../')
 var fse       = require("fs-extra")
+var helpers   = require("../lib/helpers")
 
 var output = function(msg){
   var v = pkg.version
@@ -45,32 +46,39 @@ program
   .command('init [path]')
   .description('initialize new harp application in current directory')
   .action(function(path, program){
-    var projectPath = nodePath.resolve(path || process.cwd())
+    var projectPath     = nodePath.resolve(process.cwd(), path)
+    var boilerplatePath = nodePath.resolve(__dirname, "..", "lib", "sample")
 
     var done = function(err){
       console.log('initialized project at', projectPath)
     }
 
-    if(path){
-      var src  = nodePath.resolve(__dirname, "../test/apps/basic")
-      var dest = nodePath.join(projectPath)
-      fse.copy(src, dest, done)
-    }else{
-      var src  = nodePath.resolve(__dirname, "../test/apps/basic/public")
-      var dest = nodePath.join(projectPath, "public")
+    fse.mkdirp(projectPath, function(err){
+      if(err) return err
 
-      var readmeSrc = nodePath.join(__dirname, "../test/apps/basic/README.md")
-      var readmeDest = nodePath.join(projectPath, "README.md")
+      fse.readdir(projectPath, function(err, contents){
+        if(err) return err
+        if(contents.length == 0){
+          fse.readdir(boilerplatePath, function(err, contents){
+            if(err) return err
+            var total = contents.length
+            var count = 0
+            contents.forEach(function(i){
+              var fromPath = nodePath.resolve(boilerplatePath, i)
+              var toPath   = nodePath.resolve(projectPath, i)
+              fse.copy(fromPath, toPath, function(err){
+                count++
+                if(count == total) done()
+              })
+            })
+          })
+        }else{
+          console.log("Sorry,", projectPath, " must be empty.")
+        }
+        var count = 0
 
-      var harpJsonSrc = nodePath.join(__dirname, "../test/apps/basic/harp.json")
-      var harpJsonDest = nodePath.join(projectPath, "harp.json")
-
-      fse.copy(src, dest, function(err){
-        fse.copy(readmeSrc, readmeDest, function(err){
-          fse.copy(harpJsonSrc, harpJsonDest, done)
-        })
       })
-    }
+    })
 
   })
 
@@ -79,7 +87,7 @@ program
   .option('-p, --port <port>', 'specify port to listen on')
   .description('start harp server')
   .action(function(path, program){
-    var projectPath = nodePath.resolve(path || process.cwd())
+    var projectPath = nodePath.resolve(process.cwd(), path)
     var port        = program.port || 9966
     harp.server(projectPath, { port: port }, function(){
       output("Your server is listening at http://localhost:" + port + "...")
@@ -91,7 +99,7 @@ program
   .option('-p, --port <port>', 'specify port to listen on')
   .description('start harp server to host directory of harp apps')
   .action(function(path, program){
-    var projectPath = nodePath.resolve(path || process.cwd())
+    var projectPath = nodePath.resolve(process.cwd(), path)
     var port        = program.port || 9966
     harp.multihost(projectPath, { port: port }, function(){
       if(port == "80"){
@@ -104,15 +112,35 @@ program
   })
 
 program
-  .command('compile [path]')
+  .command('compile [projectPath] [outputPath]')
   .option('-o, --output <path>', 'specify output directory for compiled assets (relative to project path)')
   .description('compile project to static assets')
-  .action(function(path, program){
-    var projectPath = nodePath.resolve(path || process.cwd())
-    var outputPath  = program.output || null
+  .action(function(projectPath, outputPath, program){
+
+    if(!program){
+      program    = outputPath
+      outputPath = null
+    }
+
+    projectPath = nodePath.resolve(process.cwd(), projectPath)
+
+    /**
+     * We deal with output path 3 different ways
+     *
+     *  1. second argument (relative to directory called in)
+     *  2. `--output` argument (relative to project root)
+     *  3. implicitly projectPath + "/www"
+     *
+     */
+
+    if(outputPath){
+      outputPath = nodePath.resolve(process.cwd(), (outputPath || program.output))
+    }else{
+      outputPath = nodePath.resolve(projectPath, (program.output || "www"))
+    }
+
     harp.compile(projectPath, outputPath, function(errors, output){
       if(errors) console.log(JSON.stringify(errors, null, 2))
-      //console.log(JSON.stringify(errors || output, null, 2))
     })
   })
 
