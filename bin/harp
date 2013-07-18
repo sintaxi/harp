@@ -104,15 +104,35 @@ program
   })
 
 program
-  .command('compile [path]')
+  .command('compile [projectPath] [outputPath]')
   .option('-o, --output <path>', 'specify output directory for compiled assets (relative to project path)')
   .description('compile project to static assets')
-  .action(function(path, program){
-    var projectPath = nodePath.resolve(path || process.cwd())
-    var outputPath  = program.output || null
+  .action(function(projectPath, outputPath, program){
+
+    if(!program){
+      program    = outputPath
+      outputPath = null
+    }
+
+    projectPath = nodePath.resolve(process.cwd(), projectPath)
+
+    /**
+     * We deal with output path 3 different ways
+     *
+     *  1. second argument (relative to directory called in)
+     *  2. `--output` argument (relative to project root)
+     *  3. implicitly projectPath + "/www"
+     *
+     */
+
+    if(outputPath){
+      outputPath = nodePath.resolve(process.cwd(), (outputPath || program.output))
+    }else{
+      outputPath = nodePath.resolve(projectPath, (program.output || "www"))
+    }
+
     harp.compile(projectPath, outputPath, function(errors, output){
       if(errors) console.log(JSON.stringify(errors, null, 2))
-      //console.log(JSON.stringify(errors || output, null, 2))
     })
   })
 
