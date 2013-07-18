@@ -7,12 +7,12 @@ header.header.header--error(role="banner")
 				sup.logo-version #{ pkg.version }
 			nav.nav--right.col-10
 				ul.nav-list
-					li.nav-list-item
-						a.nav-list-item-link(href="https://github.com/sintaxi/harp", title="Harp, an open source Asset Pipeline Framework")
-							!= "GitHub"
+					//- li.nav-list-item
+					//- 	a.nav-list-item-link(href="https://github.com/sintaxi/harp", title="Harp, an open source Asset Pipeline Framework")
+					//- 		!= "GitHub"
 					li.nav-list-item
 						a.nav-list-item-link(href="http://docs.harp.io/apf", title="How to build a Harp app.")
-							!= "Docs"
+							!= "Documentation"
 					//- li.nav-list-item
 					//- 	a.nav-list-item-link(href="https://harp.io", title="The platform for Harp apps")
 					//- 		!= "Platform"
@@ -25,7 +25,7 @@ header.header.header--error(role="banner")
 		if projects == ""
 			p You have no apps yet, but you are ready to create one!
 			p Inside your apps directory, run <code>harp init myproject</code> and then <code>harp server myproject</code>.
-		else		
+		else
 			header.header
 				h2 Your apps
 				ol.project-list
