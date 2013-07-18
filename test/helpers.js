@@ -29,6 +29,32 @@ describe("helpers", function(){
 
     it("should not collide if project path is one back and begins with underscore", function(done){
       helpers.willCollide("/foo/bar/myproject", "/foo/bar").should.be.true
+      helpers.willCollide("/foo/bar/myproject/", "/foo/bar/").should.be.true
+      helpers.willCollide("/foo/bar/myproject", "/foo/bar/").should.be.true
+      helpers.willCollide("/foo/bar/myproject/", "/foo/bar").should.be.true
+      done()
+    })
+  })
+
+  describe("willAllow(projectPath, outputPath)", function(){
+    it("should not allow project to compile one directory back if source not starting with underscore", function(done){
+      helpers.willAllow("/foo/bar/myproject", "/foo/bar").should.be.false
+      helpers.willAllow("/foo/bar/myproject/", "/foo/bar/").should.be.false
+      helpers.willAllow("/foo/bar/myproject", "/foo/bar/").should.be.false
+      helpers.willAllow("/foo/bar/myproject/", "/foo/bar").should.be.false
+      done()
+    })
+
+    it("should allow project to compile one directory back if source directory starts with underscore", function(done){
+      helpers.willAllow("/foo/bar/_myproject", "/foo/bar").should.be.true
+      helpers.willAllow("/foo/bar/_myproject/", "/foo/bar/").should.be.true
+      helpers.willAllow("/foo/bar/_myproject", "/foo/bar/").should.be.true
+      helpers.willAllow("/foo/bar/_myproject/", "/foo/bar").should.be.true
+      done()
+    })
+
+    it("should not allow project to compile one directory back if source directory starts with underscore", function(done){
+      helpers.willAllow("/foo/bar/_myproject", "/foo").should.be.false
       done()
     })
   })
