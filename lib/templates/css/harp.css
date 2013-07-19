@@ -904,6 +904,9 @@ textarea {
 .code--feature code {
   display: block;
 }
+pre.code {
+  padding-bottom: 1em;
+}
 .code-line-number {
   background: #333;
   position: absolute;
@@ -1386,22 +1389,27 @@ textarea {
 }
 .process-list {
   list-style-type: none;
+  zoom: 1;
   margin: 0;
 }
-.process-list:before {
+.process-list:before,
+.process-list:after {
   content: "";
+  display: table;
+}
+.process-list:after {
+  clear: both;
 }
 .process-step {
-  font-size: 27px;
-  font-size: 1.6875rem;
+  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 300;
   text-align: center;
-  margin-bottom: 0.4444444444444444em;
   height: 2.25em;
-  line-height: 2.1374999999999997em;
+  line-height: 2.025em;
   color: #e9e7e4;
-  border-top: 1px solid;
-  border-bottom: 1px solid;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
   background: #cabcc2;
   -webkit-animation-duration: 0.3s;
   -moz-animation-duration: 0.3s;
@@ -1416,83 +1424,93 @@ textarea {
   -ms-animation-delay: 0.22499999999999998s;
   animation-delay: 0.22499999999999998s;
 }
+.process-label {
+  font-size: 0.6666666666666666em;
+  height: 2.53125rem;
+  font-family: "Merriweather", Georgia, Times, "Times New Roman", serif;
+  font-style: italic;
+  left: -1em;
+}
+.process-step + .process-step {
+  left: 0;
+}
 .process-meta {
   margin-bottom: 1em;
 }
 .process-step--html {
-  background: #aaa;
-  text-shadow: 0 1px 0 #888;
-  border-color: #909090;
+  background: #c6c6c6;
+  color: #aaa;
+  border-color: #aaa;
 }
 .process-step--jade {
-  background: #9dbfa4;
-  text-shadow: 0 1px 0 #73a47d;
-  border-color: #7daa87;
+  background: #bdd4c2;
+  color: #9dbfa4;
+  border-color: #9dbfa4;
 }
 .process-step--md,
 .process-step--markdown {
-  background: #aaa;
-  text-shadow: 0 1px 0 #888;
-  border-color: #909090;
+  background: #c6c6c6;
+  color: #aaa;
+  border-color: #aaa;
 }
 .process-step--css {
-  background: #00ff7f;
-  text-shadow: 0 1px 0 #0c6;
-  border-color: #00d96c;
+  background: #54ffa9;
+  color: #00ff7f;
+  border-color: #00ff7f;
 }
 .process-step--less {
-  background: #48d1cc;
-  text-shadow: 0 1px 0 #2db4af;
-  border-color: #30bfba;
+  background: #84e0dd;
+  color: #48d1cc;
+  border-color: #48d1cc;
 }
 .process-step--styl,
 .process-step--stylus {
-  background: #7cfc00;
-  text-shadow: 0 1px 0 #63ca00;
-  border-color: #69d600;
+  background: #a7ff52;
+  color: #7cfc00;
+  border-color: #7cfc00;
 }
 .process-step--scss,
 .process-step--sass {
-  background: #ee82ee;
-  text-shadow: 0 1px 0 #e541e5;
-  border-color: #e751e7;
+  background: #f4abf4;
+  color: #ee82ee;
+  border-color: #ee82ee;
 }
 .process-step--js,
 .process-step--javascript {
-  background: #ffd700;
-  text-shadow: 0 1px 0 #ccac00;
-  border-color: #d9b700;
+  background: #ffe454;
+  color: #ffd700;
+  border-color: #ffd700;
 }
 .process-step--coffee,
 .process-step--coffeescript {
-  background: #cd853f;
-  text-shadow: 0 1px 0 #aa6a2c;
-  border-color: #b5712f;
+  background: #ddad7e;
+  color: #cd853f;
+  border-color: #cd853f;
 }
 .process-step--ejs {
-  background: #a9a9a9;
-  text-shadow: 0 1px 0 #878787;
-  border-color: #909090;
+  background: #c5c5c5;
+  color: #a9a9a9;
+  border-color: #a9a9a9;
 }
 .process-step--json {
-  background: #ffdab9;
-  text-shadow: 0 1px 0 #ffab61;
-  border-color: #ffb777;
+  background: #ffe6d0;
+  color: #ffdab9;
+  border-color: #ffdab9;
 }
 .process-step--config {
-  background: #6495ed;
-  text-shadow: 0 1px 0 #286ce6;
-  border-color: #3776e8;
+  background: #97b8f3;
+  color: #6495ed;
+  border-color: #6495ed;
 }
 .process-step--data {
-  background: #725a65;
-  text-shadow: 0 1px 0 #5b4851;
-  border-color: #614d56;
+  background: #a58c97;
+  color: #725a65;
+  border-color: #725a65;
 }
 .process-step--globals {
-  background: #725a65;
-  text-shadow: 0 1px 0 #5b4851;
-  border-color: #614d56;
+  background: #a58c97;
+  color: #725a65;
+  border-color: #725a65;
 }
 .projects {
   list-style-type: none;
@@ -1721,6 +1739,9 @@ textarea {
 }
 .content-info {
   margin-top: 2.25em;
+}
+.content-info a {
+  color: #5b5256;
 }
 .btn {
   font-family: "Signika", "Trebuchet MS", "Optima", Verdana, sans-serif;
