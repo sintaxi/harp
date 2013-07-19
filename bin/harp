@@ -46,7 +46,7 @@ program
   .command('init [path]')
   .description('initialize new harp application in current directory')
   .action(function(path, program){
-    var projectPath     = nodePath.resolve(process.cwd(), path)
+    var projectPath     = nodePath.resolve(process.cwd(), path || "")
     var boilerplatePath = nodePath.resolve(__dirname, "..", "lib", "sample")
 
     var done = function(err){
@@ -87,7 +87,7 @@ program
   .option('-p, --port <port>', 'specify port to listen on')
   .description('start harp server')
   .action(function(path, program){
-    var projectPath = nodePath.resolve(process.cwd(), path)
+    var projectPath = nodePath.resolve(process.cwd(), path || "")
     var port        = program.port || 9966
     harp.server(projectPath, { port: port }, function(){
       output("Your server is listening at http://localhost:" + port + "...")
@@ -99,7 +99,7 @@ program
   .option('-p, --port <port>', 'specify port to listen on')
   .description('start harp server to host directory of harp apps')
   .action(function(path, program){
-    var projectPath = nodePath.resolve(process.cwd(), path)
+    var projectPath = nodePath.resolve(process.cwd(), path || "")
     var port        = program.port || 9966
     harp.multihost(projectPath, { port: port }, function(){
       if(port == "80"){
@@ -122,7 +122,7 @@ program
       outputPath = null
     }
 
-    projectPath = nodePath.resolve(process.cwd(), projectPath)
+    projectPath = nodePath.resolve(process.cwd(), projectPath || "")
 
     /**
      * We deal with output path 3 different ways
@@ -134,7 +134,7 @@ program
      */
 
     if(outputPath){
-      outputPath = nodePath.resolve(process.cwd(), (outputPath || program.output))
+      outputPath = nodePath.resolve(process.cwd(), (outputPath || program.output || ''))
     }else{
       outputPath = nodePath.resolve(projectPath, (program.output || "www"))
     }
