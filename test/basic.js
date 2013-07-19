@@ -86,7 +86,7 @@ describe("basic", function(){
       contents.toString().should.include("<h1>Basic HTML Page</h1>")
       var agent = superagent.agent()
       agent.get('http://localhost:8100/basic').end(function(err, rsp){
-        rsp.should.have.status(200)
+        rsp.status.should.eql(200)
         rsp.text.should.not.include("Kitchen Sink")
         rsp.text.should.include("<h1>Basic HTML Page</h1>")
         rsp.text.should.eql(contents.toString())
