@@ -29,12 +29,12 @@ describe("plain", function(){
       agent.get('http://localhost:8102/404.html').end(function(err, rsp){
         rsp.should.have.status(200)
         rsp.text.should.eql(contents.toString())
+        var agent = superagent.agent()
         agent.get('http://localhost:8102/missing/path').end(function(err, rsp){
           rsp.should.have.status(404)
           rsp.text.should.eql(contents.toString())
           done()
         })
-        done()
       })
     })
   })
