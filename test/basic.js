@@ -65,15 +65,16 @@ describe("basic", function(){
     })
   })
 
-  it("should have 404 page that does not use layout", function(done){
+  it("should have custom 404 page that does not use layout", function(done){
     fs.readFile(path.join(outputPath, "404.html"), function(err, contents){
       contents.toString().should.not.include("Kitchen Sink")
-      contents.toString().should.include("404")
+      contents.toString().should.include("Custom, Page Not Found")
       var agent = superagent.agent()
-      agent.get('http://localhost:8100/some-missing-path').end(function(err, rsp){
+      agent.get('http://localhost:8100/some/missing/path').end(function(err, rsp){
         rsp.should.have.status(404)
         rsp.text.should.not.include("Kitchen Sink")
-        rsp.text.should.include("404")
+        rsp.text.should.include("Custom, Page Not Found")
+        rsp.text.should.eql(contents.toString())
         done()
       })
     })
