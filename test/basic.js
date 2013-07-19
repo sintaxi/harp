@@ -80,6 +80,21 @@ describe("basic", function(){
     })
   })
 
+  it("should render HTML page without requiring extension", function(done){
+    fs.readFile(path.join(outputPath, "basic.html"), function(err, contents){
+      contents.toString().should.not.include("Kitchen Sink")
+      contents.toString().should.include("<h1>Basic HTML Page</h1>")
+      var agent = superagent.agent()
+      agent.get('http://localhost:8100/basic').end(function(err, rsp){
+        rsp.should.have.status(200)
+        rsp.text.should.not.include("Kitchen Sink")
+        rsp.text.should.include("<h1>Basic HTML Page</h1>")
+        rsp.text.should.eql(contents.toString())
+        done()
+      })
+    })
+  })
+
   after(function(done){
     exec("rm -rf " + outputPath, function(){
       done()
