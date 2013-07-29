@@ -12,14 +12,14 @@ header.header(role="banner")
 			.col-lg-8
 				.header-content
 					p
-						| Your Harp app could not be built because of a #{error.name} in 
+						| Your Harp app could not be built because of a #{error.name} in
 						code.word-break #{ error.filename }
 .container.container--large
 	.row
-		if error.stack != undefined
+		if error.stack
 			.col-lg-9
 				pre.code
-					code #{ error.stack }
+					code= error.stack
 		if (error.source != null && error.dest != null) && (error.source != error.dest)
 			.col-lg-2
 				.process-list
