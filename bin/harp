@@ -107,7 +107,7 @@ program
       }else{
         var loc = "http://harp.nu:" + port
       }
-      output("Your server is hosting multiple projects at " + loc + "...")
+      output("Your server is hosting multiple projects at " + loc)
     })
   })
 
