@@ -88,7 +88,7 @@ program
   .description('start harp server')
   .action(function(path, program){
     var projectPath = nodePath.resolve(process.cwd(), path || "")
-    var port        = program.port || 9966
+    var port        = program.port || 9000
     harp.server(projectPath, { port: port }, function(){
       output("Your server is listening at http://localhost:" + port + "...")
     })
@@ -100,7 +100,7 @@ program
   .description('start harp server to host directory of harp apps')
   .action(function(path, program){
     var projectPath = nodePath.resolve(process.cwd(), path || "")
-    var port        = program.port || 9966
+    var port        = program.port || 9000
     harp.multihost(projectPath, { port: port }, function(){
       if(port == "80"){
         var loc = "http://harp.nu"
