@@ -63,8 +63,37 @@ describe("helpers", function(){
     })
   })
 
-  describe("prime(outputPath)", function(){
+  describe("setup(projectPath)", function(){
 
+    it("should detect framework style", function(done){
+      var cfg = helpers.setup(path.join(__dirname, "apps", "app-style-framework"))
+      cfg.should.have.property("config")
+      cfg.should.have.property("projectPath")
+      cfg.should.have.property("publicPath")
+      done()
+    })
+
+    it("should detect root style", function(done){
+      var cfg = helpers.setup(path.join(__dirname, "apps", "app-style-root"))
+      cfg.should.have.property("config")
+      cfg.should.have.property("projectPath")
+      cfg.should.have.property("publicPath")
+      cfg.publicPath.should.eql(cfg.projectPath)
+      done()
+    })
+
+    it("should defautl to root style", function(done){
+      var cfg = helpers.setup(path.join(__dirname, "apps", "app-style-implicit"))
+      cfg.should.have.property("config")
+      cfg.should.have.property("projectPath")
+      cfg.should.have.property("publicPath")
+      cfg.publicPath.should.eql(cfg.projectPath)
+      done()
+    })
+
+  })
+
+  describe("prime(outputPath)", function(){
     before(function(done){
       fse.mkdirp(path.join(__dirname, "temp"), function(){
         fse.mkdirSync(path.join(__dirname, "temp", "myproj"))
