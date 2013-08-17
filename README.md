@@ -1,176 +1,74 @@
 # Harp
 
-> Harp is an open source Asset Pipeline Framework for developing Front-End applications.
+> A mightly little web server with built in pre-processing.
 
-**What is an Asset Pipeline Framework?** An Asset Pipeline Framework offers the best 
-tradeoffs between Static Site Generator (such as Jekyll) and a Full Stack Framework such 
-as (Ruby on Rails / ExpressJS). Harp comes with a built-in web-server that automatically 
-pre-processes [jade](http://jade-lang.com/), [markdown](http://daringfireball.net/projects/markdown/), 
-[stylus](http://learnboost.github.io/stylus/), [less](http://lesscss.org/), and [coffeescript](http://coffeescript.org/). Zero 
-configuration is required.
+```
+sudo npm install -g harp
+```
 
-## Table of Contents
+### What is Harp?
 
-- [Features](#features)
-- [Installation](#installation)
-- [Quick Start](#quickstart)
-- [The Rules (how it works)](#rules)
-  - [Rule 1 - Convention over configuration](#rules-1)
-  - [Rule 2 - Public directory is public](#rules-2)
-  - [Rule 3 - Ignore those which start with underscore](#rules-3)
-  - [Rule 4 - Dead simple asset pipeline](#rules-4)
-  - [Rule 5 - Flexible metadata](#rules-5)
-- [Docs](#docs)
-  - [CLI Usage](#cli-usage)
-  - [Lib Usage](#lib-usage)
-- [Contributing](#contributing)
-- [License](#license)
+Harp is a static web server that also serves Jade, Markdown, EJS, Less, Stylus, and CoffeeScript **as** HTML, CSS, and JavaScript without any configuration. It supports the beloved layout/partial paradigm and it has flexible metadata and global objects for traversing the file system and injecting custom data into templates. Optionally, Harp can also compile your project down to static assets for hosting behind any valid HTTP server.
 
-<a name="features"/>
+### Why?
+
+Pre-compilers are becoming extremely powerful and shipping front-ends as static assets has many upsides. It's simple, it's easy to maintain, it's low risk, easy to scale, and requires low cognitive overhead. I wanted a lightweight web server that was powerful enough for me to abandon web frameworks for dead simple front-end publishing.
+
 ### Features
-  - **zero configuration** - just start building your app.
-  - **asset pipeline** - built-in asset pipeline for seamlessly serving of [jade](http://jade-lang.com/), [markdown](http://daringfireball.net/projects/markdown/), [stylus](http://learnboost.github.io/stylus/), [less](http://lesscss.org/), and [coffeescript](http://coffeescript.org/) files.
-  - **layouts and partials** - the beloved layout/partial templating paradigm you know and love.
-  - **global variables** - specify global variables to be available in all your templates.
-  - **selected state** - a `current` object is available in all your templates for determining the current page.
-  - **traverse filesystem** - iterate over your filesystem to easily generate things like an html5 cache manifest file.
-  - **asset ordering** - easy to list the order your assets are referenced.
-  - **server** - harp ships with a built-in server (with LRU caching in production mode).
 
-Maintained by [@sintaxi](http://twitter.com/sintaxi). Made for the [@HarpPlatform](http://twitter.com/HarpPlatform).
+- easy installation, easy to use
+- fast and lightweight
+- robust (clean urls, intelegent path redirects)
+- built in pre-processing
+- first-class layout and partial support
+- built in LRU caching in production mode
+- can export assets to HTML/CSS/JS
+- does not require a build steps or grunt task
+- fun to use
 
-<a name="installation"/>
+### Supported Pre-Processors
+
+- [Jade](http://jade-lang.com/)
+- [Markdown](http://daringfireball.net/projects/markdown/)
+- [EJS](http://embeddedjs.com/)
+- [Stylus](http://learnboost.github.io/stylus/)
+- [LESS](http://lesscss.org/)
+- [CoffeeScript](http://coffeescript.org/)
+
+### Resources
+
+- [Server Docs](http://harpjs.com/docs/)
+- [Source Code](https://github.com/sintaxi/harp)
+- [Platform Docs](https://harp.io)
+
+Authored and maintained by [@sintaxi](http://twitter.com/sintaxi). Made for the [@HarpPlatform](http://twitter.com/HarpPlatform).
+
+---
+
 ### Installation
 
     npm install -g harp
 
-<a name="quickstart"/>
 ### Quick Start
 
 Creating a new harp application is a breeze...
 
-    harp init myproj; cd myproj
-    harp server
-  
-Your Harp application is now running at http://localhost:9966
-    
-<a name="rules"/>
-## The Rules
+    harp init myproj
+    harp server myproj
 
-Rather than offering a complex feature set, harp has simple rules on how it works. Harp is a katana, not a swiss army knife. By understanding the rules, one will know how to effectively use harp.
+Your Harp application is now running at [](http://localhost:9000)
 
-<a name="rules-1"/>
-### 1) Convention over Configuration.
-
-Harp will function with as little as a `public/index.html` file and doesn't require any configuration to get going. To add more routes just add more files. All harp's features are based off conventions that you will discover by learning the rest of these rules. Harp is about offering a sane development framework which follows established best practices. Harp is not designed to be everything to everyone, but what it does, it does perfectly.
-
-**Design Rationale:** By using convention over configuration, harp is easier to learn, which makes you more productive. 
-
-**Anatomy of a typical harp application:**
-
-    myapp.harp.io/                    <-- root of your application (assets in the root not served)
-      |- harp.json                    <-- configuration, globals goes here.
-      +- public/                      <-- your application assets belong in the public dir
-          |- _layout.jade             <-- optional layout file
-          |- index.jade               <-- must have an index.html or index.jade file
-          |- _shared/                 <-- arbitrary directory for shared partials
-          |   +- nav.jade             <-- a partial for navigation
-          +- articles/                <-- pages in here will have "/articles/" in URL (old school style)
-              |- _data.json           <-- articles metadata goes here
-              +- hello-world.jade     <-- must have an index.html or index.jade file
-
-<a name="rules-2"/>
-### 2) Public Directory is public.
-
-Your `public` directory is required to have a functioning harp application. It defines what will be served publicly and what URLs your application exposes. Public assets belong in the `public` directory and assets outside of the `public` directory will not be served.
-
-    myapp.harp.io/
-      |- README.md                    <--- won't be served
-      |- secrets.txt                  <--- won't be served
-      +- public/                      <--- required public directory
-          +- index.html               <--- will be served
-
-<a name="rules-3"/>
-### 3) Ignore those which start with underscore.
-
-Any files or directories that begin with underscore will be ignored by the server. This is the recommended naming convention for `layout` and `partial` files. Harp will honour this rule for both files and directories.
-
-**Design Rationale:** By having a simple convention. It is easy to specify and identify which assets will not be served to the end user.
-
-**Example:**
-
-    myapp.harp.io/
-      +- public/
-          |- index.html               <--- will be served
-          |- _some-partial.jade       <--- won't be served
-          +- _shared-partials/        <--- won't be served
-              +- nav.jade
-
-<a name="rules-4"/>
-### 4) Dead simple asset pipeline.
-
-Both `jade` and `less` are built into harp. Just add an extension of `.jade` or `.less` to your file and harp's asset pipeline will do the rest.
-
-Harp knows how to handle jade and less files as html and css respectively. Just add the file, and reference its counterpart.
-    
-    myfile.jade             ->        myfile.html
-    myfile.less             ->        myfile.css
-
-If you like, you may specify which mime type the file will be served with by prefixing the extension with the desired extension.
-
-    myfile.jade             ->        myfile.html
-    myfile.xml.jade         ->        myfile.xml
-
-...but this is optional as every extension has a default output extension. The following is the same as above...
-
-    myfile.less             ->        myfile.css
-    myfile.css.less         ->        myfile.css
-
-<a name="rules-5"/>
-### 5) Flexible metadata
-
-Your files named `_data.json` are special and make data available to templates.
-
-    myapp.harp.io/
-      +- public/
-          |- index.jade
-          +- articles/
-              |- _data.json           <-- articles metadata goes here
-              |- hello-world.jade     <-- hello world article
-              +- hello-brazil.jade    <-- hello brazil article
-              
-Your `_data.json` file may look contain the following...
-
-    {                                                       <-- avaliable to all templates as globals.public.articles.data
-      "hello-world": {                                      <-- because this matches the filename, these variables will be
-        "title": "Hello World. My very first Article.",         made available in the hello-world.jade template when being
-        "date": "Feb 28, 2013"                                  served. This object is also available in all the templates
-      },                                                        as globals.public.articles.data.hello-world.
-      "hello-brazil": {
-        "title": "Hello Brazil. I like Brazil too.",
-        "date": "March 4, 2013"
-      }
-    }
-
-In our templates we may iterate over the articles with the following in your jade file...
-
-    for article, slug in globals.public.articles.data
-      a(href="/articles/#{ slug }")
-        h2= article.title
-
-<a name="documentation"/>
 ## Documentation
 
 Harp can be used as a library or as a command line utility.
 
-<a name="cli-usage"/>
 ### CLI Usage
 
     Usage: harp [command] [options]
 
     Commands:
 
-      init [path]                 initalize new harp application in current directory
+      init [path]                 initalize new harp application (defaults to current directory)
       server [path] [options]     start harp server
       compile [path] [options]    compile project to static assets
       multihost [path] [options]  start harp server to host directory of harp apps
@@ -194,24 +92,41 @@ Compile an application from the root of your application by running...
 
 You may optionally pass in a path to where you want the compiled assets to go...
 
-    harp compile --output /path/to/phonegap/project/www
+    harp compile --output /path/to/cordova/project/www
 
-<a name="lib-usage"/>
 ### Lib Usage
 
 You may also use harp as a node library for compiling or running as a server.
 
-    var harp = require("harp")
+```js
+var harp = require("harp")
+```
 
-serve up harp application
+Serve up a harp application
 
-    harp.server(projectPath [,args] [,callback])
+```js
+harp.server(projectPath [,args] [,callback])
+```
 
-compile harp application
+**Or** compile harp application
 
-    harp.compile(projectPath [,outputPath] [, callback])
-    
-<a name="contributing"/>
+```js
+harp.compile(projectPath [,outputPath] [, callback])
+```
+
+**Or** use as Connect/ExpressJS middleware
+
+```js
+var express = require("express");
+var harp = require("harp");
+var app = express();
+
+app.configure(function(){
+    app.use(express.static(__dirname + "/public"));
+    app.use(harp.pipeline(__dirname + "/public"));
+});
+```
+
 ## Contributing
 
 ### Bug Fixes
@@ -231,7 +146,6 @@ Please keep your branch up to date by rebasing upstream changes from master.
 
 If you wish to add new functionality to harp, please provide [@sintaxi](mailto:brock@sintaxi.com) a harp application that demonstrates deficiency in current design or desired additional behaviour. You may also submit a pull request with the steps above.
 
-<a name="license"/>
 ## License
 
 Copyright 2012 Chloi Inc. All rights reserved.
