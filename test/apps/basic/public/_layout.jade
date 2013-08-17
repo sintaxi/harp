@@ -2,7 +2,7 @@
 html
   head
     link(rel="stylesheet", href="/css/main.css")
-    link(rel="alternate", type="application/atom+xml", title="#{ globals.brand }", href="#{ globals.uri }/feed.atom")
+    link(rel="alternate", type="application/atom+xml", title="#{ brand }", href="#{ uri }/feed.atom")
     script
       var showDebug = function(){
         document.getElementById('debug').style.display = 'block';
@@ -16,4 +16,4 @@ html
       a(href="#", onclick="showDebug()") open debug panel
       .well#debug(style="display:none;")
         != partial("shared/_debug")
-      
+

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 feed(xmlns='http://www.w3.org/2005/Atom')
-  title= globals.brand
-  link(href="#{ globals.uri }/articles.atom", rel="self", type="application/atom+xml")
-  link(href="#{ globals.uri }", rel="alternate", type="text/html")
+  title= brand
+  link(href="#{ uri }/articles.atom", rel="self", type="application/atom+xml")
+  link(href="#{ uri }", rel="alternate", type="text/html")
   author
-    name= globals.name
-    email= globals.email
+    name= name
+    email= email
     id= globals.uri + "/"
-  each article, slug in globals.public.articles.data
+  each article, slug in public.articles.data
     entry
       title= article.title
-      id= globals.uri + "/articles/" + slug
+      id= uri + "/articles/" + slug
       updated= article.date
-      link(href="#{ globals.uri }/articles/#{ slug }", rel="alternate", type="text/html")
+      link(href="#{ uri }/articles/#{ slug }", rel="alternate", type="text/html")
