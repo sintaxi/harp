@@ -1,10 +1,6 @@
 # Harp
 
-> A mightly little web server with built in pre-processing.
-
-```
-sudo npm install -g harp
-```
+> zero-configuration web server with built in pre-processing
 
 ### What is Harp?
 
@@ -28,18 +24,18 @@ Pre-compilers are becoming extremely powerful and shipping front-ends as static 
 
 ### Supported Pre-Processors
 
-- [Jade](http://jade-lang.com/)
-- [Markdown](http://daringfireball.net/projects/markdown/)
-- [EJS](http://embeddedjs.com/)
-- [Stylus](http://learnboost.github.io/stylus/)
-- [LESS](http://lesscss.org/)
-- [CoffeeScript](http://coffeescript.org/)
+|                 | Language Superset             | Whitespace Sensitive  
+| --------------- | ----------------------------- | --------------------------------------------------------------------------------------
+| **HTML**        | [EJS](http://embeddedjs.com/) | [Jade](http://jade-lang.com/), [Markdown](http://daringfireball.net/projects/markdown/)
+| **CSS**         | [LESS](http://lesscss.org/)   | [Stylus](http://learnboost.github.io/stylus/)
+| **JavaScript**  | (TBD)                         | [CoffeeScript](http://coffeescript.org/)
 
 ### Resources
 
-- [Server Docs](http://harpjs.com/docs/)
-- [Source Code](https://github.com/sintaxi/harp)
-- [Platform Docs](https://harp.io)
+- **Server Documentation** - [harpjs.com/docs/](http://harpjs.com/docs/)
+- **Platform Documentation** - [harp.io/docs/](https://harp.io/docs/)
+- **Source Code** - [github.com/sintaxi/harp](https://github.com/sintaxi/harp)
+
 
 Authored and maintained by [@sintaxi](http://twitter.com/sintaxi). Made for the [@HarpPlatform](http://twitter.com/HarpPlatform).
 
@@ -47,7 +43,7 @@ Authored and maintained by [@sintaxi](http://twitter.com/sintaxi). Made for the 
 
 ### Installation
 
-    npm install -g harp
+    sudo npm install -g harp
 
 ### Quick Start
 
@@ -56,7 +52,9 @@ Creating a new harp application is a breeze...
     harp init myproj
     harp server myproj
 
-Your Harp application is now running at [](http://localhost:9000)
+Your Harp application is now running at [http://localhost:9000]()
+
+---
 
 ## Documentation
 
@@ -98,19 +96,17 @@ You may optionally pass in a path to where you want the compiled assets to go...
 
 You may also use harp as a node library for compiling or running as a server.
 
+Serve up a harp application...
+
 ```js
 var harp = require("harp")
-```
-
-Serve up a harp application
-
-```js
 harp.server(projectPath [,args] [,callback])
 ```
 
 **Or** compile harp application
 
 ```js
+var harp = require("harp")
 harp.compile(projectPath [,outputPath] [, callback])
 ```
 
@@ -122,8 +118,8 @@ var harp = require("harp");
 var app = express();
 
 app.configure(function(){
-    app.use(express.static(__dirname + "/public"));
-    app.use(harp.pipeline(__dirname + "/public"));
+  app.use(express.static(__dirname + "/public"));
+  app.use(harp.pipeline(__dirname + "/public"));
 });
 ```
 
