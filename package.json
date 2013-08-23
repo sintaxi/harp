@@ -11,7 +11,8 @@
     { "name": "Tommy-Carlos Williams", "email": "tommy@devgeeks.org" },
     { "name": "Darryl Pogue", "email": "darryl@dpogue.ca" },
     { "name": "Boris Mann", "email": "boris@bmannconsulting.com" },
-    { "name": "Kenneth Ormandy", "email": "kenneth@chloi.io" }
+    { "name": "Kenneth Ormandy", "email": "kenneth@chloi.io" },
+    { "name": "Keith Yao", "email": "i@yaofur.com" }
   ],
   "homepage": "http://harpjs.com",
   "bugs": "http://github.com/sintaxi/harp/issues",
