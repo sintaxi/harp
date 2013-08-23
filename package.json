@@ -4,20 +4,47 @@
   "description": "Production ready web server with built in pre-processing",
   "author": "Brock Whitten <brock@chloi.io>",
   "contributors": [
-    { "name": "Brock Whitten", "email": "brock@chloi.io" },
-    { "name": "Rob Ellis", "email": "rob@chloi.io" },
-    { "name": "Jorge Pedret", "email": "jorge@chloi.io" },
-    { "name": "Michael Brooks", "email": "michael@michaelbrooks.ca" },
-    { "name": "Tommy-Carlos Williams", "email": "tommy@devgeeks.org" },
-    { "name": "Darryl Pogue", "email": "darryl@dpogue.ca" },
-    { "name": "Boris Mann", "email": "boris@bmannconsulting.com" },
-    { "name": "Kenneth Ormandy", "email": "kenneth@chloi.io" }
+    {
+      "name": "Brock Whitten",
+      "email": "brock@chloi.io"
+    },
+    {
+      "name": "Rob Ellis",
+      "email": "rob@chloi.io"
+    },
+    {
+      "name": "Jorge Pedret",
+      "email": "jorge@chloi.io"
+    },
+    {
+      "name": "Michael Brooks",
+      "email": "michael@michaelbrooks.ca"
+    },
+    {
+      "name": "Tommy-Carlos Williams",
+      "email": "tommy@devgeeks.org"
+    },
+    {
+      "name": "Darryl Pogue",
+      "email": "darryl@dpogue.ca"
+    },
+    {
+      "name": "Boris Mann",
+      "email": "boris@bmannconsulting.com"
+    },
+    {
+      "name": "Kenneth Ormandy",
+      "email": "kenneth@chloi.io"
+    }
   ],
   "homepage": "http://harpjs.com",
   "bugs": "http://github.com/sintaxi/harp/issues",
   "main": "./lib/index.js",
-  "repository" : { "type" : "git", "url" : "https://github.com/sintaxi/harp.git" },
-  "dependencies":{
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sintaxi/harp.git"
+  },
+  "dependencies": {
     "terraform": "0.5.0",
     "commander": "1.1.1",
     "connect": "2.7.0",
@@ -26,7 +53,9 @@
     "mkdirp": "0.3.4",
     "async": "0.2.9",
     "less": "1.3.1",
-    "mime": "1.2.9"
+    "mime": "1.2.9",
+    "underscore": "~1.5.1",
+    "watch": "~0.8.0"
   },
   "devDependencies": {
     "mocha": "1.8.1",
@@ -39,7 +68,9 @@
   "license": "MIT",
   "preferGlobal": true,
   "readmeFilename": "README.md",
-  "bin": { "harp": "./bin/harp" },
+  "bin": {
+    "harp": "./bin/harp"
+  },
   "engines": {
     "node": ">=0.8"
   }
