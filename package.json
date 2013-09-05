@@ -19,7 +19,7 @@
   "main": "./lib/index.js",
   "repository" : { "type" : "git", "url" : "https://github.com/sintaxi/harp.git" },
   "dependencies":{
-    "terraform": "0.5.0",
+    "terraform": "0.5.3",
     "commander": "1.1.1",
     "connect": "2.7.0",
     "fs-extra": "0.3.2",
