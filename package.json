@@ -24,7 +24,6 @@
     "connect": "2.9.0",
     "fs-extra": "0.6.4",
     "async": "0.2.9",
-    "less": "1.4.2",
     "mime": "1.2.11"
   },
   "devDependencies": {
