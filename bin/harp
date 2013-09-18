@@ -2,10 +2,10 @@
 
 var nodePath  = require('path')
 var program   = require('commander')
-var pkg       = require('../package.json')
-var harp      = require('../')
 var fse       = require("fs-extra")
+var pkg       = require('../package.json')
 var helpers   = require("../lib/helpers")
+var harp      = require('../')
 
 var output = function(msg){
   var v = pkg.version
