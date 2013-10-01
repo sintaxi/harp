@@ -94,6 +94,27 @@ describe("errors", function(){
     })
   })
 
+  describe("err-missing-public", function(){
+    var projectPath = path.join(__dirname, "apps/err-missing-404")
+    var outputPath  = path.join(__dirname, "out/err-missing-404")
+    var port        = 8114
+
+    before(function(done){
+      harp.server(projectPath, { port: port }, function(){
+        done()
+      })
+    })
+
+    it("should return proper mime type on 404 page", function(done){
+      var agent = superagent.agent()
+      agent.get('http://localhost:'+ port +'/some/missing/path.css').end(function(err, rsp){
+        rsp.should.have.status(404)
+        rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+        done()
+      })
+    })
+  })
+
   after(function(done){
     exec("rm -rf " + path.join(__dirname, "out"), function(){
       done()
