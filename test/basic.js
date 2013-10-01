@@ -95,6 +95,14 @@ describe("basic", function(){
     })
   })
 
+  it("should not return file starting with underscore", function(done){
+    var agent = superagent.agent()
+    agent.get('http://localhost:8100/shared/_nav.jade').end(function(err, rsp){
+      rsp.status.should.eql(404)
+      done()
+    })
+  })
+
   after(function(done){
     exec("rm -rf " + outputPath, function(){
       done()
