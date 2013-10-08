@@ -6,8 +6,8 @@ var harp        = require('../')
 
 
 describe("headers", function(){
-  var projectPath = path.join(__dirname, "apps/err-invalid-source-files")
-  var port        = 8801
+  var projectPath = path.join(__dirname, "apps/headers")
+  var port        = 8901
 
   before(function(done){
     harp.server(projectPath, { port: port }, done)
