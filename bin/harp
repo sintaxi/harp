@@ -90,7 +90,7 @@ program
     var projectPath = nodePath.resolve(process.cwd(), path || "")
     var port        = program.port || 9000
     harp.server(projectPath, { port: port }, function(){
-      output("Your server is listening at http://localhost:" + port + "...")
+      output("Your server is listening at http://localhost:" + port + "/")
     })
   })
 
