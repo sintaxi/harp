@@ -13,9 +13,20 @@ describe("headers", function(){
     harp.server(projectPath, { port: port }, done)
   })
 
-  it("should return correct mime type for css files", function(done){
+  it("should be correct invalid jade file", function(done){
     superagent.agent().get("http://localhost:" + port + "/invalid-jade.html").end(function(err, rsp){
       rsp.should.have.status(500)
+      rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  it("should be correct invalid less file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/invalid-less.css").end(function(err, rsp){
+      rsp.should.have.status(500)
+      rsp.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
       done()
     })
   })
