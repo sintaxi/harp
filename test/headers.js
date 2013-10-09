@@ -117,6 +117,62 @@ describe("headers", function(){
     })
   })
 
+  // direct
+
+  it("should be correct with a valid Jade file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-jade.jade").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  it("should be correct with a valid EJS file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-ejs.ejs").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  it("should be correct with a valid Markdown file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-markdown.md").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  it("should be correct with a valid CoffeeScript file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-coffee.coffee").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "application/javascript")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  it("should be correct with a valid LESS file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-less.less").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  it("should be correct with a valid Stylus file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-styl.styl").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
   // missing pages
 
   it("should be correct when missing css file", function(done){
