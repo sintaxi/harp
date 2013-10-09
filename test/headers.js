@@ -50,10 +50,38 @@ describe("headers", function(){
   })
 
   // TODO: This should change to javascript error file.
-  //
   it("should be correct with an invalid CoffeeScript file", function(done){
     superagent.agent().get("http://localhost:" + port + "/invalid-coffee.js").end(function(err, rsp){
       rsp.should.have.status(500)
+      rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  // 404 pages
+
+  it("should be correct when missing css file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/missing.css").end(function(err, rsp){
+      rsp.should.have.status(404)
+      rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  it("should be correct when missing html file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/missing.html").end(function(err, rsp){
+      rsp.should.have.status(404)
+      rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  it("should be correct when missing js file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/missing.js").end(function(err, rsp){
+      rsp.should.have.status(404)
       rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
       rsp.headers.should.have.property("content-length")
       done()
