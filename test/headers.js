@@ -119,55 +119,55 @@ describe("headers", function(){
 
   // direct
 
-  it("should be correct with a valid Jade file", function(done){
+  it("should be correct when Jade file requested", function(done){
     superagent.agent().get("http://localhost:" + port + "/valid-jade.jade").end(function(err, rsp){
-      rsp.should.have.status(200)
+      rsp.should.have.status(404)
       rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
       rsp.headers.should.have.property("content-length")
       done()
     })
   })
 
-  it("should be correct with a valid EJS file", function(done){
+  it("should be correct when EJS file requested", function(done){
     superagent.agent().get("http://localhost:" + port + "/valid-ejs.ejs").end(function(err, rsp){
-      rsp.should.have.status(200)
+      rsp.should.have.status(404)
       rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
       rsp.headers.should.have.property("content-length")
       done()
     })
   })
 
-  it("should be correct with a valid Markdown file", function(done){
+  it("should be correct when Markdown file requested", function(done){
     superagent.agent().get("http://localhost:" + port + "/valid-markdown.md").end(function(err, rsp){
-      rsp.should.have.status(200)
+      rsp.should.have.status(404)
       rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
       rsp.headers.should.have.property("content-length")
       done()
     })
   })
 
-  it("should be correct with a valid CoffeeScript file", function(done){
+  it("should be correct when CoffeeScript file requested", function(done){
     superagent.agent().get("http://localhost:" + port + "/valid-coffee.coffee").end(function(err, rsp){
-      rsp.should.have.status(200)
-      rsp.headers.should.have.property("content-type", "application/javascript")
+      rsp.should.have.status(404)
+      rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
       rsp.headers.should.have.property("content-length")
       done()
     })
   })
 
-  it("should be correct with a valid LESS file", function(done){
+  it("should be correct when LESS file requested", function(done){
     superagent.agent().get("http://localhost:" + port + "/valid-less.less").end(function(err, rsp){
-      rsp.should.have.status(200)
-      rsp.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+      rsp.should.have.status(404)
+      rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
       rsp.headers.should.have.property("content-length")
       done()
     })
   })
 
-  it("should be correct with a valid Stylus file", function(done){
+  it("should be correct when Stylus file requested", function(done){
     superagent.agent().get("http://localhost:" + port + "/valid-styl.styl").end(function(err, rsp){
-      rsp.should.have.status(200)
-      rsp.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+      rsp.should.have.status(404)
+      rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
       rsp.headers.should.have.property("content-length")
       done()
     })
