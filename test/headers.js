@@ -51,6 +51,24 @@ describe("headers", function(){
     })
   })
 
+  it("should be correct with a valid LESS file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-less.css").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  it("should be correct with a valid Stylus file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-styl.css").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
   // invalid
 
   it("should be correct with an invalid EJS file", function(done){
