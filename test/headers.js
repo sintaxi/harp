@@ -13,6 +13,35 @@ describe("headers", function(){
     harp.server(projectPath, { port: port }, done)
   })
 
+  // static
+
+  it("should be correct with a valid CSS file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-css.css").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  it("should be correct with a valid HTML file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-html.html").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  it("should be correct with a valid JS file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-js.js").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "application/javascript")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
   // valid
 
   it("should be correct with a valid Jade file", function(done){
