@@ -15,7 +15,7 @@ describe("headers", function(){
 
   // valid
 
-  it("should be correct with a valid jade file", function(done){
+  it("should be correct with a valid Jade file", function(done){
     superagent.agent().get("http://localhost:" + port + "/valid-jade.html").end(function(err, rsp){
       rsp.should.have.status(200)
       rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
@@ -24,9 +24,36 @@ describe("headers", function(){
     })
   })
 
+  it("should be correct with a valid EJS file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-ejs.html").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  it("should be correct with a valid Markdown file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-markdown.html").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  it("should be correct with a valid CoffeeScript file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-coffee.js").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "application/javascript")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
   // invalid
 
-  it("should be correct with an invalid ejs file", function(done){
+  it("should be correct with an invalid EJS file", function(done){
     superagent.agent().get("http://localhost:" + port + "/invalid-ejs.html").end(function(err, rsp){
       rsp.should.have.status(500)
       rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
@@ -35,7 +62,7 @@ describe("headers", function(){
     })
   })
 
-  it("should be correct with an invalid jade file", function(done){
+  it("should be correct with an invalid Jade file", function(done){
     superagent.agent().get("http://localhost:" + port + "/invalid-jade.html").end(function(err, rsp){
       rsp.should.have.status(500)
       rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
@@ -44,7 +71,7 @@ describe("headers", function(){
     })
   })
 
-  it("should be correct with an invalid less file", function(done){
+  it("should be correct with an invalid LESS file", function(done){
     superagent.agent().get("http://localhost:" + port + "/invalid-less.css").end(function(err, rsp){
       rsp.should.have.status(500)
       rsp.headers.should.have.property("content-type", "text/css; charset=UTF-8")
@@ -53,7 +80,7 @@ describe("headers", function(){
     })
   })
 
-  it("should be correct with an invalid stylus file", function(done){
+  it("should be correct with an invalid Stylus file", function(done){
     superagent.agent().get("http://localhost:" + port + "/invalid-styl.css").end(function(err, rsp){
       rsp.should.have.status(500)
       rsp.headers.should.have.property("content-type", "text/css; charset=UTF-8")
