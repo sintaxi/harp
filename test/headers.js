@@ -13,6 +13,19 @@ describe("headers", function(){
     harp.server(projectPath, { port: port }, done)
   })
 
+  // valid
+
+  it("should be correct with a valid jade file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-jade.html").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  // invalid
+
   it("should be correct with an invalid ejs file", function(done){
     superagent.agent().get("http://localhost:" + port + "/invalid-ejs.html").end(function(err, rsp){
       rsp.should.have.status(500)
@@ -59,7 +72,7 @@ describe("headers", function(){
     })
   })
 
-  // 404 pages
+  // missing pages
 
   it("should be correct when missing css file", function(done){
     superagent.agent().get("http://localhost:" + port + "/missing.css").end(function(err, rsp){
