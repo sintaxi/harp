@@ -32,7 +32,7 @@
     "superagent": "0.12.4"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "mocha --reporter spec"
   },
   "license": "MIT",
   "preferGlobal": true,
