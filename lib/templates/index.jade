@@ -1,46 +1,14 @@
-header.header.header--error(role="banner")
-	.container
-		.row
-			a.header-logo.col-2(href="http://harpjs.com", title="Harp")
-				.logo
-					!= partial("shared/wordmark")
-				sup.logo-version #{ pkg.version }
-			nav.nav--right.col-10
-				ul.nav-list
-					//- li.nav-list-item
-					//- 	a.nav-list-item-link(href="https://github.com/sintaxi/harp", title="Harp, an open source Asset Pipeline Framework")
-					//- 		!= "GitHub"
-					li.nav-list-item
-						a.nav-list-item-link(href="http://harpjs.com/docs/", title="How to build a Harp app.")
-							!= "Documentation"
-					//- li.nav-list-item
-					//- 	a.nav-list-item-link(href="https://harp.io", title="The platform for Harp apps")
-					//- 		!= "Platform"
-		.row
-			.header-title.col-lg-8
-				h1 Welcome to Harp
-				p Your local Development Server is Running!
-.container
-	.col-lg-12.projects
-		if projects == ""
-			p You have no apps yet, but you are ready to create one!
-			p Inside your apps directory, run <code>harp init myproject</code> and then <code>harp server myproject</code>.
-		else
-			header.header
-				h2 Your apps
-				ol.project-list
-					for project in projects
-						li
-							a.project-list-item(href="#{ project.localUrl }")
-								.project
-									h2.project-name= project.name
-									code.project-path= project.localPath
-
-						//- ul.info
-						//- 	li Development:&nbsp;
-						//- 	  a(href="#{ project.localUrl }")= Development project.localUrl
-						//- 	li Production:&nbsp;
-						//- 	  a(href="#{ project.remoteUrl }")= project.remoteUrl
-						//- 	li Manage:&nbsp;
-						//- 	  a(href="#{ project.portalUrl }")= project.portalUrl
-						//- 	li Path:&nbsp;
+header
+	h1 Welcome to Harp
+	h3 Your local Development Server is Running!
+if projects == ""
+	p You have no apps yet, but you are ready to create one!
+	p Inside your apps directory, run <code>harp init myproject</code> and then <code>harp server myproject</code>.
+else
+	h2 Your apps
+	ul.projects
+		for project in projects
+			li
+				a(href="#{ project.localUrl }")
+					h2.project-name= project.name
+					code.project-path= project.localPath
