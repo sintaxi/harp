@@ -28,8 +28,8 @@ var output = function(msg){
   console.log("           /:::/    /               /:::/    /           |::| l::/____/                l::/____/    ")
   console.log("          /:::/    /               /:::/    /            |::|  ~|                       ~~          ")
   console.log("         /:::/    /               /:::/    /             |::|   |                                   ")
-  console.log("        /:::/    /               /:::/    /              l::|   |       Harp v"+v+"                 ")
-  console.log("        l::/    /                l::/    /                l:|   |       Asset Pipeline Framework    ")
+  console.log("        /:::/    /               /:::/    /              l::|   |       Harp v"+ v +"               ")
+  console.log("        l::/    /                l::/    /                l:|   |       Static Web Server           ")
   console.log("         l/____/                  l/____/                  l|___|       By Chloi Inc. 2012-2013     ")
   if(msg){
     console.log('')
