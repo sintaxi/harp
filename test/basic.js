@@ -81,6 +81,19 @@ describe("basic", function(){
     })
   })
 
+  it("should return CSS file", function(done){
+    fs.readFile(path.join(outputPath, "css", "main.css"), function(err, contents){
+      contents.toString().should.include("background")
+      var agent = superagent.agent()
+      agent.get('http://localhost:8100/css/main.css').end(function(err, rsp){
+        rsp.status.should.eql(200)
+        rsp.text.should.include("background")
+        rsp.text.should.eql(contents.toString())
+        done()
+      })
+    })
+  })
+
   it("should return proper mime type on 404 page", function(done){
     var agent = superagent.agent()
     agent.get('http://localhost:8100/some/missing/path.css').end(function(err, rsp){
