@@ -14,7 +14,7 @@ Pre-compilers are becoming extremely powerful and shipping front-ends as static 
 
 - easy installation, easy to use
 - fast and lightweight
-- robust (clean urls, intelegent path redirects)
+- robust (clean urls, intelligent path redirects)
 - built in pre-processing
 - first-class layout and partial support
 - built in LRU caching in production mode
