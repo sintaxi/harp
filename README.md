@@ -119,7 +119,7 @@ var app = express();
 
 app.configure(function(){
   app.use(express.static(__dirname + "/public"));
-  app.use(harp.pipeline(__dirname + "/public"));
+  app.use(harp.mount(__dirname + "/public"));
 });
 ```
 
