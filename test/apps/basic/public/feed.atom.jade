@@ -7,7 +7,7 @@ feed(xmlns='http://www.w3.org/2005/Atom')
     name= name
     email= email
     id= uri + "/"
-  each article, slug in public.articles.data
+  each article, slug in public.articles._data
     entry
       title= article.title
       id= uri + "/articles/" + slug
