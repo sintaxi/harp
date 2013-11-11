@@ -120,7 +120,7 @@ describe("headers", function(){
 
   it("should be correct with an invalid LESS file", function(done){
     superagent.agent().get("http://localhost:" + port + "/invalid-less.css").end(function(err, rsp){
-      rsp.should.have.status(500)
+      rsp.should.have.status(200)
       rsp.headers.should.have.property("content-type", "text/css; charset=UTF-8")
       rsp.headers.should.have.property("content-length")
       done()
@@ -129,7 +129,7 @@ describe("headers", function(){
 
   it("should be correct with an invalid Stylus file", function(done){
     superagent.agent().get("http://localhost:" + port + "/invalid-styl.css").end(function(err, rsp){
-      rsp.should.have.status(500)
+      rsp.should.have.status(200)
       rsp.headers.should.have.property("content-type", "text/css; charset=UTF-8")
       rsp.headers.should.have.property("content-length")
       done()
