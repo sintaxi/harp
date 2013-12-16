@@ -3,8 +3,7 @@ html(lang="en")
 	head
 		meta(charset="utf-8")
 		meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
-		//- title #{ pkg.name } #{ pkg.version }
-		title Harp
+		title Harp - Multihost
 		meta(name="handheldfriendly", content="true")
 		meta(name="mobileoptimized", content="320")
 		meta(name="viewport", content="width=device-width, initial-scale=1.0")
@@ -126,5 +125,5 @@ html(lang="en")
 	body
 		!= yield
 		footer
-			p Harp <span class="version">v0.9.4</span> &nbsp;
+			p Harp <span class="version">#{ pkg.version }</span> &nbsp;
 				a(href="http://harpjs.com/docs/", target="_blank") Documentation
