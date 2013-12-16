@@ -126,6 +126,15 @@ describe("basic", function(){
     })
   })
 
+  it("should render HTML page with spaces in the file name", function(done){
+    var agent = superagent.agent()
+    agent.get('http://localhost:8100/articles/with%20spaces').end(function(err, rsp){
+      rsp.status.should.eql(200)
+      rsp.text.should.include("foo article")
+      done()
+    })
+  })
+
   after(function(done){
     exec("rm -rf " + outputPath, function(){
       done()
