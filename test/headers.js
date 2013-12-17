@@ -98,6 +98,15 @@ describe("headers", function(){
     })
   })
 
+  it("should be correct with a valid SCSS file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-scss.css").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
   // invalid
 
   it("should be correct with an invalid EJS file", function(done){
@@ -129,6 +138,15 @@ describe("headers", function(){
 
   it("should be correct with an invalid Stylus file", function(done){
     superagent.agent().get("http://localhost:" + port + "/invalid-styl.css").end(function(err, rsp){
+      rsp.should.have.status(200)
+      rsp.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  it("should be correct with an invalid SCSS file", function(done){
+    superagent.agent().get("http://localhost:" + port + "/invalid-scss.css").end(function(err, rsp){
       rsp.should.have.status(200)
       rsp.headers.should.have.property("content-type", "text/css; charset=UTF-8")
       rsp.headers.should.have.property("content-length")
@@ -195,6 +213,15 @@ describe("headers", function(){
 
   it("should be correct when Stylus file requested", function(done){
     superagent.agent().get("http://localhost:" + port + "/valid-styl.styl").end(function(err, rsp){
+      rsp.should.have.status(404)
+      rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      rsp.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  it("should be correct when SCSS file requested", function(done){
+    superagent.agent().get("http://localhost:" + port + "/valid-scss.scss").end(function(err, rsp){
       rsp.should.have.status(404)
       rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
       rsp.headers.should.have.property("content-length")
