@@ -4,7 +4,7 @@
 
 ### What is Harp?
 
-Harp is a static web server that also serves Jade, Markdown, EJS, Less, Stylus, and CoffeeScript **as** HTML, CSS, and JavaScript without any configuration. It supports the beloved layout/partial paradigm and it has flexible metadata and global objects for traversing the file system and injecting custom data into templates. Optionally, Harp can also compile your project down to static assets for hosting behind any valid HTTP server.
+Harp is a static web server that also serves Jade, Markdown, EJS, Less, Stylus, Sass, and CoffeeScript **as** HTML, CSS, and JavaScript without any configuration. It supports the beloved layout/partial paradigm and it has flexible metadata and global objects for traversing the file system and injecting custom data into templates. Optionally, Harp can also compile your project down to static assets for hosting behind any valid HTTP server.
 
 ### Why?
 
@@ -24,11 +24,11 @@ Pre-compilers are becoming extremely powerful and shipping front-ends as static 
 
 ### Supported Pre-Processors
 
-|                 | Language Superset             | Whitespace Sensitive  
-| --------------- | ----------------------------- | --------------------------------------------------------------------------------------
-| **HTML**        | [EJS](http://embeddedjs.com/) | [Jade](http://jade-lang.com/), [Markdown](http://daringfireball.net/projects/markdown/)
-| **CSS**         | [LESS](http://lesscss.org/)   | [Stylus](http://learnboost.github.io/stylus/)
-| **JavaScript**  | (TBD)                         | [CoffeeScript](http://coffeescript.org/)
+|                 | Language Superset                                                 | Whitespace Sensitive  
+| --------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------
+| **HTML**        | [EJS](http://embeddedjs.com/)                                     | [Jade](http://jade-lang.com/), [Markdown](http://daringfireball.net/projects/markdown/)
+| **CSS**         | [LESS](http://lesscss.org/), [Sass (SCSS)](http://sass-lang.com/) | [Stylus](http://learnboost.github.io/stylus/)
+| **JavaScript**  | (TBD)                                                             | [CoffeeScript](http://coffeescript.org/)
 
 ### Resources
 
