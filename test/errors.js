@@ -21,6 +21,7 @@ describe("errors", function(){
     it("should get error message for invalid harp.json", function(done){
       request('http://localhost:'+ port +'/', function (e, r, b) {
         r.statusCode.should.eql(500)
+        b.should.include(harp.pkg.version)
         harp.compile(projectPath, outputPath, function(error){
           should.exist(error)
           error.should.have.property("source")
