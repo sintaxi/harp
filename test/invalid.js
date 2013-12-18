@@ -16,6 +16,7 @@ describe("headers", function(){
   it("should return correct mime type for css files", function(done){
     request("http://localhost:" + port + "/invalid-jade.html", function(e,r,b){
       r.statusCode.should.eql(500)
+      b.should.include(harp.pkg.version)
       done()
     })
   })
