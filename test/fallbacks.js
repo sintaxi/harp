@@ -1,5 +1,5 @@
 var should      = require("should")
-var superagent  = require('superagent')
+var request     = require('request')
 var path        = require("path")
 var fs          = require("fs")
 var exec        = require("child_process").exec
@@ -21,10 +21,9 @@ describe("fallbacks", function(){
     })
 
     it("should return proper mime type on 200 page", function(done){
-      var agent = superagent.agent()
-      agent.get('http://localhost:'+ port +'/some/fallback/path').end(function(err, rsp){
-        rsp.should.have.status(200)
-        rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      request('http://localhost:'+ port +'/some/fallback/path', function(e,r,b){
+        r.statusCode.should.eql(200)
+        r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
         done()
       })
     })
@@ -32,11 +31,10 @@ describe("fallbacks", function(){
     it("should have custom 200 page", function(done){
       fs.readFile(path.join(outputPath, "200.html"), function(err, contents){
         should.not.exist(err)
-        var agent = superagent.agent()
-        agent.get('http://localhost:'+ port +'/some/missing/path').end(function(err, rsp){
-          rsp.should.have.status(200)
-          rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
-          rsp.text.should.eql(contents.toString())
+        request('http://localhost:'+ port +'/some/missing/path', function(e,r,b){
+          r.statusCode.should.eql(200)
+          r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+          b.should.eql(contents.toString())
           done()
         })
       })
@@ -58,10 +56,9 @@ describe("fallbacks", function(){
     })
 
     it("should return proper mime type on 200 page", function(done){
-      var agent = superagent.agent()
-      agent.get('http://localhost:'+ port +'/some/fallback/path').end(function(err, rsp){
-        rsp.should.have.status(200)
-        rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      request('http://localhost:'+ port +'/some/fallback/path', function(e, r, b){
+        r.statusCode.should.eql(200)
+        r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
         done()
       })
     })
@@ -69,11 +66,10 @@ describe("fallbacks", function(){
     it("should have custom 200 page", function(done){
       fs.readFile(path.join(outputPath, "200.html"), function(err, contents){
         should.not.exist(err)
-        var agent = superagent.agent()
-        agent.get('http://localhost:'+ port +'/some/missing/path').end(function(err, rsp){
-          rsp.should.have.status(200)
-          rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
-          rsp.text.should.eql(contents.toString())
+        request('http://localhost:'+ port +'/some/missing/path', function(e,r,b){
+          r.statusCode.should.eql(200)
+          r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+          b.should.eql(contents.toString())
           done()
         })
       })

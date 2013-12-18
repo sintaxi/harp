@@ -1,5 +1,5 @@
 var should      = require("should")
-var superagent  = require('superagent')
+var request     = require('request')
 var path        = require("path")
 var fs          = require("fs")
 var exec        = require("child_process").exec
@@ -19,9 +19,8 @@ describe("errors", function(){
     })
 
     it("should get error message for invalid harp.json", function(done){
-      var agent = superagent.agent()
-      agent.get('http://localhost:'+ port +'/').end(function(err, rsp){
-        rsp.should.have.status(500)
+      request('http://localhost:'+ port +'/', function (e, r, b) {
+        r.statusCode.should.eql(500)
         harp.compile(projectPath, outputPath, function(error){
           should.exist(error)
           error.should.have.property("source")
@@ -48,9 +47,9 @@ describe("errors", function(){
     })
 
     it("should get error message for invalid _data.json", function(done){
-      var agent = superagent.agent()
-      agent.get('http://localhost:'+ port +'/').end(function(err, rsp){
-        rsp.should.have.status(500)
+      request('http://localhost:'+ port +'/', function (e, r, b) {
+        r.statusCode.should.eql(500)
+        //b.should.include(harp.pkg.version)
         harp.compile(projectPath, outputPath, function(error){
           should.exist(error)
           error.should.have.property("source")
@@ -77,9 +76,8 @@ describe("errors", function(){
     })
 
     it("should get error message for invalid _data.json", function(done){
-      var agent = superagent.agent()
-      agent.get('http://localhost:'+ port +'/').end(function(err, rsp){
-        rsp.should.have.status(500)
+      request('http://localhost:'+ port +'/', function (e, r, b) {
+        r.statusCode.should.eql(500)
         harp.compile(projectPath, outputPath, function(error){
           should.exist(error)
           error.should.have.property("source")
@@ -106,10 +104,9 @@ describe("errors", function(){
     })
 
     it("should return proper mime type on 404 page", function(done){
-      var agent = superagent.agent()
-      agent.get('http://localhost:'+ port +'/some/missing/path.css').end(function(err, rsp){
-        rsp.should.have.status(404)
-        rsp.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      request('http://localhost:'+ port +'/some/missing/path.css', function (e, r, b) {
+        r.statusCode.should.eql(404)
+        r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
         done()
       })
     })

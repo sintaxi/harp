@@ -1,5 +1,5 @@
 var should      = require("should")
-var superagent  = require('superagent')
+var request     = require('request')
 var path        = require("path")
 var fs          = require("fs")
 var exec        = require("child_process").exec
@@ -28,10 +28,9 @@ describe("plain", function(){
 
     it("should serve index file", function(done){
       fs.readFile(path.join(outputPath, "index.html"), function(err, contents){
-        var agent = superagent.agent()
-        agent.get('http://localhost:8102/').end(function(err, rsp){
-          rsp.should.have.status(200)
-          rsp.text.should.eql(contents.toString())
+        request('http://localhost:8102/', function(e, r, b){
+          r.statusCode.should.eql(200)
+          b.should.eql(contents.toString())
           done()
         })
       })
@@ -39,11 +38,10 @@ describe("plain", function(){
 
     it("should serve text file", function(done){
       fs.readFile(path.join(outputPath, "hello.txt"), function(err, contents){
-        var agent = superagent.agent()
         contents.toString().should.eql("text files are wonderful")
-        agent.get('http://localhost:8102/hello.txt').end(function(err, rsp){
-          rsp.should.have.status(200)
-          rsp.text.should.eql(contents.toString())
+        request('http://localhost:8102/hello.txt', function(e, r, b){
+          r.statusCode.should.eql(200)
+          b.should.eql(contents.toString())
           done()
         })
       })
@@ -51,14 +49,12 @@ describe("plain", function(){
 
     it("should have custom 404 page that is raw HTML", function(done){
       fs.readFile(path.join(outputPath, "404.html"), function(err, contents){
-        var agent = superagent.agent()
-        agent.get('http://localhost:8102/404.html').end(function(err, rsp){
-          rsp.should.have.status(200)
-          rsp.text.should.eql(contents.toString())
-          var agent = superagent.agent()
-          agent.get('http://localhost:8102/missing/path').end(function(err, rsp){
-            rsp.should.have.status(404)
-            rsp.text.should.eql(contents.toString())
+        request('http://localhost:8102/404.html', function(e, r, b){
+          r.statusCode.should.eql(200)
+          b.should.eql(contents.toString())
+          request('http://localhost:8102/missing/path', function(e, r, b){
+            r.statusCode.should.eql(404)
+            b.should.eql(contents.toString())
             done()
           })
         })
@@ -87,10 +83,9 @@ describe("plain", function(){
 
     it("should serve index file", function(done){
       fs.readFile(path.join(outputPath, "index.html"), function(err, contents){
-        var agent = superagent.agent()
-        agent.get('http://localhost:8103/').end(function(err, rsp){
-          rsp.should.have.status(200)
-          rsp.text.should.eql(contents.toString())
+        request('http://localhost:8103/', function(e, r, b){
+          r.statusCode.should.eql(200)
+          b.should.eql(contents.toString())
           done()
         })
       })
@@ -98,11 +93,10 @@ describe("plain", function(){
 
     it("should serve text file", function(done){
       fs.readFile(path.join(outputPath, "hello.txt"), function(err, contents){
-        var agent = superagent.agent()
         contents.toString().should.eql("text files are wonderful")
-        agent.get('http://localhost:8103/hello.txt').end(function(err, rsp){
-          rsp.should.have.status(200)
-          rsp.text.should.eql(contents.toString())
+        request('http://localhost:8103/hello.txt', function(e, r, b){
+          r.statusCode.should.eql(200)
+          b.should.eql(contents.toString())
           done()
         })
       })
@@ -110,14 +104,12 @@ describe("plain", function(){
 
     it("should have custom 404 page that is raw HTML", function(done){
       fs.readFile(path.join(outputPath, "404.html"), function(err, contents){
-        var agent = superagent.agent()
-        agent.get('http://localhost:8103/404.html').end(function(err, rsp){
-          rsp.should.have.status(200)
-          rsp.text.should.eql(contents.toString())
-          var agent = superagent.agent()
-          agent.get('http://localhost:8103/missing/path').end(function(err, rsp){
-            rsp.should.have.status(404)
-            rsp.text.should.eql(contents.toString())
+        request('http://localhost:8103/404.html', function(e, r, b){
+          r.statusCode.should.eql(200)
+          b.should.eql(contents.toString())
+          request('http://localhost:8103/missing/path', function(e, r, b){
+            r.statusCode.should.eql(404)
+            b.should.eql(contents.toString())
             done()
           })
         })

@@ -1,5 +1,5 @@
 var should      = require("should")
-var superagent  = require('superagent')
+var request     = require('request')
 var path        = require('path')
 var harp        = require('../')
 
@@ -14,8 +14,8 @@ describe("headers", function(){
   })
 
   it("should return correct mime type for css files", function(done){
-    superagent.agent().get("http://localhost:" + port + "/invalid-jade.html").end(function(err, rsp){
-      rsp.should.have.status(500)
+    request("http://localhost:" + port + "/invalid-jade.html", function(e,r,b){
+      r.statusCode.should.eql(500)
       done()
     })
   })
