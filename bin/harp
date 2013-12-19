@@ -9,34 +9,15 @@ var harp      = require('../')
 
 var output = function(msg){
   var v = pkg.version
-  console.log("")
-  console.log("          _____                    _____                    _____                    _____          ")
-  console.log("         /l    l                  /l    l                  /l    l                  /l    l         ")
-  console.log("        /::l____l                /::l    l                /::l    l                /::l    l        ")
-  console.log("       /:::/    /               /::::l    l              /::::l    l              /::::l    l       ")
-  console.log("      /:::/    /               /::::::l    l            /::::::l    l            /::::::l    l      ")
-  console.log("     /:::/    /               /:::/l:::l    l          /:::/l:::l    l          /:::/l:::l    l     ")
-  console.log("    /:::/____/               /:::/__l:::l    l        /:::/__l:::l    l        /:::/__l:::l    l    ")
-  console.log("   /::::l    l              /::::l   l:::l    l      /::::l   l:::l    l      /::::l   l:::l    l   ")
-  console.log("  /::::::l    l   _____    /::::::l   l:::l    l    /::::::l   l:::l    l    /::::::l   l:::l    l  ")
-  console.log(" /:::/l:::l    l /l    l  /:::/l:::l   l:::l    l  /:::/l:::l   l:::l____l  /:::/l:::l   l:::l____l ")
-  console.log("/:::/  l:::l    /::l____l/:::/  l:::l   l:::l____l/:::/  l:::l   l:::|    |/:::/  l:::l   l:::|    |")
-  console.log("l::/    l:::l  /:::/    /l::/    l:::l  /:::/    /l::/   |::::l  /:::|____|l::/    l:::l  /:::|____|")
-  console.log(" l/____/ l:::l/:::/    /  l/____/ l:::l/:::/    /  l/____|:::::l/:::/    /  l/_____/l:::l/:::/    / ")
-  console.log("          l::::::/    /            l::::::/    /         |:::::::::/    /            l::::::/    /  ")
-  console.log("           l::::/    /              l::::/    /          |::|l::::/    /              l::::/    /   ")
-  console.log("           /:::/    /               /:::/    /           |::| l::/____/                l::/____/    ")
-  console.log("          /:::/    /               /:::/    /            |::|  ~|                       ~~          ")
-  console.log("         /:::/    /               /:::/    /             |::|   |                                   ")
-  console.log("        /:::/    /               /:::/    /              l::|   |       Harp v"+ v +"               ")
-  console.log("        l::/    /                l::/    /                l:|   |       Static Web Server           ")
-  console.log("         l/____/                  l/____/                  l|___|       By Chloi Inc. 2012-2013     ")
+  console.log("-------------")
+  console.log("Harp v"+ v)
   if(msg){
-    console.log('')
     console.log(msg)
-    console.log('')
   }
+  console.log("-------------")
 }
+
+var quitInstructions = 'Press Ctl+C to stop the server';
 
 
 program
@@ -44,13 +25,14 @@ program
 
 program
   .command('init [path]')
-  .description('initialize new harp application in current directory')
+  .usage("initializes a new Harp project in the current directory.\n  Use the init command if it’s your first time using Harp and you want to create a new project.")
+  .description('Initialize a new Harp project in current directory')
   .action(function(path, program){
     var projectPath     = nodePath.resolve(process.cwd(), path || "")
     var boilerplatePath = nodePath.resolve(__dirname, "..", "lib", "sample")
 
     var done = function(err){
-      console.log('initialized project at', projectPath)
+      console.log('Initialized project at', projectPath)
     }
 
     fse.mkdirp(projectPath, function(err){
@@ -84,20 +66,22 @@ program
 
 program
   .command('server [path]')
-  .option('-p, --port <port>', 'specify port to listen on')
-  .description('start harp server')
+  .option('-p, --port <port>', 'Specify a port to listen on')
+  .usage('starts a Harp server in current directory, or the specified directory.')
+  .description('Start a Harp server in current directory')
   .action(function(path, program){
     var projectPath = nodePath.resolve(process.cwd(), path || "")
     var port        = program.port || 9000
     harp.server(projectPath, { port: port }, function(){
-      output("Your server is listening at http://localhost:" + port + "/")
+      output("Hosting project at http://localhost:" + port + "/\n" + quitInstructions)
     })
   })
 
 program
   .command('multihost [path]')
-  .option('-p, --port <port>', 'specify port to listen on')
-  .description('start harp server to host directory of harp apps')
+  .option('-p, --port <port>', 'Specify a port to listen on')
+  .usage('starts a Harp server to host a directory of Harp projects.')
+  .description('Start a Harp server to host a directory of Harp projects')
   .action(function(path, program){
     var projectPath = nodePath.resolve(process.cwd(), path || "")
     var port        = program.port || 9000
@@ -107,14 +91,15 @@ program
       }else{
         var loc = "http://harp.nu:" + port
       }
-      output("Your server is hosting multiple projects at " + loc)
+      output("Hosting multiple projects at " + loc + "\n" + quitInstructions)
     })
   })
 
 program
   .command('compile [projectPath] [outputPath]')
-  .option('-o, --output <path>', 'specify output directory for compiled assets (relative to project path)')
-  .description('compile project to static assets')
+  .option('-o, --output <path>', 'Specify the output directory for compiled assets (relative to project path)')
+  .usage('compile your project files to static assets (HTML, JS and CSS). \n  Use this command if you want to host your application without using the Harp web server.')
+  .description('Compile project to static assets (HTML, JS and CSS)')
   .action(function(projectPath, outputPath, program){
 
     if(!program){
@@ -144,7 +129,11 @@ program
     })
   })
 
-program.command("*").action(program.help)
+program.on('--help', function(){
+  console.log("  Use 'harp <command> --help' to get more information or visit http://harpjs.com/ to learn more.");
+  console.log('');
+});
+
 program.parse(process.argv)
 
 if(program.args.length < 1){
