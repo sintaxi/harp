@@ -10,13 +10,13 @@ var colors    = require("colors")
 
 var output = function(msg){
   var v = pkg.version
-  console.log("------------".grey)
-  console.log("Harp v" + v + " - Chloi Inc. 2012-2013".grey)
+  console.log("------------")
+  console.log("Harp v" + v + " — Chloi Inc. 2012-2013")
   if(msg){
     console.log(msg)
-    console.log("Press Ctl+C to stop the server".grey)
+    console.log("Press Ctl+C to stop the server")
   }
-  console.log("------------".grey)
+  console.log("------------")
 }
 
 program
@@ -71,7 +71,7 @@ program
     var port        = program.port || 9000
     harp.server(projectPath, { port: port }, function(){
       var hostUrl = "http://localhost:" + port + "/"
-      output("Your server is listening at " + hostUrl.blue.underline)
+      output("Your server is listening at " + hostUrl.underline)
     })
   })
 
@@ -89,7 +89,7 @@ program
       }else{
         var loc = "http://harp.nu:" + port
       }
-      output("Your server is hosting multiple projects at " + loc.blue.underline)
+      output("Your server is hosting multiple projects at " + loc.underline)
     })
   })
 
