@@ -115,6 +115,50 @@ describe("errors", function(){
     })
   })
 
+  describe("err-empty-files", function(done){
+    var projectPath = path.join(__dirname, "apps/err-empty-files")
+    var outputPath  = path.join(__dirname, "out/err-empty-files")
+    var port        = 8215
+
+    before(function(done){
+      harp.server(projectPath, { port: port }, function(){
+        done()
+      })
+    })
+
+    it("should get empty Less file", function(done){
+      request('http://localhost:'+ port +'/less.css', function (e, r, b) {
+        r.statusCode.should.eql(200)
+        r.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+        done();
+      })
+    })
+
+    it("should get empty Sass file", function(done){
+      request('http://localhost:'+ port +'/sass.css', function (e, r, b) {
+        r.statusCode.should.eql(200)
+        r.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+        done();
+      })
+    })
+
+    it("should get empty Stylus file", function(done){
+      request('http://localhost:'+ port +'/stylus.css', function (e, r, b) {
+        r.statusCode.should.eql(200)
+        r.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+        done();
+      })
+    })
+
+    it("should get empty CoffeeScript file", function(done){
+      request('http://localhost:'+ port +'/coffee.js', function (e, r, b) {
+        r.statusCode.should.eql(200)
+        r.headers.should.have.property("content-type", "application/javascript")
+        done();
+      })
+    })
+  })
+
   after(function(done){
     exec("rm -rf " + path.join(__dirname, "out"), function(){
       done()
