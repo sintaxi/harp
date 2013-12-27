@@ -25,8 +25,7 @@
     "connect": "2.9.0",
     "fs-extra": "0.6.4",
     "async": "0.2.9",
-    "mime": "1.2.11",
-    "colors": "0.6.2"
+    "mime": "1.2.11"
   },
   "devDependencies": {
     "mocha": "1.8.1",

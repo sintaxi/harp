@@ -6,7 +6,6 @@ var fse       = require("fs-extra")
 var pkg       = require("../package.json")
 var helpers   = require("../lib/helpers")
 var harp      = require("../")
-var colors    = require("colors")
 
 var output = function(msg){
   var v = pkg.version
@@ -71,7 +70,7 @@ program
     var port        = program.port || 9000
     harp.server(projectPath, { port: port }, function(){
       var hostUrl = "http://localhost:" + port + "/"
-      output("Your server is listening at " + hostUrl.underline)
+      output("Your server is listening at " + hostUrl)
     })
   })
 
@@ -89,7 +88,7 @@ program
       }else{
         var loc = "http://harp.nu:" + port
       }
-      output("Your server is hosting multiple projects at " + loc.underline)
+      output("Your server is hosting multiple projects at " + loc)
     })
   })
 
