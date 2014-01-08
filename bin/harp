@@ -1,33 +1,36 @@
 #!/usr/bin/env node
 
-var nodePath  = require('path')
-var program   = require('commander')
+var nodePath  = require("path")
+var program   = require("commander")
 var fse       = require("fs-extra")
-var pkg       = require('../package.json')
+var pkg       = require("../package.json")
 var helpers   = require("../lib/helpers")
-var harp      = require('../')
+var harp      = require("../")
 
 var output = function(msg){
-  console.log("Harp v" + pkg.version)
-  console.log("Chloi Inc. 2012-2013")
+  var v = pkg.version
+  console.log("------------")
+  console.log("Harp v" + v + " — Chloi Inc. 2012-2013")
   if(msg){
-    console.log('')
     console.log(msg)
+    console.log("Press Ctl+C to stop the server")
   }
+  console.log("------------")
 }
 
 program
   .version(pkg.version)
 
 program
-  .command('init [path]')
-  .description('initialize new harp application in current directory')
+  .command("init [path]")
+  .usage("initializes a new Harp project in the current directory.\n  Use the init command if it’s your first time using Harp and you want to create a new project.")
+  .description("Initialize a new Harp project in current directory")
   .action(function(path, program){
     var projectPath     = nodePath.resolve(process.cwd(), path || "")
     var boilerplatePath = nodePath.resolve(__dirname, "..", "lib", "sample")
 
     var done = function(err){
-      console.log('initialized project at', projectPath)
+      console.log("Initialized project at", projectPath)
     }
 
     fse.mkdirp(projectPath, function(err){
@@ -53,28 +56,29 @@ program
           console.log("Sorry,", projectPath, " must be empty.")
         }
         var count = 0
-
       })
     })
-
   })
 
 program
-  .command('server [path]')
-  .option('-p, --port <port>', 'specify port to listen on')
-  .description('start harp server')
+  .command("server [path]")
+  .option("-p, --port <port>", "Specify a port to listen on")
+  .usage("starts a Harp server in current directory, or in the specified directory.")
+  .description("Start a Harp server in current directory")
   .action(function(path, program){
     var projectPath = nodePath.resolve(process.cwd(), path || "")
     var port        = program.port || 9000
     harp.server(projectPath, { port: port }, function(){
-      output("Your server is listening at http://localhost:" + port + "/")
+      var hostUrl = "http://localhost:" + port + "/"
+      output("Your server is listening at " + hostUrl)
     })
   })
 
 program
-  .command('multihost [path]')
-  .option('-p, --port <port>', 'specify port to listen on')
-  .description('start harp server to host directory of harp apps')
+  .command("multihost [path]")
+  .option("-p, --port <port>", "Specify a port to listen on")
+  .usage("starts a Harp server to host a directory of Harp projects.")
+  .description("Start a Harp server to host a directory of Harp projects")
   .action(function(path, program){
     var projectPath = nodePath.resolve(process.cwd(), path || "")
     var port        = program.port || 9000
@@ -89,9 +93,10 @@ program
   })
 
 program
-  .command('compile [projectPath] [outputPath]')
-  .option('-o, --output <path>', 'specify output directory for compiled assets (relative to project path)')
-  .description('compile project to static assets')
+  .command("compile [projectPath] [outputPath]")
+  .option("-o, --output <path>", "Specify the output directory for compiled assets (relative to project path)")
+  .usage("compile your project files to static assets (HTML, JS and CSS). \n  Use this command if you want to host your application without using the Harp web server.")
+  .description("Compile project to static assets (HTML, JS and CSS)")
   .action(function(projectPath, outputPath, program){
 
     if(!program){
@@ -121,7 +126,11 @@ program
     })
   })
 
-program.command("*").action(program.help)
+program.on("--help", function(){
+  console.log("  Use 'harp <command> --help' to get more information or visit http://harpjs.com/ to learn more.")
+  console.log('')
+})
+
 program.parse(process.argv)
 
 if(program.args.length < 1){
