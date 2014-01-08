@@ -18,6 +18,20 @@ describe("basicAuth", function(){
         done()
       })
     })
+
+    it("should fetch protected resource with correct creds", function(done){
+      request({
+          method: "GET",
+          url: 'http://localhost:8310/',
+          auth: {
+            'user': 'foo',
+            'pass': 'bar'
+          }
+        }, function (e, r, b) {
+          r.statusCode.should.eql(200)
+          done()
+      })
+    })
   })
 
 })
