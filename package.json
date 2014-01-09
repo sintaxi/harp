@@ -13,7 +13,9 @@
     { "name": "Boris Mann", "email": "boris@bmannconsulting.com" },
     { "name": "Kenneth Ormandy", "email": "kenneth@chloi.io" },
     { "name": "Keith Yao", "email": "i@yaofur.com" },
-    { "name": "Eric Drechsel", "email": "eric@pdxhub.org" }
+    { "name": "Eric Drechsel", "email": "eric@pdxhub.org" },
+    { "name": "Andrew Hobden", "email": "andrew@hoverbear.org" },
+    { "name": "printercu" }
   ],
   "homepage": "http://harpjs.com",
   "bugs": "http://github.com/sintaxi/harp/issues",
