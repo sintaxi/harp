@@ -126,6 +126,20 @@ program
     })
   })
 
+
+program
+  .command("validate [projectPath]")
+  .usage("validate your project and returns errors, if any.")
+  .description("Validate project and returns errors, if any.")
+  .action(function(projectPath, program){
+
+    projectPath = nodePath.resolve(process.cwd(), projectPath || "")
+
+    harp.validate(projectPath, outputPath, function(errors, output){
+      if(errors) console.log(JSON.stringify(errors, null, 2))
+    });
+  })
+
 program.on("--help", function(){
   console.log("  Use 'harp <command> --help' to get more information or visit http://harpjs.com/ to learn more.")
   console.log('')
