@@ -135,7 +135,7 @@ program
 
     projectPath = nodePath.resolve(process.cwd(), projectPath || "")
 
-    harp.validate(projectPath, outputPath, function(errors, output){
+    harp.validate(projectPath, function(errors, output){
       if(errors) console.log(JSON.stringify(errors, null, 2))
     });
   })
