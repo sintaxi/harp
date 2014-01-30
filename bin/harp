@@ -122,7 +122,10 @@ program
     }
 
     harp.compile(projectPath, outputPath, function(errors, output){
-      if(errors) console.log(JSON.stringify(errors, null, 2))
+      if(errors) {
+        console.log(JSON.stringify(errors, null, 2))
+        process.exit(1)
+      }
     })
   })
 

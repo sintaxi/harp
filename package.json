@@ -16,12 +16,16 @@
     { "name": "Eric Drechsel", "email": "eric@pdxhub.org" },
     { "name": "Andrew Hobden", "email": "andrew@hoverbear.org" },
     { "name": "Max Melentiev", "email": "printercu@gmail.com" }
+    { "name": "Remy Sharp", "email": "remy@remysharp.com" }
   ],
   "homepage": "http://harpjs.com",
   "bugs": "http://github.com/sintaxi/harp/issues",
   "main": "./lib/index.js",
-  "repository" : { "type" : "git", "url" : "https://github.com/sintaxi/harp.git" },
-  "dependencies":{
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sintaxi/harp.git"
+  },
+  "dependencies": {
     "terraform": "0.6.2",
     "commander": "2.0.0",
     "connect": "2.9.0",
@@ -32,7 +36,8 @@
   "devDependencies": {
     "mocha": "1.8.1",
     "should": "1.2.2",
-    "request": "2.30.0"
+    "request": "2.30.0",
+    "cheerio": "~0.13.1"
   },
   "scripts": {
     "test": "mocha --reporter spec"
@@ -40,7 +45,9 @@
   "license": "MIT",
   "preferGlobal": true,
   "readmeFilename": "README.md",
-  "bin": { "harp": "./bin/harp" },
+  "bin": {
+    "harp": "./bin/harp"
+  },
   "engines": {
     "node": ">=0.8"
   }
