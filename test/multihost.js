@@ -12,6 +12,8 @@ describe("multihost", function(){
   var port = 8104;
   var $;
 
+  var urls = [];
+
   before(function(done){
     harp.multihost(projectPath, { port: port }, function(errors){
       done();
@@ -22,10 +24,41 @@ describe("multihost", function(){
     request("http://localhost:" + port + "/", function(e,r,b){
       r.statusCode.should.eql(200)
       $ = cherio.load(b);
-      
-      $(".project-name").length.should.eql(2)
+      urls = $(".projects A");
+      $(".project-name").length.should.eql(3)
       done();
     });
   });
 
+  // This test loads the index page, then navigates to each app, checking the heading.
+  // Each app has its own heading, and there should be the same number as links followed.
+  it("apps should not overlap", function(done){
+    var len = urls.length;
+    var titles = [];
+    for (var i = 0; i < len; i++) {
+      (function(n){
+        var site = $(urls[i]).attr('href');
+        request(site, function(e,r,b) {
+          $ = cherio.load(b);
+          r.statusCode.should.eql(200);
+          titles.push($("h1").text());
+          
+          if (n+1 == len) {
+
+            arrayUnique(titles).length.should.eql(len)
+            done();
+          }
+        });
+      })(i)
+    }
+
+  });
+
+
+  var arrayUnique = function(a) {
+    return a.reduce(function(p, c) {
+      if (p.indexOf(c) < 0) p.push(c);
+      return p;
+    }, []);
+  };
 });
