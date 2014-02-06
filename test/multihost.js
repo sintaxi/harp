@@ -25,9 +25,18 @@ describe("multihost", function(){
       r.statusCode.should.eql(200)
       $ = cherio.load(b);
       urls = $(".projects A");
-      $(".project-name").length.should.eql(3)
+      $(".project-name").length.should.eql(4)
       done();
     });
+  });
+
+  it("harp-apps should be served on a compatible URL", function(done) {
+    var sites = [];
+    for (var i = 0; i < urls.length; i++) {
+      sites.push($(urls[i]).attr("href"));
+    }
+    sites.should.containEql('http://app.harp.nu:' + port);
+    done();
   });
 
   // This test loads the index page, then navigates to each app, checking the heading.
