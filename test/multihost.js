@@ -42,18 +42,14 @@ describe("multihost", function(){
           $ = cherio.load(b);
           r.statusCode.should.eql(200);
           titles.push($("h1").text());
-          
           if (n+1 == len) {
-
             arrayUnique(titles).length.should.eql(len)
             done();
           }
         });
       })(i)
     }
-
   });
-
 
   var arrayUnique = function(a) {
     return a.reduce(function(p, c) {
