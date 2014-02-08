@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-var nodePath  = require("path")
-var program   = require("commander")
-var fse       = require("fs-extra")
-var pkg       = require("../package.json")
-var helpers   = require("../lib/helpers")
-var harp      = require("../")
+var nodePath      = require("path")
+var program       = require("commander")
+var fse           = require("fs-extra")
+var downloadRepo  = require("download-github-repo")
+var pkg           = require("../package.json")
+var helpers       = require("../lib/helpers")
+var harp          = require("../")
 
 var output = function(msg){
   var v = pkg.version
@@ -23,39 +24,37 @@ program
 
 program
   .command("init [path]")
-  .usage("initializes a new Harp project in the current directory.\n  Use the init command if it’s your first time using Harp and you want to create a new project.")
+  .usage("initializes a new Harp project in the current directory.\n  See available templates at https://github.com/harp-templates")
+  .option("-t, --template <github-username/repo>", "use a github repo as a template", "harp-templates/default")
   .description("Initialize a new Harp project in current directory")
   .action(function(path, program){
     var projectPath     = nodePath.resolve(process.cwd(), path || "")
-    var boilerplatePath = nodePath.resolve(__dirname, "..", "lib", "sample")
+    var template        = program.template
 
-    var done = function(err){
-      console.log("Initialized project at", projectPath)
-    }
+    // Assume `harp-templates` github org if template doesn't contain a slash
+    template.match(/\//) || (template = "harp-templates/"+template)
 
     fse.mkdirp(projectPath, function(err){
       if(err) return err
 
       fse.readdir(projectPath, function(err, contents){
         if(err) return err
-        if(contents.length == 0){
-          fse.readdir(boilerplatePath, function(err, contents){
-            if(err) return err
-            var total = contents.length
-            var count = 0
-            contents.forEach(function(i){
-              var fromPath = nodePath.resolve(boilerplatePath, i)
-              var toPath   = nodePath.resolve(projectPath, i)
-              fse.copy(fromPath, toPath, function(err){
-                count++
-                if(count == total) done()
-              })
-            })
-          })
-        }else{
-          console.log("Sorry,", projectPath, " must be empty.")
+
+        if(contents.length !== 0){
+          console.log("Sorry,", projectPath, "must be empty.")
+          return
         }
-        var count = 0
+
+        console.log("Downloading template: https://github.com/"+template)
+
+        downloadRepo(template, projectPath, function(err) {
+          if(err) {
+            console.error("Template not found:", "https://github.com/"+template)
+          } else {
+            console.log("Initialized project at", projectPath)
+          }
+        })
+
       })
     })
   })

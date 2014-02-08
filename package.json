@@ -4,19 +4,58 @@
   "description": "Static web server with built in preprocessing",
   "author": "Brock Whitten <brock@chloi.io>",
   "contributors": [
-    { "name": "Brock Whitten", "email": "brock@chloi.io" },
-    { "name": "Rob Ellis", "email": "rob@chloi.io" },
-    { "name": "Jorge Pedret", "email": "jorge@chloi.io" },
-    { "name": "Michael Brooks", "email": "michael@michaelbrooks.ca" },
-    { "name": "Tommy-Carlos Williams", "email": "tommy@devgeeks.org" },
-    { "name": "Darryl Pogue", "email": "darryl@dpogue.ca" },
-    { "name": "Boris Mann", "email": "boris@bmannconsulting.com" },
-    { "name": "Kenneth Ormandy", "email": "kenneth@chloi.io" },
-    { "name": "Keith Yao", "email": "i@yaofur.com" },
-    { "name": "Eric Drechsel", "email": "eric@pdxhub.org" },
-    { "name": "Andrew Hobden", "email": "andrew@hoverbear.org" },
-    { "name": "Max Melentiev", "email": "printercu@gmail.com" },
-    { "name": "Remy Sharp", "email": "remy@remysharp.com" }
+    {
+      "name": "Brock Whitten",
+      "email": "brock@chloi.io"
+    },
+    {
+      "name": "Rob Ellis",
+      "email": "rob@chloi.io"
+    },
+    {
+      "name": "Jorge Pedret",
+      "email": "jorge@chloi.io"
+    },
+    {
+      "name": "Michael Brooks",
+      "email": "michael@michaelbrooks.ca"
+    },
+    {
+      "name": "Tommy-Carlos Williams",
+      "email": "tommy@devgeeks.org"
+    },
+    {
+      "name": "Darryl Pogue",
+      "email": "darryl@dpogue.ca"
+    },
+    {
+      "name": "Boris Mann",
+      "email": "boris@bmannconsulting.com"
+    },
+    {
+      "name": "Kenneth Ormandy",
+      "email": "kenneth@chloi.io"
+    },
+    {
+      "name": "Keith Yao",
+      "email": "i@yaofur.com"
+    },
+    {
+      "name": "Eric Drechsel",
+      "email": "eric@pdxhub.org"
+    },
+    {
+      "name": "Andrew Hobden",
+      "email": "andrew@hoverbear.org"
+    },
+    {
+      "name": "Max Melentiev",
+      "email": "printercu@gmail.com"
+    },
+    {
+      "name": "Remy Sharp",
+      "email": "remy@remysharp.com"
+    }
   ],
   "homepage": "http://harpjs.com",
   "bugs": "http://github.com/sintaxi/harp/issues",
@@ -31,7 +70,8 @@
     "connect": "2.9.0",
     "fs-extra": "0.6.4",
     "async": "0.2.9",
-    "mime": "1.2.11"
+    "mime": "1.2.11",
+    "download-github-repo": "0.0.1"
   },
   "devDependencies": {
     "mocha": "1.8.1",

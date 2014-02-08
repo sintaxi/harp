@@ -1,2 +1,0 @@
-h1 Welcome to Harp.
-h3 This is yours to own. Enjoy.
