@@ -68,7 +68,7 @@
     "cheerio": "~0.13.1"
   },
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "mocha --reporter spec --globals fileCount --globals dirCount"
   },
   "license": "MIT",
   "preferGlobal": true,

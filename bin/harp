@@ -121,9 +121,15 @@ program
       outputPath = nodePath.resolve(projectPath, (program.output || "www"))
     }
 
-    harp.compile(projectPath, outputPath, function(errors, output){
-      if(errors) console.log(JSON.stringify(errors, null, 2))
-    })
+    harp.validate(projectPath, function(errors, output) {
+      if (errors) {
+         if(errors) console.log(JSON.stringify(errors, null, 2));
+      } else {
+        harp.compile(projectPath, outputPath, function(errors, output){
+          if(errors) console.log(JSON.stringify(errors, null, 2));
+        });        
+      }
+    });
   })
 
 

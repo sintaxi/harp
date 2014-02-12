@@ -30,6 +30,7 @@ describe("validate", function(){
     it("should get error message for invalid _data.json", function(done){      
       harp.validate(projectPath, function(error, res){
         should.exist(error)
+        // console.log(error, res)
         error.should.have.property("source")
         error.should.have.property("dest")
         error.should.have.property("filename")
