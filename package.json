@@ -71,7 +71,7 @@
     "fs-extra": "0.6.4",
     "async": "0.2.9",
     "mime": "1.2.11",
-    "download-github-repo": "0.0.1"
+    "download-github-repo": "0.1.0"
   },
   "devDependencies": {
     "mocha": "1.8.1",
