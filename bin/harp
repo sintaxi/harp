@@ -29,10 +29,15 @@ program
   .description("Initialize a new Harp project in current directory")
   .action(function(path, program){
     var projectPath     = nodePath.resolve(process.cwd(), path || "")
+    var boilerplatePath = nodePath.resolve(__dirname, "..", "lib", "default_boilerplate")
     var template        = program.template
 
     // Assume `harp-templates` github org if template doesn't contain a slash
     template.match(/\//) || (template = "harp-templates/"+template)
+
+    var done = function() {
+      console.log("Initialized project at", projectPath)
+    }
 
     fse.mkdirp(projectPath, function(err){
       if(err) return err
@@ -48,11 +53,19 @@ program
         console.log("Downloading template: https://github.com/"+template)
 
         downloadRepo(template, projectPath, function(err) {
-          if(err) {
-            console.error("Template not found:", "https://github.com/"+template)
+
+          if (!err) return done()
+
+          if (require('util').isError(err) && err['code'] === 'ENOTFOUND') {
+            console.error("You're not connected to the Internet, so we'll use the default boilerplate.")
+            fse.copy(boilerplatePath, projectPath, function(err){
+              if (err) return err
+              return done()
+            })
           } else {
-            console.log("Initialized project at", projectPath)
+            return console.error("Template not found:", "https://github.com/"+template)
           }
+
         })
 
       })
