@@ -24,16 +24,16 @@ program
 
 program
   .command("init [path]")
-  .usage("initializes a new Harp project in the current directory.\n  See available templates at https://github.com/harp-templates")
-  .option("-t, --template <github-username/repo>", "use a github repo as a template", "harp-templates/default")
+  .usage("initializes a new Harp project in the current directory.\n  See available boilerplates at https://github.com/harp-boilerplates")
+  .option("-b, --boilerplate <github-username/repo>", "use a github repo as a boilerplate", "harp-boilerplates/default")
   .description("Initialize a new Harp project in current directory")
   .action(function(path, program){
     var projectPath     = nodePath.resolve(process.cwd(), path || "")
     var boilerplatePath = nodePath.resolve(__dirname, "..", "lib", "default_boilerplate")
-    var template        = program.template
+    var repo            = program.boilerplate
 
-    // Assume `harp-templates` github org if template doesn't contain a slash
-    template.match(/\//) || (template = "harp-templates/"+template)
+    // Assume `harp-boilerplates` github org if boilerplate doesn't contain a slash
+    repo.match(/\//) || (repo = "harp-boilerplates/"+repo)
 
     var done = function() {
       console.log("Initialized project at", projectPath)
@@ -50,9 +50,9 @@ program
           return
         }
 
-        console.log("Downloading template: https://github.com/"+template)
+        console.log("Downloading boilerplate: https://github.com/"+repo)
 
-        downloadRepo(template, projectPath, function(err) {
+        downloadRepo(repo, projectPath, function(err) {
 
           if (!err) return done()
 
@@ -63,7 +63,7 @@ program
               return done()
             })
           } else {
-            return console.error("Template not found:", "https://github.com/"+template)
+            return console.error("Template not found:", "https://github.com/"+repo)
           }
 
         })
