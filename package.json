@@ -77,7 +77,8 @@
     "mocha": "1.8.1",
     "should": "1.2.2",
     "request": "2.30.0",
-    "cheerio": "~0.13.1"
+    "cheerio": "~0.13.1",
+    "nixt": "~0.3.0"
   },
   "scripts": {
     "test": "mocha --reporter spec"
