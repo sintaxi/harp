@@ -19,6 +19,11 @@
   , "Remy Sharp <remy@remysharp.com>"
   , "Zeke Sikelianos <zeke@sikelianos.com>"
   ],
+  "keywords": [
+    "static web server",
+    "static site generator",
+    "sass", "less", "stylus", "markdown", "jade", "ejs", "coffeescript"
+  ],
   "homepage": "http://harpjs.com",
   "bugs": "http://github.com/sintaxi/harp/issues",
   "main": "./lib/index.js",
