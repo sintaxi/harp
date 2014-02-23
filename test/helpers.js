@@ -82,7 +82,7 @@ describe("helpers", function(){
       done()
     })
 
-    it("should defautl to root style", function(done){
+    it("should default to root style", function(done){
       var cfg = helpers.setup(path.join(__dirname, "apps", "app-style-implicit"))
       cfg.should.have.property("config")
       cfg.should.have.property("projectPath")
