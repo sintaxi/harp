@@ -11,7 +11,7 @@ describe("harp init", function() {
 
   it("downloads the default boilerplate if it's not set", function(done) {
     nixt()
-      .run('harp init /tmp/harp')
+      .run('./bin/harp init /tmp/harp')
       .stdout(/Downloading.*harp-boilerplates\/default/)
       .stdout(/Initialized project at \/tmp\/harp/)
       .exist('/tmp/harp/404.jade')
@@ -23,7 +23,7 @@ describe("harp init", function() {
 
   it("defaults to the harp-boilerplates github org when given a shorthand pattern", function(done) {
     nixt()
-      .run('harp init /tmp/harp -b hb-start')
+      .run('./bin/harp init /tmp/harp -b hb-start')
       .stdout(/Downloading.*harp-boilerplates\/hb-start/)
       .exist('/tmp/harp/public')
       .end(done)
@@ -31,7 +31,7 @@ describe("harp init", function() {
 
   it("honors -b option when given a user/repo pattern", function(done) {
     nixt()
-      .run('harp init /tmp/harp -b zeke/harp-sample')
+      .run('./bin/harp init /tmp/harp -b zeke/harp-sample')
       .stdout(/Downloading.*zeke\/harp-sample/)
       .exist('/tmp/harp/README.md')
       .exist('/tmp/harp/index.jade')
@@ -40,10 +40,10 @@ describe("harp init", function() {
 
   it("doesn't overwrite an existing directory", function(done) {
     nixt()
-      .run('harp init /tmp/harp')
+      .run('./bin/harp init /tmp/harp')
       .end(function() {
         nixt()
-          .run('harp init /tmp/harp')
+          .run('./bin/harp init /tmp/harp')
           .stdout(/Sorry,.*must be empty/)
           .end(done)
       })
