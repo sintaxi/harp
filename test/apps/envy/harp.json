@@ -1,0 +1,5 @@
+{
+  "foo": "bar",
+  "basicAuth": "$HARP_BASIC_AUTH",
+  "optionalThing": "$OPTIONAL_THING"
+}
