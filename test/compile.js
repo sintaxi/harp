@@ -20,15 +20,16 @@ describe("compile", function(){
 
     it("compile should not include files named with underscores", function(done) {
       var cssOutputPath = path.join(outputPath, "public/css")
-      fs.readFile(path.join(cssOutputPath, "/_partials/some.css"), function(err, contents){
-        should.not.exist(contents)
-      })
-      fs.readFile(path.join(cssOutputPath, "/_partials/_more.css"), function(err, contents){
-        should.not.exist(contents)
-      })
-      fs.readFile(path.join(cssOutputPath, "/_nav.css"), function(err, contents){
-        should.not.exist(contents)
-      })
+
+      var rsp = fs.existsSync(path.join(cssOutputPath, "/_partials/some.css"))
+      rsp.should.be.false
+
+      var rsp = fs.existsSync(path.join(cssOutputPath, "/_partials/_more.css"))
+      rsp.should.be.false
+
+      var rsp = fs.existsSync(path.join(cssOutputPath, "/_nav.css"))
+      rsp.should.be.false
+
       done()
     })
 
