@@ -1,0 +1,9 @@
+ul
+  li(class="#{ current.path[0] == 'index' ? 'current' : '' }")
+    a(href="/") Home
+  li(class="#{ current.path[0] == 'articles' ? 'current' : '' }")
+    a(href="/articles") Articles
+  li(class="#{ current.path[0] == 'about' ? 'current' : '' }")
+    a(href="/about") About
+  li
+    a(href="/feed.atom") RSS

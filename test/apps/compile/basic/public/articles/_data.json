@@ -1,0 +1,10 @@
+{
+  "hello-world" : {
+    "title" : "Hello World",
+    "date"  : "May 2, 2012"
+  },
+  "you-half-assed-it" : {
+    "title" : "You half assed it. That is why your PhoneGap application sucks.",
+    "date"  : "June 6, 2012"
+  }
+}
