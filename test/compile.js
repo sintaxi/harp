@@ -18,13 +18,26 @@ describe("compile", function(){
       })
     })
 
-    it("compile should not include files named with underscores", function(done) {
-      var cssOutputPath = path.join(outputPath, "public/css")
+    it("compile should not include folders named with underscores", function(done) {
+      var cssOutputPath = path.join(outputPath, "/css")
 
       var rsp = fs.existsSync(path.join(cssOutputPath, "/_partials/some.css"))
       rsp.should.be.false
 
       var rsp = fs.existsSync(path.join(cssOutputPath, "/_partials/_more.css"))
+      rsp.should.be.false
+
+      done()
+
+    })
+
+    it("compile should not include files named with underscores", function(done) {
+      var cssOutputPath = path.join(outputPath, "/css")
+
+      var rsp = fs.existsSync(path.join(cssOutputPath, "/one/two/three/_four.css"))
+      rsp.should.be.false
+
+      var rsp = fs.existsSync(path.join(cssOutputPath, "/one/two/three/_five.css"))
       rsp.should.be.false
 
       var rsp = fs.existsSync(path.join(cssOutputPath, "/_nav.css"))
