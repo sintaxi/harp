@@ -1,6 +1,6 @@
 {
   "name": "harp",
-  "version": "0.11.2",
+  "version": "0.12.0",
   "description": "Static web server with built in preprocessing",
   "author": "Brock Whitten <brock@chloi.io>",
   "contributors":
@@ -18,6 +18,7 @@
   , "Max Melentiev <printercu@gmail.com>"
   , "Remy Sharp <remy@remysharp.com>"
   , "Zeke Sikelianos <zeke@sikelianos.com>"
+  , "Marc Knaup <marc.knaup@koeln.de>"
   ],
   "keywords": [
     "static web server",
@@ -32,23 +33,24 @@
     "url": "https://github.com/sintaxi/harp.git"
   },
   "dependencies": {
-    "terraform": "0.6.2",
+    "terraform": "0.7.0",
     "commander": "2.0.0",
     "connect": "2.9.0",
     "fs-extra": "0.6.4",
     "async": "0.2.9",
     "mime": "1.2.11",
-    "download-github-repo": "0.1.0"
+    "download-github-repo": "0.1.0",
+    "envy-json": "^0.2.0"
   },
   "devDependencies": {
     "mocha": "1.8.1",
-    "should": "1.2.2",
+    "should": "3.1.2",
     "request": "2.30.0",
     "cheerio": "~0.13.1",
     "nixt": "~0.3.0"
   },
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "mocha --reporter spec -t 5000"
   },
   "license": "MIT",
   "preferGlobal": true,
