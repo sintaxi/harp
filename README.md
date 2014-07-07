@@ -27,7 +27,7 @@ Pre-compilers are becoming extremely powerful and shipping front-ends as static 
 |                 | Language Superset                                                 | Whitespace Sensitive  
 | --------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------
 | **HTML**        | [EJS](http://embeddedjs.com/)                                     | [Jade](http://jade-lang.com/), [Markdown](http://daringfireball.net/projects/markdown/)
-| **CSS**         | [LESS](http://lesscss.org/), [Sass (SCSS)](http://sass-lang.com/) | [Stylus](http://learnboost.github.io/stylus/)
+| **CSS**         | [LESS](http://lesscss.org/), [Sass (SCSS)](http://sass-lang.com/) | [Stylus](http://learnboost.github.io/stylus/), [Sass](http://sass-lang.com/)
 | **JavaScript**  | (TBD)                                                             | [CoffeeScript](http://coffeescript.org/)
 
 ### Resources

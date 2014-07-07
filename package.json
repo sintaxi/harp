@@ -33,7 +33,7 @@
     "url": "https://github.com/sintaxi/harp.git"
   },
   "dependencies": {
-    "terraform": "0.7.0",
+    "terraform": "0.8.0",
     "commander": "2.0.0",
     "connect": "2.9.0",
     "fs-extra": "0.6.4",
@@ -57,6 +57,6 @@
   "readmeFilename": "README.md",
   "bin": "./bin/harp",
   "engines": {
-    "node": ">=0.8"
+    "node": ">=0.10"
   }
 }
