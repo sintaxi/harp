@@ -107,6 +107,15 @@ describe("headers", function(){
     })
   })
 
+  it("should be correct with a valid Sass file", function(done){
+    request("http://localhost:" + port + "/valid-sass.css", function(e, r, b){
+      r.statusCode.should.eql(200)
+      r.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+      r.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
   // invalid
 
   it("should be correct with an invalid EJS file", function(done){
@@ -147,6 +156,15 @@ describe("headers", function(){
 
   it("should be correct with an invalid SCSS file", function(done){
     request("http://localhost:" + port + "/invalid-scss.css", function(e, r, b){
+      r.statusCode.should.eql(200)
+      r.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+      r.headers.should.have.property("content-length")
+      done()
+    })
+  })
+
+  it("should be correct with an invalid Sass file", function(done){
+    request("http://localhost:" + port + "/invalid-sass.css", function(e, r, b){
       r.statusCode.should.eql(200)
       r.headers.should.have.property("content-type", "text/css; charset=UTF-8")
       r.headers.should.have.property("content-length")
