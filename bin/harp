@@ -150,6 +150,7 @@ program
     }else{
       vendorPath = nodePath.resolve(setup.publicPath, (program.vendor || "vendor"))
     }
+    console.log(vendorPath)
 
     harp.compile(projectPath, vendorPath, outputPath, function(errors, output){
       if(errors) {
