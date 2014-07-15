@@ -105,11 +105,12 @@ program
   })
 
 program
-  .command("compile [projectPath] [outputPath]")
+  .command("compile [projectPath] [vendorPath] [outputPath]")
   .option("-o, --output <path>", "Specify the output directory for compiled assets (relative to project path)")
+  .option("-v, --vendor <path>", "Specify a vendor directory to be ignored (copied without compiling to output folder, relative to project public path)")
   .usage("compile your project files to static assets (HTML, JS and CSS). \n  Use this command if you want to host your application without using the Harp web server.")
   .description("Compile project to static assets (HTML, JS and CSS)")
-  .action(function(projectPath, outputPath, program){
+  .action(function(projectPath, vendorPath, outputPath, program){
 
     if(!program){
       program    = outputPath
@@ -121,7 +122,7 @@ program
     /**
      * We deal with output path 3 different ways
      *
-     *  1. second argument (relative to directory called in)
+     *  1. third argument (relative to directory called in)
      *  2. `--output` argument (relative to project root)
      *  3. implicitly projectPath + "/www"
      *
@@ -133,7 +134,24 @@ program
       outputPath = nodePath.resolve(projectPath, (program.output || "www"))
     }
 
-    harp.compile(projectPath, outputPath, function(errors, output){
+    /**
+     * We deal with vendor path 3 different ways
+     *
+     *  1. second argument (relative to directory called in)
+     *  2. `--vendor` argument (relative to project root)
+     *  3. implicitly publicPath + "/vendor"
+     *
+     */
+
+    var setup  = helpers.setup(projectPath, "production")
+
+    if(vendorPath){
+      vendorPath = nodePath.resolve(process.cwd(), (vendorPath || program.vendor || ''))
+    }else{
+      vendorPath = nodePath.resolve(setup.publicPath, (program.vendor || "vendor"))
+    }
+
+    harp.compile(projectPath, vendorPath, outputPath, function(errors, output){
       if(errors) {
         console.log(JSON.stringify(errors, null, 2))
         process.exit(1)
