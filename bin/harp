@@ -75,12 +75,14 @@ program
 program
   .command("server [path]")
   .option("-p, --port <port>", "Specify a port to listen on")
+  .option("-a, --address <address> ", "Specify what address to listen on")
   .usage("starts a Harp server in current directory, or in the specified directory.")
   .description("Start a Harp server in current directory")
   .action(function(path, program){
     var projectPath = nodePath.resolve(process.cwd(), path || "")
     var port        = program.port || 9000
-    harp.server(projectPath, { port: port }, function(){
+    var address     = program.address || "0.0.0.0"
+    harp.server(projectPath, { port: port, address: address }, function(){
       var hostUrl = "http://localhost:" + port + "/"
       output("Your server is listening at " + hostUrl)
     })
@@ -89,12 +91,14 @@ program
 program
   .command("multihost [path]")
   .option("-p, --port <port>", "Specify a port to listen on")
+  .option("-a, --address <address>", "Specify what address to listen on")
   .usage("starts a Harp server to host a directory of Harp projects.")
   .description("Start a Harp server to host a directory of Harp projects")
   .action(function(path, program){
     var projectPath = nodePath.resolve(process.cwd(), path || "")
     var port        = program.port || 9000
-    harp.multihost(projectPath, { port: port }, function(){
+    var address     = program.address || "0.0.0.0"
+    harp.multihost(projectPath, { port: port, address: address }, function(){
       if(port == "80"){
         var loc = "http://harp.nu"
       }else{
