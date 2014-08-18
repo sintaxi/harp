@@ -53,11 +53,11 @@ describe("multihost", function(){
           titles.push($("h1").text());
           if (n+1 == len) {
             arrayUnique(titles).length.should.eql(len)
-            done();
           }
         });
       })(i)
     }
+    done();
   });
 
   var arrayUnique = function(a) {
