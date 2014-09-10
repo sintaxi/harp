@@ -45,13 +45,13 @@ describe("multihost", function(){
     var len = urls.length;
     var titles = [];
     for (var i = 0; i < len; i++) {
-      (function(n){
+      (function(i){
         var site = $(urls[i]).attr('href');
         request(site, function(e,r,b) {
           $ = cherio.load(b);
           r.statusCode.should.eql(200);
           titles.push($("h1").text());
-          if (n+1 == len) {
+          if (i+1 == len) {
             arrayUnique(titles).length.should.eql(len)
           }
         });
