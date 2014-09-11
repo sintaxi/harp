@@ -1,31 +1,32 @@
 var nixt = require('nixt')
+var path = require('path')
+var fs = require('fs-extra')
 
 describe("harp init", function() {
 
   beforeEach(function(done){
-    nixt()
-      .run("rm -rf /tmp/harp && mkdir /tmp/harp")
-      .exist("/tmp/harp")
-      .end(done)
+    fs.remove(path.join("/tmp", "harp"), function(err){
+      fs.mkdirp(path.join("/tmp", "harp"), done)
+    })
   })
 
   it("downloads the default boilerplate if it's not set", function(done) {
     this.timeout(10000);
     nixt()
-      .run('./bin/harp init /tmp/harp')
-      .stdout(/Downloading.*harp-boilerplates\/default/)
-      .stdout(/Initialized project at \/tmp\/harp/)
-      .exist('/tmp/harp/404.jade')
-      .exist('/tmp/harp/_layout.jade')
-      .exist('/tmp/harp/index.jade')
-      .exist('/tmp/harp/main.less')
+      .run('harp init ' +  path.join('/tmp', 'harp'))
+      // .stdout(/Downloading.*harp-boilerplates\/default/)
+      // .stdout(/Initialized project at \/tmp\/harp/)
+      .exist(path.join('/tmp', 'harp', '404.jade'))
+      .exist(path.join('/tmp', 'harp', '_layout.jade'))
+      .exist(path.join('/tmp', 'harp', 'index.jade'))
+      .exist(path.join('/tmp', 'harp', 'main.less'))
       .end(done)
   })
 
   it("defaults to the harp-boilerplates github org when given a shorthand pattern", function(done) {
     this.timeout(10000);
     nixt()
-      .run('./bin/harp init /tmp/harp -b hb-start')
+      .run('harp init ' + path.join('/tmp', 'harp') + ' -b hb-start')
       .stdout(/Downloading.*harp-boilerplates\/hb-start/)
       .exist('/tmp/harp/public')
       .end(done)
@@ -34,19 +35,19 @@ describe("harp init", function() {
   it("honors -b option when given a user/repo pattern", function(done) {
     this.timeout(10000);
     nixt()
-      .run('./bin/harp init /tmp/harp -b zeke/harp-sample')
+      .run('harp init ' + path.join('/tmp', 'harp') + ' -b zeke/harp-sample')
       .stdout(/Downloading.*zeke\/harp-sample/)
-      .exist('/tmp/harp/README.md')
-      .exist('/tmp/harp/index.jade')
+      .exist(path.join('/tmp', 'harp', 'README.md'))
+      .exist(path.join('/tmp', 'harp', 'index.jade'))
       .end(done)
   })
 
   it("doesn't overwrite an existing directory", function(done) {
     nixt()
-      .run('./bin/harp init /tmp/harp')
+      .run('harp init ' + path.join('/tmp', 'harp'))
       .end(function() {
         nixt()
-          .run('./bin/harp init /tmp/harp')
+          .run('harp init ' + path.join('/tmp', 'harp'))
           .stdout(/Sorry,.*must be empty/)
           .end(done)
       })
