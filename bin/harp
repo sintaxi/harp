@@ -7,6 +7,7 @@ var downloadRepo  = require("download-github-repo")
 var pkg           = require("../package.json")
 var helpers       = require("../lib/helpers")
 var harp          = require("../")
+var browserSync   = require("browser-sync")
 
 var output = function(msg){
   var v = pkg.version
@@ -75,14 +76,30 @@ program
 program
   .command("server [path]")
   .option("-p, --port <port>", "Specify a port to listen on")
+  .option("-w, --watch [port]", "Enable browser-sync for livereload - Optional: Specify port for browser-sync")
   .usage("starts a Harp server in current directory, or in the specified directory.")
   .description("Start a Harp server in current directory")
   .action(function(path, program){
     var projectPath = nodePath.resolve(process.cwd(), path || "")
     var port        = program.port || 9000
+    var browserSyncPort = (typeof program.watch !== "boolean") ? program.watch : port + 1
+    if(program.watch) {
+      browserSync({
+        files: [projectPath + '/**/*'],
+        proxy: "localhost:" + port,
+        open: false,
+        port: browserSyncPort,
+        logLevel: "silent"
+      });
+    }
     harp.server(projectPath, { port: port }, function(){
       var hostUrl = "http://localhost:" + port + "/"
-      output("Your server is listening at " + hostUrl)
+      var browserSyncUrl = "http://localhost:" + browserSyncPort + "/"
+      var log = "Your server is listening at " + hostUrl;
+      if(program.watch){
+        log += "\n\rBrowser-sync is enabled on " + browserSyncUrl
+      }
+      output(log)
     })
   })
 
