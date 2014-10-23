@@ -28,6 +28,16 @@ describe("compile", function(){
       done()
     })
 
+    it("compile should ignore files named after http statuses when creating directory indexes", function(done){
+      var rsp = fs.existsSync(path.join(outputPath, "/404.html"))
+      rsp.should.be.true
+
+      var rsp = fs.existsSync(path.join(outputPath, "/777/index.html"))
+      rsp.should.be.true
+
+      done()
+    })
+
     it("compile should not include folders named with underscores", function(done) {
       var cssOutputPath = path.join(outputPath, "/css")
 
