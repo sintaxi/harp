@@ -102,6 +102,19 @@ describe("helpers", function(){
       done()
     })
 
+    it("should load macros when available", function(done){
+      var cfg = helpers.setup(path.join(__dirname, "apps", "macros"))
+      cfg.should.have.property("config")
+      cfg.should.have.property("projectPath")
+      cfg.should.have.property("publicPath")
+      cfg.config.should.have.property("globals")
+      cfg.config.globals.should.have.property("macros")
+      cfg.config.globals.macros.should.have.property("test")
+      cfg.config.globals.macros.test.should.be.type("function")
+      should(cfg.config.globals.macros.test("foo")).equal("macro:foo")
+      done()
+    })
+
   })
 
   describe("prime(outputPath)", function(){
