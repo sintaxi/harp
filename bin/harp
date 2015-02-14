@@ -43,6 +43,7 @@ program
       if(err) return err
 
       fse.readdir(projectPath, function(err, contents){
+
         if(err) return err
 
         if(contents.length !== 0){
@@ -52,8 +53,9 @@ program
 
         console.log("Downloading boilerplate: https://github.com/"+repo)
 
-        downloadRepo(repo, projectPath, function(err) {
+        //fse.writeFileSync("/Desktop/harp-test-output.txt", repo + "::" + projectPath)
 
+        downloadRepo(repo, projectPath, function(err) {
           if (!err) return done()
 
           if (require('util').isError(err) && err['code'] === 'ENOTFOUND') {
