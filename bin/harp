@@ -76,14 +76,22 @@ program
 
 program
   .command("server [path]")
+  .option("-i, --ip <ip>", "Specify IP to bind to")
   .option("-p, --port <port>", "Specify a port to listen on")
   .usage("starts a Harp server in current directory, or in the specified directory.")
   .description("Start a Harp server in current directory")
   .action(function(path, program){
     var projectPath = nodePath.resolve(process.cwd(), path || "")
+    var ip          = program.ip || '0.0.0.0'
     var port        = program.port || 9000
-    harp.server(projectPath, { port: port }, function(){
-      var hostUrl = "http://localhost:" + port + "/"
+    harp.server(projectPath, { ip: ip, port: port }, function(){
+      var address = ''
+      if(ip == '0.0.0.0' || ip == '127.0.0.1') {
+        address = 'localhost'
+      } else {
+        address = ip
+      }
+      var hostUrl = "http://" + address + ":" + port + "/"
       output("Your server is listening at " + hostUrl)
     })
   })
