@@ -48,6 +48,43 @@ describe("compile", function(){
 
   })
 
+  describe("root app", function(){
+    var projectPath = path.join(__dirname, "apps/compile/root")
+    var outputPath  = path.join(__dirname, "out/compile-root")
+
+    // Making this at runtime since git refuses to store .git dirs
+    fs.mkdirSync(path.join(projectPath, ".git"));
+    fs.openSync(path.join(projectPath, "/.git/foo"), 'a')
+
+    it("should compile", function(done){
+      harp.compile(projectPath, outputPath, function(error){
+        should.not.exist(error)
+        done()
+      })
+    })
+
+    it("should not include .git", function(done) {
+      var rsp = fs.existsSync(path.join(projectPath, ".git/foo"))
+      rsp.should.be.true
+
+      var rsp = fs.existsSync(path.join(outputPath, ".git/foo"))
+      rsp.should.be.false
+
+      var rsp = fs.existsSync(path.join(outputPath, "git"))
+      rsp.should.be.false
+
+      done()
+    })
+
+    after(function(done){
+      exec("rm -rf " + path.join(projectPath, ".git"), function(){
+        done()
+      })
+    })
+
+  })
+
+
   after(function(done){
     exec("rm -rf " + path.join(__dirname, "out"), function(){
       done()
