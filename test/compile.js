@@ -76,6 +76,16 @@ describe("compile", function(){
       done()
     })
 
+    it("should not include www", function(done) {
+      var rsp = fs.existsSync(path.join(outputPath, "www/foo"))
+      rsp.should.be.false
+
+      var rsp = fs.existsSync(path.join(outputPath, "www"))
+      rsp.should.be.false
+
+      done()
+    })
+
     after(function(done){
       exec("rm -rf " + path.join(projectPath, ".git"), function(){
         done()
