@@ -46,11 +46,82 @@ describe("compile", function(){
       done()
     })
 
+    after(function(done){
+      exec("rm -rf " + outputPath, function() {
+        done();
+      })
+    })
+
   })
 
-  after(function(done){
-    exec("rm -rf " + path.join(__dirname, "out"), function(){
+  describe("root app with .git dir", function(){
+    var projectPath = path.join(__dirname, "apps","compile","root")
+    var outputPath  = path.join(__dirname, "out","compile-root")
+    var gitPath = path.join(projectPath, ".git")
+
+    // Make at runtime since git refuses to store .git dirs
+    if (!fs.existsSync(gitPath)) {
+      fs.mkdirSync(gitPath);
+      fs.openSync(path.join(gitPath, "foo"), 'a')
+    }
+
+
+    it("should compile", function(done){
+      harp.compile(projectPath, outputPath, function(error){
+        should.not.exist(error)
+        done()
+      })
+    })
+
+    it("should not include .git in output", function(done) {
+      var rsp = fs.existsSync(path.join(projectPath, ".git", "foo"))
+      rsp.should.be.true
+
+      var rsp = fs.existsSync(path.join(outputPath, ".git"))
+      rsp.should.be.false
+
       done()
+    })
+
+    after(function(done){
+      exec("rm -rf " + outputPath + " " + gitPath, function() {
+        done();
+      })
+    })
+
+  })
+
+  describe("root app with output dir containing .git in project dir", function(){
+    var projectPath = path.join(__dirname, "apps","compile","root")
+    var outputPath  = path.join(projectPath, "out")
+    var gitPath = path.join(outputPath, ".git")
+
+    // Making this at runtime since git refuses to store .git dirs
+    if (!fs.existsSync(gitPath)) {
+      fs.mkdirSync(outputPath);
+      fs.mkdirSync(gitPath);
+      fs.openSync(path.join(gitPath, "foo"), 'a')
+    }
+
+
+    it("should compile", function(done){
+      harp.compile(projectPath, outputPath, function(error){
+        should.not.exist(error)
+        done()
+      })
+    })
+
+    it("should not include a copy of the output subpath in output", function(done) {
+      var rsp = fs.existsSync(path.join(outputPath, "out"))
+      rsp.should.be.false
+
+      done();
+    })
+
+    after(function(done){
+      exec("rm -rf " + outputPath, function() {
+        done();
+      })
     })
   })
 
