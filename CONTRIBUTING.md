@@ -1,6 +1,6 @@
 ## Contributing
 
-Thanks for taking the time to help make harp better. Here are some guidlines that will highly increase the chances of your fix or feature request from being accepted.
+Thanks for taking the time to help make harp better. Here are some guidelines that will highly increase the chances of your fix or feature request from being accepted.
 
 ### Bug Fixes
 
@@ -17,4 +17,4 @@ Please keep your branch up to date by rebasing upstream changes from master.
 
 ### New Functionality
 
-If you wish to add new functionality to harp, please provide [@sintaxi](mailto:brock@sintaxi.com) and [@kennethormandy](mailto:kenneth@chloi.io) a harp application that demonstrates deficiency in current design or desired additional behaviour. Its best if you explaing the problem you are trying to solve, not just the solution you want. You may also submit a pull request with the steps above.
+If you wish to add new functionality to harp, please provide [@sintaxi](mailto:brock@sintaxi.com) and [@kennethormandy](mailto:kenneth@chloi.io) a harp application that demonstrates deficiency in current design or desired additional behaviour. Its best if you explaining the problem you are trying to solve, not just the solution you want. You may also submit a pull request with the steps above.
