@@ -13,6 +13,12 @@ describe("helpers", function(){
       done()
     })
 
+    it("should collide if output path is the root of the source directory", function(done) {
+      helpers.willCollide("/foo/bar/myproject", "/foo/bar/myproject").should.be.true
+      helpers.willCollide("./", "./").should.be.true
+      done()
+    })
+
     it("should not collide if output path is /output", function(done){
       helpers.willCollide("/foo/bar/myproject", "/output").should.be.false
       helpers.willCollide("/foo/bar/myproject", "/output/").should.be.false
@@ -44,6 +50,12 @@ describe("helpers", function(){
       helpers.willAllow("/foo/bar/myproject/", "/foo/bar/").should.be.false
       helpers.willAllow("/foo/bar/myproject", "/foo/bar/").should.be.false
       helpers.willAllow("/foo/bar/myproject/", "/foo/bar").should.be.false
+      done()
+    })
+
+    it("should not allow project to compile into the source directory when no name is specified", function(done) {
+      helpers.willAllow("/foo/bar/myproject", "/foo/bar/myproject").should.be.false
+      helpers.willAllow("./", "./").should.be.false
       done()
     })
 
