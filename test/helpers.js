@@ -13,6 +13,20 @@ describe("helpers", function(){
       done()
     })
 
+    it("should collide if output path is .", function(done){
+      helpers.willCollide(".", ".").should.be.true
+      helpers.willCollide("/foo/bar/myproject", ".").should.be.true
+      helpers.willCollide("/foo/bar/myproject/", ".").should.be.true
+      done()
+    })
+
+    it("should collide if output path is ./", function(done){
+      helpers.willCollide("./", "./").should.be.true
+      helpers.willCollide("/foo/bar/myproject", "./").should.be.true
+      helpers.willCollide("/foo/bar/myproject/", "./").should.be.true
+      done()
+    })
+
     it("should not collide if output path is /output", function(done){
       helpers.willCollide("/foo/bar/myproject", "/output").should.be.false
       helpers.willCollide("/foo/bar/myproject", "/output/").should.be.false
