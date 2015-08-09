@@ -2,16 +2,16 @@
   404: {
     layout: false
   }
-  feed:{
+  feed: {
     layout: false
   }
-  globals:{
+  globals: {
     layout: false
   }
-  current:{
+  current: {
     layout: false
   }
-  about": {
+  about: {
     name: Brock
   }
 }
