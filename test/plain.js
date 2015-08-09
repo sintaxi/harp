@@ -17,7 +17,7 @@ describe("plain", function(){
     before(function(done){
       harp.compile(projectPath, outputPath, function(errors, output){
         config = output
-        harp.server(projectPath, { port: 8102 }, done)
+        harp.server(projectPath, { port: 8200 }, done)
       })
     })
 
@@ -28,7 +28,7 @@ describe("plain", function(){
 
     it("should serve index file", function(done){
       fs.readFile(path.join(outputPath, "index.html"), function(err, contents){
-        request('http://localhost:8102/', function(e, r, b){
+        request('http://localhost:8200/', function(e, r, b){
           r.statusCode.should.eql(200)
           b.should.eql(contents.toString())
           done()
@@ -39,7 +39,7 @@ describe("plain", function(){
     it("should serve text file", function(done){
       fs.readFile(path.join(outputPath, "hello.txt"), function(err, contents){
         contents.toString().should.eql("text files are wonderful")
-        request('http://localhost:8102/hello.txt', function(e, r, b){
+        request('http://localhost:8200/hello.txt', function(e, r, b){
           r.statusCode.should.eql(200)
           b.should.eql(contents.toString())
           done()
@@ -49,10 +49,10 @@ describe("plain", function(){
 
     it("should have custom 404 page that is raw HTML", function(done){
       fs.readFile(path.join(outputPath, "404.html"), function(err, contents){
-        request('http://localhost:8102/404.html', function(e, r, b){
+        request('http://localhost:8200/404.html', function(e, r, b){
           r.statusCode.should.eql(200)
           b.should.eql(contents.toString())
-          request('http://localhost:8102/missing/path', function(e, r, b){
+          request('http://localhost:8200/missing/path', function(e, r, b){
             r.statusCode.should.eql(404)
             b.should.eql(contents.toString())
             done()

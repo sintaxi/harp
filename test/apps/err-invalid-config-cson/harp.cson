@@ -1,0 +1,3 @@
+globals:
+  name "missing colon"
+  email: "brock@chloi.io"
