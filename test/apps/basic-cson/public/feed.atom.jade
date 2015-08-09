@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+feed(xmlns='http://www.w3.org/2005/Atom')
+  title= brand
+  link(href="#{ uri }/articles.atom", rel="self", type="application/atom+xml")
+  link(href="#{ uri }", rel="alternate", type="text/html")
+  author
+    name= name
+    email= email
+    id= uri + "/"
+  each article, slug in public.articles._data
+    entry
+      title= article.title
+      id= uri + "/articles/" + slug
+      updated= article.date
+      link(href="#{ uri }/articles/#{ slug }", rel="alternate", type="text/html")
