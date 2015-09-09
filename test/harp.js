@@ -19,7 +19,8 @@ describe("harp init", function() {
   it("downloads the default boilerplate if it's not set", function(done) {
     this.timeout(10000);
     nixt()
-      .run('node ./bin/harp init ' +  path.join('test', 'out', 'harp'))
+      .run('node ./bin/harp init ./test/out/harp') // Tests don't work when this has a platform-specific path passed in, but it does work
+      // .run('node .' + path.sep + 'bin' + path.sep + 'harp init ' + path.join('test', 'out', 'harp'))
       // .stdout(/Downloading.*harp-boilerplates\/default/)
       // .stdout(/Initialized project at \test/out\/harp/)
       .end(function () {
@@ -36,8 +37,11 @@ describe("harp init", function() {
     nixt()
       .run('node ./bin/harp init ' + path.join('test', 'out', 'harp') + ' -b hb-start')
       // .stdout(/Downloading.*harp-boilerplates\/hb-start/)
-    should.exist('test/out/harp/public')
-    done()
+      .end(function () {
+        fs.existsSync(path.join('test', 'out', 'harp', 'public', 'index.jade')).should.not.be.false
+        fs.existsSync(path.join('test', 'out', 'harp', 'README.md')).should.not.be.false
+        done()
+      })
   })
 
   it("honors -b option when given a user/repo pattern", function(done) {
@@ -45,9 +49,11 @@ describe("harp init", function() {
     nixt()
       .run('./bin/harp init ' + path.join('test', 'out', 'harp') + ' -b zeke/harp-sample')
       // .stdout(/Downloading.*zeke\/harp-sample/)
-    should.exist(path.join('test', 'out', 'harp', 'README.md'))
-    should.exist(path.join('test', 'out', 'harp', 'index.jade'))
-    done()
+      .end(function () {
+        fs.existsSync(path.join('test', 'out', 'harp', 'README.md')).should.not.be.false
+        fs.existsSync(path.join('test', 'out', 'harp', 'index.jade')).should.not.be.false
+        done()
+      })
   })
 
   it("doesn't overwrite an existing directory", function(done) {
