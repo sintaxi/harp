@@ -43,11 +43,11 @@
     "envy-json": "0.2.1"
   },
   "devDependencies": {
-    "mocha": "1.8.1",
-    "should": "3.1.2",
-    "request": "2.30.0",
-    "cheerio": "~0.13.1",
-    "nixt": "~0.3.0"
+    "cheerio": "0.19.0",
+    "mocha": "1.21.5",
+    "nixt": "0.4.1",
+    "request": "2.61.0",
+    "should": "3.3.2"
   },
   "scripts": {
     "test": "mocha --reporter spec -t 5000"
