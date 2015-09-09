@@ -116,12 +116,24 @@ harp.compile(projectPath [,outputPath] [, callback])
 var express = require("express");
 var harp = require("harp");
 var app = express();
+```
 
-app.configure(function(){
+```js 
+// Express 3
+app.configure(function(){ 
   app.use(express.static(__dirname + "/public"));
   app.use(harp.mount(__dirname + "/public"));
 });
 ```
+
+```js 
+// Express 4
+
+app.use(express.static(__dirname + "/public"));
+app.use(harp.mount(__dirname + "/public"));
+
+```
+
 
 ## License
 
