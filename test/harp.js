@@ -15,10 +15,6 @@ describe("harp init", function() {
     })
   })
 
-  afterEach(function(done) {
-    fs.remove(outputPath, done)
-  })
-
   it("downloads the default boilerplate if it's not set", function(done) {
     this.timeout(10000);
     nixt()
