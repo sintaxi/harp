@@ -50,7 +50,7 @@
     "should": "3.3.2"
   },
   "scripts": {
-    "test": "mocha --reporter spec -t 5000"
+    "test": "mocha --reporter spec -t 8000"
   },
   "license": "MIT",
   "preferGlobal": true,
