@@ -7,6 +7,8 @@ var downloadRepo  = require("download-github-repo")
 var pkg           = require("../package.json")
 var helpers       = require("../lib/helpers")
 var harp          = require("../")
+var tmp           = require('tmp')
+var surge         = require('surge')({ platform: "harpjs.com" })
 
 var output = function(msg){
   var v = pkg.version
@@ -96,62 +98,59 @@ program
     })
   })
 
-program
-  .command("multihost [path]")
-  .option("-p, --port <port>", "Specify a port to listen on")
-  .usage("starts a Harp server to host a directory of Harp projects.")
-  .description("Start a Harp server to host a directory of Harp projects")
-  .action(function(path, program){
-    var projectPath = nodePath.resolve(process.cwd(), path || "")
-    var port        = program.port || 9000
-    harp.multihost(projectPath, { port: port }, function(){
-      if(port == "80"){
-        var loc = "http://harp.nu"
-      }else{
-        var loc = "http://harp.nu:" + port
-      }
-      output("Your server is hosting multiple projects at " + loc)
+
+/**
+ * Surge Integration
+ */
+
+var hooks = {
+
+  postProject: function(req, next){
+    tmp.dir(function(err, outputPath, cleanupCallback) {
+      harp.compile(req.project, outputPath, function(errors, output){
+        if(errors) {
+          console.log(errors)
+          process.exit(1)
+        } else {
+          req.src     = req.project
+          req.project = outputPath
+          next()
+        }
+      })
     })
-  })
+  },
+
+  postPublish: function(req, next){
+    fse.remove(req.project, function(){
+      next()
+    })
+  }
+
+}
 
 program
-  .command("compile [projectPath] [outputPath]")
-  .option("-o, --output <path>", "Specify the output directory for compiled assets (relative to project path)")
-  .usage("compile your project files to static assets (HTML, JS and CSS). \n  Use this command if you want to host your application without using the Harp web server.")
-  .description("Compile project to static assets (HTML, JS and CSS)")
-  .action(function(projectPath, outputPath, program){
+  .command("publish")
+  .description("publish to the web instantly")
+  .action(surge.actions.publish(hooks))
 
-    if(!program){
-      program    = outputPath
-      outputPath = null
-    }
+program
+  .command("whoami")
+  .description("check who currently logged in as")
+  .action(surge.actions.whoami())
 
-    projectPath = nodePath.resolve(process.cwd(), projectPath || "")
+program
+  .command("login")
+  .description("authenticate")
+  .action(surge.actions.login())
 
-    /**
-     * We deal with output path 3 different ways
-     *
-     *  1. second argument (relative to directory called in)
-     *  2. `--output` argument (relative to project root)
-     *  3. implicitly projectPath + "/www"
-     *
-     */
+program
+  .command("logout")
+  .description("authenticate")
+  .action(surge.actions.logout())
 
-    if(outputPath){
-      outputPath = nodePath.resolve(process.cwd(), (outputPath || program.output || ''))
-    }else{
-      outputPath = nodePath.resolve(projectPath, (program.output || "www"))
-    }
-
-    harp.compile(projectPath, outputPath, function(errors, output){
-      if(errors) {
-        console.log(JSON.stringify(errors, null, 2))
-        process.exit(1)
-      }
-    })
-  })
 
 program.on("--help", function(){
+  console.log("_________")
   console.log("  Use 'harp <command> --help' to get more information or visit http://harpjs.com/ to learn more.")
   console.log('')
 })
