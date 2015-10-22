@@ -82,16 +82,12 @@ program
   .description("Start a Harp server in current directory")
   .action(function(path, program){
     var projectPath = nodePath.resolve(process.cwd(), path || "")
-    var ip          = program.ip || '0.0.0.0'
-    var port        = program.port || 9000
-    harp.server(projectPath, { ip: ip, port: port }, function(){
-      var address = ''
-      if(ip == '0.0.0.0' || ip == '127.0.0.1') {
-        address = 'localhost'
-      } else {
-        address = ip
-      }
-      var hostUrl = "http://" + address + ":" + port + "/"
+    if(typeof program.ip   == 'undefined') program.ip   = '0.0.0.0'
+    if(typeof program.port == 'undefined') program.port = 9000
+    harp.server(projectPath, { ip: program.ip, port: program.port }, function(){
+      var host = this.address()
+      if(host.address == '0.0.0.0' || host.address == '127.0.0.1') host.address = 'localhost'
+      var hostUrl = "http://" + host.address + ":" + host.port + "/"
       output("Your server is listening at " + hostUrl)
     })
   })
@@ -103,12 +99,13 @@ program
   .description("Start a Harp server to host a directory of Harp projects")
   .action(function(path, program){
     var projectPath = nodePath.resolve(process.cwd(), path || "")
-    var port        = program.port || 9000
-    harp.multihost(projectPath, { port: port }, function(){
-      if(port == "80"){
+    if(typeof program.port == 'undefined') program.port = 9000
+    harp.multihost(projectPath, { port: program.port }, function(){
+      var host = this.address()
+      if(host.port == "80"){
         var loc = "http://harp.nu"
       }else{
-        var loc = "http://harp.nu:" + port
+        var loc = "http://harp.nu:" + host.port
       }
       output("Your server is hosting multiple projects at " + loc)
     })
