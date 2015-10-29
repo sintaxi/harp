@@ -220,7 +220,7 @@ program
   .command("plus")
   .usage("Upgrade and deploy a project with Surge Plus")
   .description("Upgrade and deploy a project with Surge Plus")
-  .action(surge.teardown(hooks))
+  .action(surge.plus(hooks))
 
 
 program.on("--help", function(){
