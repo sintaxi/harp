@@ -4,9 +4,12 @@ var nodePath      = require("path")
 var program       = require("commander")
 var fse           = require("fs-extra")
 var downloadRepo  = require("download-github-repo")
+var tmp           = require('tmp')
+var surge         = require('surge')({ platform: 'harpjs.com' })
 var pkg           = require("../package.json")
 var helpers       = require("../lib/helpers")
 var harp          = require("../")
+var hooks = {}
 
 var output = function(msg){
   var v = pkg.version
@@ -150,6 +153,75 @@ program
       }
     })
   })
+
+program
+  .command("login")
+  .usage("Login to publish Harp projects to the web.")
+  .description("Login to publish Harp projects to the web.")
+  .action(surge.login(hooks))
+
+program
+  .command("logout")
+  .usage("Log out of your Harp account.")
+  .description("Log out of your Harp account.")
+  .action(surge.logout(hooks))
+
+program
+  .command("publish [projectPath] [domain]")
+  .usage("Publishes a Harp project to the web.")
+  .description("Publishes a Harp project to the web.")
+  .action(surge.publish(hooks))
+
+hooks.postProject = function (req, next) {
+  tmp.dir(function(err, outputPath) {
+    harp.compile(req.project, outputPath, function (err, output, cleanup) {
+      if (err) {
+        console.error(err)
+        process.exit(1)
+      } else {
+        req.src     = req.project
+        req.project = outputPath // Set the compile directory as the directory to publish
+        next()
+      }
+    })
+  })
+}
+
+hooks.postPublish = function (req, next) {
+  fse.remove(req.project, function (err) { // Remove the compile directory
+    if (err) {
+      console.log(err)
+      process.exit(1)
+    } else {
+      next()
+    }
+  })
+}
+
+program
+  .command("whoami")
+  .usage("Check who you are logged in as.")
+  .description("Check who you are logged in as.")
+  .action(surge.whoami(hooks))
+
+program
+  .command("list")
+  .usage("List out the Harp projects you’ve published to the web.")
+  .description("List out the Harp projects you’ve published to the web.")
+  .action(surge.list(hooks))
+
+program
+  .command("teardown")
+  .usage("Tear down a live project.")
+  .description("Tear down a live project.")
+  .action(surge.teardown(hooks))
+
+program
+  .command("plus")
+  .usage("Upgrade and deploy a project with Surge Plus")
+  .description("Upgrade and deploy a project with Surge Plus")
+  .action(surge.teardown(hooks))
+
 
 program.on("--help", function(){
   console.log("  Use 'harp <command> --help' to get more information or visit http://harpjs.com/ to learn more.")
