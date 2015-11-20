@@ -10,6 +10,26 @@ var harp          = require("../")
 var tmp           = require('tmp')
 var surge         = require('surge')({ platform: "harpjs.com" })
 
+var yargs = require('yargs')
+
+yargs
+  .usage('harp <dir> [domain]')
+  .command('whoami', 'world command')
+  .command('login', 'hello command')
+  .command('logout', 'world command')
+  .command('whoami', 'world command')
+  .demand(1, 'must provide directory'),
+  command = yargs.argv._[0]
+
+
+if (command === "login") {
+  var argv  = yargs.argv
+  argv["_"] = argv._.slice(1)
+  surge.commands.login(hooks)(process.argv.slice)
+}
+
+
+
 var output = function(msg){
   var v = pkg.version
   console.log("------------")
@@ -21,142 +41,142 @@ var output = function(msg){
   console.log("------------")
 }
 
-program
-  .version(pkg.version)
+// program
+//   .version(pkg.version)
 
-program
-  .command("init [path]")
-  .usage("initializes a new Harp project in the current directory.\n  See available boilerplates at https://github.com/harp-boilerplates")
-  .option("-b, --boilerplate <github-username/repo>", "use a github repo as a boilerplate", "harp-boilerplates/default")
-  .description("Initialize a new Harp project in current directory")
-  .action(function(path, program){
-    var projectPath     = nodePath.resolve(process.cwd(), path || "")
-    var boilerplatePath = nodePath.resolve(__dirname, "..", "lib", "default_boilerplate")
-    var repo            = program.boilerplate
+// program
+//   .command("init [path]")
+//   .usage("initializes a new Harp project in the current directory.\n  See available boilerplates at https://github.com/harp-boilerplates")
+//   .option("-b, --boilerplate <github-username/repo>", "use a github repo as a boilerplate", "harp-boilerplates/default")
+//   .description("Initialize a new Harp project in current directory")
+//   .action(function(path, program){
+//     var projectPath     = nodePath.resolve(process.cwd(), path || "")
+//     var boilerplatePath = nodePath.resolve(__dirname, "..", "lib", "default_boilerplate")
+//     var repo            = program.boilerplate
 
-    // Assume `harp-boilerplates` github org if boilerplate doesn't contain a slash
-    repo.match(/\//) || (repo = "harp-boilerplates/"+repo)
+//     // Assume `harp-boilerplates` github org if boilerplate doesn't contain a slash
+//     repo.match(/\//) || (repo = "harp-boilerplates/"+repo)
 
-    var done = function() {
-      console.log("Initialized project at", projectPath)
-    }
+//     var done = function() {
+//       console.log("Initialized project at", projectPath)
+//     }
 
-    fse.mkdirp(projectPath, function(err){
-      if(err) return err
+//     fse.mkdirp(projectPath, function(err){
+//       if(err) return err
 
-      fse.readdir(projectPath, function(err, contents){
+//       fse.readdir(projectPath, function(err, contents){
 
-        if(err) return err
+//         if(err) return err
 
-        if(contents.length !== 0){
-          console.log("Sorry,", projectPath, "must be empty.")
-          return
-        }
+//         if(contents.length !== 0){
+//           console.log("Sorry,", projectPath, "must be empty.")
+//           return
+//         }
 
-        console.log("Downloading boilerplate: https://github.com/"+repo)
+//         console.log("Downloading boilerplate: https://github.com/"+repo)
 
-        //fse.writeFileSync("/Desktop/harp-test-output.txt", repo + "::" + projectPath)
+//         //fse.writeFileSync("/Desktop/harp-test-output.txt", repo + "::" + projectPath)
 
-        downloadRepo(repo, projectPath, function(err) {
-          if (!err) return done()
+//         downloadRepo(repo, projectPath, function(err) {
+//           if (!err) return done()
 
-          if (require('util').isError(err) && err['code'] === 'ENOTFOUND') {
-            console.error("You're not connected to the Internet, so we'll use the default boilerplate.")
-            fse.copy(boilerplatePath, projectPath, function(err){
-              if (err) return err
-              return done()
-            })
-          } else {
-            return console.error("Template not found:", "https://github.com/"+repo)
-          }
+//           if (require('util').isError(err) && err['code'] === 'ENOTFOUND') {
+//             console.error("You're not connected to the Internet, so we'll use the default boilerplate.")
+//             fse.copy(boilerplatePath, projectPath, function(err){
+//               if (err) return err
+//               return done()
+//             })
+//           } else {
+//             return console.error("Template not found:", "https://github.com/"+repo)
+//           }
 
-        })
+//         })
 
-      })
-    })
-  })
+//       })
+//     })
+//   })
 
-program
-  .command("server [path]")
-  .option("-i, --ip <ip>", "Specify IP to bind to")
-  .option("-p, --port <port>", "Specify a port to listen on")
-  .usage("starts a Harp server in current directory, or in the specified directory.")
-  .description("Start a Harp server in current directory")
-  .action(function(path, program){
-    var projectPath = nodePath.resolve(process.cwd(), path || "")
-    var ip          = program.ip || '0.0.0.0'
-    var port        = program.port || 9000
-    harp.server(projectPath, { ip: ip, port: port }, function(){
-      var address = ''
-      if(ip == '0.0.0.0' || ip == '127.0.0.1') {
-        address = 'localhost'
-      } else {
-        address = ip
-      }
-      var hostUrl = "http://" + address + ":" + port + "/"
-      output("Your server is listening at " + hostUrl)
-    })
-  })
-
-
-/**
- * Surge Integration
- */
-
-var hooks = {
-
-  postProject: function(req, next){
-    tmp.dir(function(err, outputPath, cleanupCallback) {
-      harp.compile(req.project, outputPath, function(errors, output){
-        if(errors) {
-          console.log(errors)
-          process.exit(1)
-        } else {
-          req.src     = req.project
-          req.project = outputPath
-          next()
-        }
-      })
-    })
-  },
-
-  postPublish: function(req, next){
-    fse.remove(req.project, function(){
-      next()
-    })
-  }
-
-}
-
-program
-  .command("publish")
-  .description("publish to the web instantly")
-  .action(surge.actions.publish(hooks))
-
-program
-  .command("whoami")
-  .description("check who currently logged in as")
-  .action(surge.actions.whoami())
-
-program
-  .command("login")
-  .description("authenticate")
-  .action(surge.actions.login())
-
-program
-  .command("logout")
-  .description("authenticate")
-  .action(surge.actions.logout())
+// program
+//   .command("server [path]")
+//   .option("-i, --ip <ip>", "Specify IP to bind to")
+//   .option("-p, --port <port>", "Specify a port to listen on")
+//   .usage("starts a Harp server in current directory, or in the specified directory.")
+//   .description("Start a Harp server in current directory")
+//   .action(function(path, program){
+//     var projectPath = nodePath.resolve(process.cwd(), path || "")
+//     var ip          = program.ip || '0.0.0.0'
+//     var port        = program.port || 9000
+//     harp.server(projectPath, { ip: ip, port: port }, function(){
+//       var address = ''
+//       if(ip == '0.0.0.0' || ip == '127.0.0.1') {
+//         address = 'localhost'
+//       } else {
+//         address = ip
+//       }
+//       var hostUrl = "http://" + address + ":" + port + "/"
+//       output("Your server is listening at " + hostUrl)
+//     })
+//   })
 
 
-program.on("--help", function(){
-  console.log("_________")
-  console.log("  Use 'harp <command> --help' to get more information or visit http://harpjs.com/ to learn more.")
-  console.log('')
-})
+// /**
+//  * Surge Integration
+//  */
 
-program.parse(process.argv)
+// var hooks = {
 
-if(program.args.length < 1){
-  program.help()
-}
+//   postProject: function(req, next){
+//     tmp.dir(function(err, outputPath, cleanupCallback) {
+//       harp.compile(req.project, outputPath, function(errors, output){
+//         if(errors) {
+//           console.log(errors)
+//           process.exit(1)
+//         } else {
+//           req.src     = req.project
+//           req.project = outputPath
+//           next()
+//         }
+//       })
+//     })
+//   },
+
+//   postPublish: function(req, next){
+//     fse.remove(req.project, function(){
+//       next()
+//     })
+//   }
+
+// }
+
+// program
+//   .command("publish")
+//   .description("publish to the web instantly")
+//   .action(surge.actions.publish(hooks))
+
+// program
+//   .command("whoami")
+//   .description("check who currently logged in as")
+//   .action(surge.actions.whoami())
+
+// program
+//   .command("login")
+//   .description("authenticate")
+//   .action(surge.actions.login())
+
+// program
+//   .command("logout")
+//   .description("authenticate")
+//   .action(surge.actions.logout())
+
+
+// program.on("--help", function(){
+//   console.log("_________")
+//   console.log("  Use 'harp <command> --help' to get more information or visit http://harpjs.com/ to learn more.")
+//   console.log('')
+// })
+
+// program.parse(process.argv)
+
+// if(program.args.length < 1){
+//   program.help()
+// }
