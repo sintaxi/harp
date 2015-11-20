@@ -14,7 +14,14 @@ describe("cors", function(){
     })
 
     it("should not allow access at all", function(done){
-      request('http://localhost:'+ port +'/cors.txt', function (e, r, b) {
+      var options = {
+        url: 'http://localhost:'+ port +'/cors.txt',
+        headers: {
+          Origin: 'http://some.random.origin'
+        }
+      }
+
+      request(options, function (e, r, b) {
         r.statusCode.should.eql(200)
         r.headers.should.not.have.property("access-control-allow-origin")
         done()
