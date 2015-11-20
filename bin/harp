@@ -78,13 +78,26 @@ program
   .command("server [path]")
   .option("-i, --ip <ip>", "Specify IP to bind to")
   .option("-p, --port <port>", "Specify a port to listen on")
+  .option("-c, --cors <origin(s)>", "Specify a comma separated list of origins or \"*\" for all")
   .usage("starts a Harp server in current directory, or in the specified directory.")
   .description("Start a Harp server in current directory")
   .action(function(path, program){
     var projectPath = nodePath.resolve(process.cwd(), path || "")
     var ip          = program.ip || '0.0.0.0'
     var port        = program.port || 9000
-    harp.server(projectPath, { ip: ip, port: port }, function(){
+    var cors
+
+    if(!program.cors) {
+      cors = false;
+    } else if(program.cors === '*') {
+      cors = true;
+    } else {
+      cors = program.cors.split(',').map(function(domain) {
+        return domain.trim()
+      })
+    }
+
+    harp.server(projectPath, { ip: ip, port: port, cors: cors }, function(){
       var address = ''
       if(ip == '0.0.0.0' || ip == '127.0.0.1') {
         address = 'localhost'
