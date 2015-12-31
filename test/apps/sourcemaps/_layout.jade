@@ -1,0 +1,19 @@
+doctype
+html
+  head
+    link(rel="stylesheet", href="/css/main-sass.css")
+    link(rel="stylesheet", href="/css/main-scss.css")
+    link(rel="stylesheet", href="/css/main-less.css")
+    link(rel="stylesheet", href="/css/main-styl.css")
+    link(rel="alternate", type="application/atom+xml", title="#{ brand }", href="#{ uri }/feed.atom")
+    script.
+      var showDebug = function(){
+        document.getElementById('debug').style.display = 'block';
+        return false;
+      }
+  body
+    #header
+      h1= brand
+      != yield
+      a(href="#", onclick="showDebug()") open debug panel
+      .well#debug(style="display:none;")

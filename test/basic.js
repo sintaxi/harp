@@ -83,7 +83,7 @@ describe("basic", function(){
       request('http://localhost:8100/css/main.css', function (e, r, b) {
         r.statusCode.should.eql(200)
         b.should.include("background")
-        b.should.eql(contents.toString())
+        b.should.startWith(contents.toString())
         done()
       })
     })
