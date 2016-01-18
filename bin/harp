@@ -1,45 +1,170 @@
 #!/usr/bin/env node
 
+var pkg = require("../package.json")
+var yargs = require('yargs')
+
+yargs.alias('p', 'port')
+yargs.alias('i', 'ip')
+yargs.alias('b', 'boilerplate')
+
+if(yargs.argv._.length === 0){
+  console.log()
+  console.log("  Harp v" + pkg.version)
+  console.log()
+  console.log("  Usage:")
+  console.log("    harp <project> [domain|dir]")
+  console.log()
+  console.log("  Commands:")
+  console.log("    harp <project>            Starts development server on project directory")
+  console.log("    harp <project> [domain]   Deploys project directory to the web")
+  console.log("    harp <project> [dir]      Compiles project directory to output directory")
+  console.log()
+  console.log("  Options:")
+  console.log("    -p,   --port              Specify port for server to listen on (9000)")
+  console.log("    -i,   --ip                I.P. address for server to bind to (127.0.0.1)")
+  console.log()
+  console.log("  Examples:")
+  console.log("    harp . -p 9001            Starts server on current directory on port 9001")
+  console.log("    harp . example.com        Deploys current directory to `example.com`")
+  console.log("    harp src www              Compiles `src` directory to `www` directory")
+  console.log("    harp . _                  Deploy to random generated domain (via prompt)")
+  console.log("    harp src ./example.com    Compiles to local directory named `example.com`")
+  console.log()
+  console.log("  Platform Commands:")
+  console.log("    harp <cmd>                list, remove, login, logout, whoami")
+  console.log()
+  process.exit()
+}
+
+
+
+/**
+ * Legacy CLI
+ *
+ */
+
+if(yargs.argv._[0] === "init") {
+  console.log()
+  console.log("    Run '" + yargs.argv['$0'], (yargs.argv._[1] || "<dir>") + "'", "to create project.")
+  console.log()
+  process.exit()
+}
+
+if(yargs.argv._[0] === "server") {
+  console.log()
+  console.log("    Run '" + yargs.argv['$0'], (yargs.argv._[1] || "<dir>") + "'", "to start the server.")
+  console.log()
+  process.exit()
+}
+
+if(yargs.argv._[0] === "compile") {
+  console.log()
+  console.log("    Run '" + yargs.argv['$0'], (yargs.argv._[1] || "<source>"), (yargs.argv._[2] || "<output>") + "'", "to compile.")
+  console.log()
+  process.exit()
+}
+
+var findOrCreate = function(next){
+  var projectPath     = nodePath.resolve(yargs.argv._[0])
+  var boilerplatePath = nodePath.resolve(__dirname, "..", "lib", "default_boilerplate")
+  var repo            = yargs.argv.boilerplate || "harp-boilerplates/default"
+  repo.match(/\//) || (repo = "harp-boilerplates/"+repo)
+
+  console.log()
+  if (fse.existsSync(projectPath)) {
+    console.log("        project:", projectPath, "(found)")
+  } else {
+    console.log("        project:", projectPath, "(created)")
+  }
+
+  fse.mkdirp(projectPath, function(err){
+    if (err) return process.exit(1)
+    fse.readdir(projectPath, function(err, contents){
+      if(contents.length !== 0){
+        return next()
+      } else {
+        process.stdout.write("      cloning:", repo)
+        downloadRepo(repo, projectPath, function(err) {
+          if (!err) return next()
+
+          if (require('util').isError(err) && err['code'] === 'ENOTFOUND') {
+            console.error("You're not connected to the Internet, so we'll use the default boilerplate.")
+            fse.copy(boilerplatePath, projectPath, function(err){
+              if (err) return err
+              return next()
+            })
+          } else {
+            return console.error("Boilerplate not found:", "https://github.com/"+repo)
+          }
+        })
+      }
+    })
+  })
+}
+
+
+var server = function(){
+  var projectPath = nodePath.resolve(yargs.argv._[0])
+  var ip          = yargs.argv.ip || '0.0.0.0'
+  var port        = yargs.argv.port || 9000
+
+  console.log("           port:", port)
+  console.log("             ip:", ip)
+  harp.server(projectPath, { ip: ip, port: port }, function(){
+    var address = ''
+    if(ip == '0.0.0.0' || ip == '127.0.0.1') {
+      address = 'localhost'
+    } else {
+      address = ip
+    }
+
+    var hostUrl = "http://" + address + ":" + port + "/"
+    console.log("        serving:", hostUrl)
+    console.log()
+    console.log("press (ctl+c) to stop the local server")
+  })
+}
+
+
+
+
+
+
+
+
+// init - harp foo
+// init - harp foo bar
+// server - harp foo
+
+// findOrCreate -> compileOrPublish -> exit
+// findOrCreate -> startServer
+
+
+
+
 var nodePath      = require("path")
 var program       = require("commander")
 var fse           = require("fs-extra")
 var downloadRepo  = require("download-github-repo")
-var pkg           = require("../package.json")
 var helpers       = require("../lib/helpers")
 var harp          = require("../")
 var tmp           = require('tmp')
 var surge         = require('surge')({ platform: "harpjs.com" })
 
-var yargs = require('yargs')
-
-yargs
-  .usage('harp <dir> [domain]')
-  .command('whoami', 'world command')
-  .command('login', 'hello command')
-  .command('logout', 'world command')
-  .command('whoami', 'world command')
-  .demand(1, 'must provide directory'),
-  command = yargs.argv._[0]
-
-
-if (command === "login") {
-  var argv  = yargs.argv
-  argv["_"] = argv._.slice(1)
-  surge.commands.login(hooks)(process.argv.slice)
-}
-
-
+findOrCreate(server)
 
 var output = function(msg){
   var v = pkg.version
-  console.log("------------")
-  console.log("Harp v" + v + " – Chloi Inc. 2012–2015")
+  console.log()
+  //console.log("Harp v" + v + " – Chloi Inc. 2012–2015")
   if(msg){
     console.log(msg)
     console.log("Press Ctl+C to stop the server")
   }
   console.log("------------")
 }
+
+
 
 // program
 //   .version(pkg.version)
