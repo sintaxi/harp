@@ -2,6 +2,7 @@
 
 var pkg = require("../package.json")
 var yargs = require('yargs')
+var util = require('util')
 
 yargs.alias('p', 'port')
 yargs.alias('i', 'ip')
@@ -64,42 +65,81 @@ if(yargs.argv._[0] === "compile") {
   process.exit()
 }
 
+var read = require("read")
+
 var findOrCreate = function(next){
+  var p = yargs.argv._[0]
   var projectPath     = nodePath.resolve(yargs.argv._[0])
   var boilerplatePath = nodePath.resolve(__dirname, "..", "lib", "default_boilerplate")
   var repo            = yargs.argv.boilerplate || "harp-boilerplates/default"
   repo.match(/\//) || (repo = "harp-boilerplates/"+repo)
 
-  console.log()
-  if (fse.existsSync(projectPath)) {
-    console.log("        project:", projectPath, "(found)")
-  } else {
-    console.log("        project:", projectPath, "(created)")
-  }
+  fse.readdir(projectPath, function(err, contents){
+    console.log()
+    console.log("  Harp v" + pkg.version)
+    console.log()
+    if (err || contents.length <1){
+      console.log("No project found at", projectPath)
+      read({ prompt: "Please choose boilerplate to clone:", default: repo, edit: true }, function(err, repo){
+        console.log()
+        repo.match(/\//) || (repo = "harp-boilerplates/"+repo)
 
-  fse.mkdirp(projectPath, function(err){
-    if (err) return process.exit(1)
-    fse.readdir(projectPath, function(err, contents){
-      if(contents.length !== 0){
-        return next()
-      } else {
-        process.stdout.write("      cloning:", repo)
-        downloadRepo(repo, projectPath, function(err) {
-          if (!err) return next()
+        // mkdirp
+        fse.mkdirp(projectPath, function(err){
+          if (err) return process.exit(1)
+            //process.stdout.write("      cloning:", repo)
+            downloadRepo(repo, projectPath, function(err) {
+              if (!err) return next()
 
-          if (require('util').isError(err) && err['code'] === 'ENOTFOUND') {
-            console.error("You're not connected to the Internet, so we'll use the default boilerplate.")
-            fse.copy(boilerplatePath, projectPath, function(err){
-              if (err) return err
-              return next()
+              if (util.isError(err) && err['code'] === 'ENOTFOUND') {
+                console.error("You're not connected to the Internet, so we'll use the default boilerplate.")
+                fse.copy(boilerplatePath, projectPath, function(err){
+                  if (err) return err
+                  return next()
+                })
+              } else {
+                return console.error("Boilerplate not found:", "https://github.com/"+repo)
+              }
             })
-          } else {
-            return console.error("Boilerplate not found:", "https://github.com/"+repo)
-          }
         })
-      }
-    })
+      })
+    } else {
+      // console.log("    project:", p)
+      return next()
+    }
   })
+
+  // if (fse.existsSync(projectPath)) {
+  //   // TODO: move forward
+  //   console.log("        project:", projectPath, "(found)")
+  // } else {
+  //   // TODO: prompt first
+  //   console.log("        project:", projectPath, "(created)")
+  // }
+
+  // fse.mkdirp(projectPath, function(err){
+  //   if (err) return process.exit(1)
+  //   fse.readdir(projectPath, function(err, contents){
+  //     if(contents.length !== 0){
+  //       return next()
+  //     } else {
+  //       process.stdout.write("      cloning:", repo)
+  //       downloadRepo(repo, projectPath, function(err) {
+  //         if (!err) return next()
+
+  //         if (require('util').isError(err) && err['code'] === 'ENOTFOUND') {
+  //           console.error("You're not connected to the Internet, so we'll use the default boilerplate.")
+  //           fse.copy(boilerplatePath, projectPath, function(err){
+  //             if (err) return err
+  //             return next()
+  //           })
+  //         } else {
+  //           return console.error("Boilerplate not found:", "https://github.com/"+repo)
+  //         }
+  //       })
+  //     }
+  //   })
+  // })
 }
 
 
@@ -108,9 +148,7 @@ var server = function(){
   var ip          = yargs.argv.ip || '0.0.0.0'
   var port        = yargs.argv.port || 9000
 
-  console.log("           port:", port)
-  console.log("             ip:", ip)
-  harp.server(projectPath, { ip: ip, port: port }, function(){
+  harp.server(projectPath, { ip: ip, port: port }, function(err){
     var address = ''
     if(ip == '0.0.0.0' || ip == '127.0.0.1') {
       address = 'localhost'
@@ -119,17 +157,11 @@ var server = function(){
     }
 
     var hostUrl = "http://" + address + ":" + port + "/"
-    console.log("        serving:", hostUrl)
+    console.log("    serving:", hostUrl)
     console.log()
-    console.log("press (ctl+c) to stop the local server")
+    process.stdout.write("press (ctl+c) to stop the server")
   })
 }
-
-
-
-
-
-
 
 
 // init - harp foo
@@ -138,9 +170,6 @@ var server = function(){
 
 // findOrCreate -> compileOrPublish -> exit
 // findOrCreate -> startServer
-
-
-
 
 var nodePath      = require("path")
 var program       = require("commander")
@@ -156,7 +185,6 @@ findOrCreate(server)
 var output = function(msg){
   var v = pkg.version
   console.log()
-  //console.log("Harp v" + v + " – Chloi Inc. 2012–2015")
   if(msg){
     console.log(msg)
     console.log("Press Ctl+C to stop the server")

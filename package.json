@@ -3,28 +3,34 @@
   "version": "0.20.1",
   "description": "Static web server with built in preprocessing",
   "author": "Brock Whitten <brock@chloi.io>",
-  "contributors":
-  [ "Brock Whitten <brock@chloi.io>"
-  , "Rob Ellis <rob@chloi.io>"
-  , "Jorge Pedret <jorge@chloi.io>"
-  , "Michael Brooks <michael@michaelbrooks.ca>"
-  , "Tommy-Carlos Williams <tommy@devgeeks.org>"
-  , "Darryl Pogue <darryl@dpogue.ca>"
-  , "Boris Mann <boris@bmannconsulting.com>"
-  , "Kenneth Ormandy <kenneth@chloi.io>"
-  , "Keith Yao <i@yaofur.com>"
-  , "Eric Drechsel <eric@pdxhub.org>"
-  , "Andrew Hobden <andrew@hoverbear.org>"
-  , "Max Melentiev <printercu@gmail.com>"
-  , "Remy Sharp <remy@remysharp.com>"
-  , "Zeke Sikelianos <zeke@sikelianos.com>"
-  , "Marc Knaup <marc.knaup@koeln.de>"
-  , "Jurgen Van de Moere <jurgen.van.de.moere@gmail.com>"
+  "contributors": [
+    "Brock Whitten <brock@chloi.io>",
+    "Rob Ellis <rob@chloi.io>",
+    "Jorge Pedret <jorge@chloi.io>",
+    "Michael Brooks <michael@michaelbrooks.ca>",
+    "Tommy-Carlos Williams <tommy@devgeeks.org>",
+    "Darryl Pogue <darryl@dpogue.ca>",
+    "Boris Mann <boris@bmannconsulting.com>",
+    "Kenneth Ormandy <kenneth@chloi.io>",
+    "Keith Yao <i@yaofur.com>",
+    "Eric Drechsel <eric@pdxhub.org>",
+    "Andrew Hobden <andrew@hoverbear.org>",
+    "Max Melentiev <printercu@gmail.com>",
+    "Remy Sharp <remy@remysharp.com>",
+    "Zeke Sikelianos <zeke@sikelianos.com>",
+    "Marc Knaup <marc.knaup@koeln.de>",
+    "Jurgen Van de Moere <jurgen.van.de.moere@gmail.com>"
   ],
   "keywords": [
     "static web server",
     "static site generator",
-    "sass", "less", "stylus", "markdown", "jade", "ejs", "coffeescript"
+    "sass",
+    "less",
+    "stylus",
+    "markdown",
+    "jade",
+    "ejs",
+    "coffeescript"
   ],
   "homepage": "http://harpjs.com",
   "bugs": "http://github.com/sintaxi/harp/issues",
@@ -44,9 +50,11 @@
     "mime": "1.2.11",
     "parseurl": "1.3.0",
     "pause": "0.1.0",
+    "read": "1.0.5",
     "send": "0.13.0",
-    "terraform": "0.13.0",
-    "tmp": "0.0.28"
+    "terraform": "1.0.0",
+    "tmp": "0.0.28",
+    "surge": "0.17.6"
   },
   "devDependencies": {
     "cheerio": "0.19.0",
