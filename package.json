@@ -52,9 +52,10 @@
     "pause": "0.1.0",
     "read": "1.0.5",
     "send": "0.13.0",
+    "surge": "0.17.6",
     "terraform": "1.0.0",
     "tmp": "0.0.28",
-    "surge": "0.17.6"
+    "yargs": "3.32.0"
   },
   "devDependencies": {
     "cheerio": "0.19.0",
