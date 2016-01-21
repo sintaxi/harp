@@ -80,6 +80,12 @@ var findOrCreate = function(next){
     if (err || contents.length <1){
       console.log("No project found at", projectPath)
       read({ prompt: "Please choose boilerplate to clone:", default: repo, edit: true }, function(err, repo){
+        if (err) {
+          console.log()
+          console.log("Clone cancelled")
+          process.exit(1)
+        }
+
         repo.match(/\//) || (repo = "harp-boilerplates/"+repo)
 
         // mkdirp
