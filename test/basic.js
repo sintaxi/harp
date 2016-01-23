@@ -12,7 +12,9 @@ describe("basic", function(){
   var config;
 
   before(function(done){
+    console.log(projectPath, outputPath)
     harp.compile(projectPath, outputPath, function(errors, output){
+      console.log(errors, output)
       config = output
       harp.server(projectPath, { port: 8100 }, done)
     })
@@ -24,10 +26,15 @@ describe("basic", function(){
   })
 
   it("should have global vars", function(done){
+    console.log("======")
+
     var staticGlobals = require(path.join(outputPath, "globals.json"))
+
     staticGlobals.should.have.property("environment", "production")
     staticGlobals.should.have.property("public")
+    console.log("=")
     request('http://localhost:8100/globals.json', function (e, r, b) {
+      console.log("--")
       r.statusCode.should.eql(200)
       var dynamicGlobals = JSON.parse(b)
       dynamicGlobals.should.have.property("environment", "development")

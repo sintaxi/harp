@@ -132,11 +132,17 @@ var compileOrPublish = function(){
   if (yargs.argv._.length > 1) {
     var destination = yargs.argv._[1]
     if (isDomain(destination)){
-      //console.log("publish to surge")
       surge.publish(hooks)(yargs.argv)
     } else {
       console.log("compiling\n ", nodePath.resolve(yargs.argv._[0]), "\nto...\n ", nodePath.resolve(destination))
-      console.log()
+      harp.compile(nodePath.resolve(yargs.argv._[0]), nodePath.resolve(destination), function(errors, reply){
+        if(errors) {
+          console.log(JSON.stringify(errors, null, 2))
+          process.exit(1)
+        } else {
+          console.log("done")
+        }
+      })
     }
   } else {
     server()
