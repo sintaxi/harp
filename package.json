@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "async": "0.2.9",
+    "chalk": "1.1.1",
     "commander": "2.0.0",
     "connect": "2.30.2",
     "download-github-repo": "0.1.3",
