@@ -186,7 +186,7 @@ var downloadRepo  = require("download-github-repo")
 var helpers       = require("../lib/helpers")
 var harp          = require("../")
 var tmp           = require('tmp')
-var surge         = require('surge')({ platform: "harpjs.com" })
+var surge         = require('surge')({ platform: "harpjs.com", name: "Harp Platform" })
 
 
 /**
