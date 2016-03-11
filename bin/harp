@@ -84,8 +84,8 @@ program
     var projectPath = nodePath.resolve(process.cwd(), path || "")
     if(typeof program.ip   == 'undefined') program.ip   = '0.0.0.0'
     if(typeof program.port == 'undefined') program.port = 9000
-    harp.server(projectPath, { ip: program.ip, port: program.port }, function(){
-      var host = this.address()
+    var server = harp.server(projectPath, { ip: program.ip, port: program.port }, function(){
+      var host = server.address()
       if(host.address == '0.0.0.0' || host.address == '127.0.0.1') host.address = 'localhost'
       var hostUrl = "http://" + host.address + ":" + host.port + "/"
       output("Your server is listening at " + hostUrl)
