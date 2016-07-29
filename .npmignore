@@ -1,2 +1,5 @@
 test
+.npmignore
+.travis.yml
 CONTRIBUTING.md
+appveyor.yml
