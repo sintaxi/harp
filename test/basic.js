@@ -39,12 +39,12 @@ describe("basic", function(){
   it("should have current vars", function(done){
     var staticCurrent = require(path.join(outputPath, "current.json"))
     staticCurrent.should.have.property("path")
-    staticCurrent.should.have.property("source", "current")
+    staticCurrent.should.have.property("source", "current.json")
     request('http://localhost:8100/current.json', function (e, r, b) {
       r.statusCode.should.eql(200)
       var dynamicCurrent = JSON.parse(b)
       dynamicCurrent.should.have.property("path")
-      dynamicCurrent.should.have.property("source", "current")
+      dynamicCurrent.should.have.property("source", "current.json")
       done()
     })
   })
