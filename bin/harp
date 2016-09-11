@@ -86,7 +86,7 @@ program
     var port        = program.port || 9000
     harp.server(projectPath, { ip: ip, port: port }, function(){
       var address = ''
-      if(ip == '0.0.0.0' || ip == '127.0.0.1') {
+      if(ip == '127.0.0.1') {
         address = 'localhost'
       } else {
         address = ip
