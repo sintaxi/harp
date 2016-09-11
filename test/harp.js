@@ -75,3 +75,22 @@ describe("harp init", function() {
   })
 
 })
+
+
+describe("harp server", function() {
+  it("displays localhost if listening on 127.0.0.1", function(done) {
+    this.timeout(10000);
+    nixt()
+      .stdout(/our server is listening at http:\/\/localhost:9000\//)
+      .run('node ./bin/harp server -i 127.0.0.1')
+      .end(done());
+  })
+
+  it('shows 0.0.0.0 by default', function(done) {
+    this.timeout(10000);
+    nixt()
+      .stdout(/our server is listening at http:\/\/0.0.0.0:9000\//)
+      .run('node ./bin/harp server')
+      .end(done());
+  })
+})
