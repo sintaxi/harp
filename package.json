@@ -52,7 +52,7 @@
     "mocha": "3.1.2",
     "nixt": "0.5.0",
     "request": "2.79.0",
-    "should": "11.1.1"
+    "should": "11.1.2"
   },
   "scripts": {
     "test": "mocha --reporter spec -t 8000"
