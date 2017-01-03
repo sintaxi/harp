@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "terraform": {
+      "version": "1.3.0",
+      "dependencies": {
+        "node-sass": {
+          "version": "4.1.1"
+        }
+      }
+    }
+  }
+}
