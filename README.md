@@ -123,6 +123,9 @@ var app = express();
 app.configure(function(){ 
   app.use(express.static(__dirname + "/public"));
   app.use(harp.mount(__dirname + "/public"));
+
+  // Optionally use harp middleware to serve 404 page
+  app.use(harp.notFound);
 });
 ```
 
