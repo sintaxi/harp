@@ -74,7 +74,7 @@ describe("headers", function(){
   it("should be correct with a valid CoffeeScript file", function(done){
     request("http://localhost:" + port + "/valid-coffee.js", function(e, r, b){
       r.statusCode.should.eql(200)
-      r.headers.should.have.property("content-type", "application/javascript")
+      r.headers.should.have.property("content-type", "application/javascript; charset=UTF-8")
       r.headers.should.have.property("content-length")
       done()
     })
