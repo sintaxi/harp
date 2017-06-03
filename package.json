@@ -1,30 +1,36 @@
 {
   "name": "harp",
-  "version": "0.23.0",
+  "version": "0.24.0",
   "description": "Static web server with built in preprocessing",
   "author": "Brock Whitten <brock@chloi.io>",
-  "contributors":
-  [ "Brock Whitten <brock@chloi.io>"
-  , "Rob Ellis <rob@chloi.io>"
-  , "Jorge Pedret <jorge@chloi.io>"
-  , "Michael Brooks <michael@michaelbrooks.ca>"
-  , "Tommy-Carlos Williams <tommy@devgeeks.org>"
-  , "Darryl Pogue <darryl@dpogue.ca>"
-  , "Boris Mann <boris@bmannconsulting.com>"
-  , "Kenneth Ormandy <kenneth@chloi.io>"
-  , "Keith Yao <i@yaofur.com>"
-  , "Eric Drechsel <eric@pdxhub.org>"
-  , "Andrew Hobden <andrew@hoverbear.org>"
-  , "Max Melentiev <printercu@gmail.com>"
-  , "Remy Sharp <remy@remysharp.com>"
-  , "Zeke Sikelianos <zeke@sikelianos.com>"
-  , "Marc Knaup <marc.knaup@koeln.de>"
-  , "Jurgen Van de Moere <jurgen.van.de.moere@gmail.com>"
+  "contributors": [
+    "Brock Whitten <brock@chloi.io>",
+    "Rob Ellis <rob@chloi.io>",
+    "Jorge Pedret <jorge@chloi.io>",
+    "Michael Brooks <michael@michaelbrooks.ca>",
+    "Tommy-Carlos Williams <tommy@devgeeks.org>",
+    "Darryl Pogue <darryl@dpogue.ca>",
+    "Boris Mann <boris@bmannconsulting.com>",
+    "Kenneth Ormandy <kenneth@chloi.io>",
+    "Keith Yao <i@yaofur.com>",
+    "Eric Drechsel <eric@pdxhub.org>",
+    "Andrew Hobden <andrew@hoverbear.org>",
+    "Max Melentiev <printercu@gmail.com>",
+    "Remy Sharp <remy@remysharp.com>",
+    "Zeke Sikelianos <zeke@sikelianos.com>",
+    "Marc Knaup <marc.knaup@koeln.de>",
+    "Jurgen Van de Moere <jurgen.van.de.moere@gmail.com>"
   ],
   "keywords": [
     "static web server",
     "static site generator",
-    "sass", "less", "stylus", "markdown", "jade", "ejs", "coffeescript"
+    "sass",
+    "less",
+    "stylus",
+    "markdown",
+    "jade",
+    "ejs",
+    "coffeescript"
   ],
   "homepage": "http://harpjs.com",
   "bugs": "http://github.com/sintaxi/harp/issues",
@@ -41,17 +47,17 @@
     "envy-json": "0.2.1",
     "escape-html": "1.0.3",
     "fs-extra": "0.18.2",
-    "mime": "1.2.11",
+    "mime": "1.3.6",
     "parseurl": "1.3.0",
     "pause": "0.1.0",
     "send": "0.13.0",
-    "terraform": "1.3.0"
+    "terraform": "1.4.0"
   },
   "devDependencies": {
     "cheerio": "0.19.0",
-    "mocha": "1.21.5",
+    "mocha": "3.4.2",
     "nixt": "0.4.1",
-    "request": "2.61.0",
+    "request": "2.81.0",
     "should": "3.3.2"
   },
   "scripts": {
