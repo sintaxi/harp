@@ -35,7 +35,7 @@ describe("multihost", function(){
     for (var i = 0; i < urls.length; i++) {
       sites.push($(urls[i]).attr("href"));
     }
-    sites.should.containEql('http://app.harp.nu:' + port);
+    sites.should.containEql('http://app.lvh.me:' + port);
     done();
   });
 
