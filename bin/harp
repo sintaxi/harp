@@ -106,9 +106,9 @@ program
     var port        = program.port || 9000
     harp.multihost(projectPath, { port: port }, function(){
       if(port == "80"){
-        var loc = "http://harp.nu"
+        var loc = "http://lvh.me"
       }else{
-        var loc = "http://harp.nu:" + port
+        var loc = "http://lvh.me:" + port
       }
       output("Your server is hosting multiple projects at " + loc)
     })
