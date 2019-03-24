@@ -44,7 +44,7 @@
     "basic-auth": "^2.0.1",
     "browserify": "^16.2.3",
     "commander": "^2.19.0",
-    "connect": "3.4.1",
+    "connect": "^3.6.6",
     "download-github-repo": "^0.1.4",
     "envy-json": "0.2.1",
     "escape-html": "1.0.3",
