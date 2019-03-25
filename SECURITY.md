@@ -15,7 +15,7 @@ by the design of the software.
 
 Please email reports about any security related issues you find to
 `brock@sintaxi.com`. Please use a descriptive subject line for your report
-email. I its appreceated if you include a patch that fixes the security issue -
+email. It's appreceated if you include a patch that fixes the security issue -
 though that is not required.
 
 In addition, please include the following information along with your report:
