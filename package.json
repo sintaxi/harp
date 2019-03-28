@@ -1,6 +1,6 @@
 {
   "name": "harp",
-  "version": "0.29.0",
+  "version": "0.30.0",
   "description": "Static web server with built in preprocessing",
   "author": "Brock Whitten <brock@chloi.io>",
   "contributors": [
@@ -19,7 +19,8 @@
     "Remy Sharp <remy@remysharp.com>",
     "Zeke Sikelianos <zeke@sikelianos.com>",
     "Marc Knaup <marc.knaup@koeln.de>",
-    "Jurgen Van de Moere <jurgen.van.de.moere@gmail.com>"
+    "Jurgen Van de Moere <jurgen.van.de.moere@gmail.com>",
+    "Marco Emrich <m.emrich@webmasters.de>"
   ],
   "keywords": [
     "static web server",
