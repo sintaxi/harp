@@ -62,8 +62,12 @@ describe("harp init", function() {
         nixt()
           .run('node ./bin/harp harp init ./test/out/harp -b hb-default-sass')
           .end(function() {
-            should.not.exist(fs.exists(path.join(outputPath, 'main.sass')))
-            done()
+            //should.not.exist(fs.exists(path.join(outputPath, 'main.sass')))
+            fs.stat(path.join(outputPath, 'main.sass'), function(err, results){
+              should.not.exist(results)
+              done()
+            })
+            
           })
       })
   })
