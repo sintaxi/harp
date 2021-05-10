@@ -10,13 +10,11 @@ var harp          = require("../")
 
 var output = function(msg){
   var v = pkg.version
-  console.log("------------")
-  console.log("Harp v" + v + " – Chloi Inc. 2012–2015")
+  console.log("Harp v" + v)
   if(msg){
     console.log(msg)
     console.log("Press Ctl+C to stop the server")
   }
-  console.log("------------")
 }
 
 program
