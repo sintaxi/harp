@@ -43,8 +43,6 @@
     "url": "https://github.com/sintaxi/harp.git"
   },
   "dependencies": {
-    "@babel/preset-env": "^7.14.1",
-    "@babel/preset-react": "^7.13.13",
     "async": "0.2.9",
     "basic-auth": "^2.0.1",
     "commander": "^2.19.0",
