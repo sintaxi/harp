@@ -74,8 +74,72 @@ describe("fallbacks", function(){
         })
       })
     })
+  })
+
+
+  describe("nested 200 file", function(){
+    var projectPath = path.join(__dirname, "apps/fallbacks/two-hundy/nested")
+    var outputPath  = path.join(__dirname, "out/fallbacks-two-hundy-nested")
+    var port        = 8117
+
+    before(function(done){
+      harp.compile(projectPath, outputPath, function(errors, output){
+        harp.server(projectPath, { port: port }, function(){
+          done()
+        })
+      })
+    })
+
+    it("should return 404 on missing path", function(done){
+      request('http://localhost:'+ port +'/some/fallback/path', function(e, r, b){
+        r.statusCode.should.eql(404)
+        r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+        done()
+      })
+    })
+
+    it("should have fallback 404 page", function(done){
+      request('http://localhost:'+ port +'/some/missing/path', function(e,r,b){
+        r.statusCode.should.eql(404)
+        r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+        done()
+      })
+    })
+
+    it("should return custom 200 page on nested path", function(done){
+      fs.readFile(path.join(outputPath, "app/200.html"), function(err, contents){
+        should.not.exist(err)
+        request('http://localhost:'+ port +'/app/missing/path', function(e,r,b){
+          r.statusCode.should.eql(200)
+          r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+          b.should.eql(contents.toString())
+          done()
+        })
+      })
+    })
+
+    it("should return 200 on /app/", function(done){
+      fs.readFile(path.join(outputPath, "app/200.html"), function(err, contents){
+        should.not.exist(err)
+        request('http://localhost:'+ port +'/app/', function(e,r,b){
+          r.statusCode.should.eql(200)
+          r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+          b.should.eql(contents.toString())
+          done()
+        })
+      })
+    })
+
+    it("should return 301 on /app to redirect to /app/", function(done){
+      request('http://localhost:'+ port +'/app', { followRedirect: false }, function(e,r,b){
+        r.statusCode.should.eql(301)
+        //r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+        done()
+      })
+    })
 
   })
+
 
   after(function(done){
     exec("rm -rf " + path.join(__dirname, "out"), function(){

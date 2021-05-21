@@ -5,6 +5,51 @@ var path    = require("path")
 
 describe("helpers", function(){
 
+  describe("buildFallbackPriorityList", function(){
+    it("should build priority list", function(done){
+      var list = helpers.buildFallbackPriorityList("/foo/bar/baz")
+      list.should.eql([ 
+        'foo/bar/200.jade',
+        'foo/bar/200.ejs',
+        'foo/bar/200.md',
+        'foo/bar/200.html.jade',
+        'foo/bar/200.html.ejs',
+        'foo/bar/200.html.md',
+        'foo/bar/404.jade',
+        'foo/bar/404.ejs',
+        'foo/bar/404.md',
+        'foo/bar/404.html.jade',
+        'foo/bar/404.html.ejs',
+        'foo/bar/404.html.md',
+        'foo/200.jade',
+        'foo/200.ejs',
+        'foo/200.md',
+        'foo/200.html.jade',
+        'foo/200.html.ejs',
+        'foo/200.html.md',
+        'foo/404.jade',
+        'foo/404.ejs',
+        'foo/404.md',
+        'foo/404.html.jade',
+        'foo/404.html.ejs',
+        'foo/404.html.md',
+        "200.jade",
+        "200.ejs",
+        "200.md",
+        "200.html.jade",
+        "200.html.ejs",
+        "200.html.md",
+        "404.jade",
+        "404.ejs",
+        "404.md",
+        "404.html.jade",
+        "404.html.ejs",
+        "404.html.md"
+      ])
+      return done()
+    })
+  })
+
   describe("willCollide(projectPath, outputPath)", function(){
     it("should collide if output path is /", function(done){
       helpers.willCollide("/", "/").should.be.true
