@@ -13,9 +13,8 @@ describe("errors", function(){
     var port        = 8111
 
     before(function(done){
-      harp.server(projectPath, { port: port }, function(){
-        done()
-      })
+      var server = harp.server(projectPath)
+      server.listen(port, done)
     })
 
     it("should get error message for invalid harp.json", function(done){
@@ -42,9 +41,8 @@ describe("errors", function(){
     var port        = 8112
 
     before(function(done){
-      harp.server(projectPath, { port: port }, function(){
-        done()
-      })
+      var server = harp.server(projectPath)
+      server.listen(port, done)
     })
 
     it("should get error message for invalid _data.json", function(done){
@@ -71,9 +69,8 @@ describe("errors", function(){
     var port        = 8113
 
     before(function(done){
-      harp.server(projectPath, { port: port }, function(){
-        done()
-      })
+      var server = harp.server(projectPath)
+      server.listen(port, done)
     })
 
     it("should get error message for invalid _data.json", function(done){
@@ -100,9 +97,8 @@ describe("errors", function(){
     var port        = 8114
 
     before(function(done){
-      harp.server(projectPath, { port: port }, function(){
-        done()
-      })
+      var server = harp.server(projectPath)
+      server.listen(port, done)
     })
 
     it("should return proper mime type on 404 page", function(done){

@@ -1,161 +1,111 @@
 #!/usr/bin/env node
 
-var nodePath      = require("path")
-var program       = require("commander")
-var fse           = require("fs-extra")
-var downloadRepo  = require("download-github-repo")
-var pkg           = require("../package.json")
-var helpers       = require("../lib/helpers")
-var harp          = require("../")
+var argv    = require('minimist')(process.argv.slice(2))
+var pkg     = require("../package.json")
+var colors  = require("colors")
+var path    = require("path")
+var boxt    = require("boxt")
 
-var output = function(msg){
-  var v = pkg.version
-  console.log("Harp v" + v)
-  if(msg){
-    console.log(msg)
-    console.log("Press Ctl+C to stop the server")
+
+var box = (...args) => console.log(boxt(...args).split("\n").join("\n "));
+
+var help = function(){
+
+  var log = function(){
+    var arr = Array.prototype.slice.call(arguments);
+    console.log.apply(this, [" "].concat(arr))
   }
+
+  var box = (...args) => console.log(boxt(...args).split("\n").join("\n "));
+
+  log()
+  log("Harp".underline.blue, "〜".grey, "Static Web Server".brightYellow, "v".grey + pkg.version.grey)
+  log()
+  // log("Process | Bundle | Generate - Just In Time".grey)
+  // log()
+  log("USAGE".grey)
+  log("  harp <source>                                   serves project locally")
+  log("  harp <source> <build>                           compiles for static host")
+  log()
+  log("OPTIONS".grey)
+  log("  -p, --port                      " +"9000".blue +"            server port to listen on")
+  log("  -h, --host                      " +"127.0.0.1".blue +"       server host to answer to")
+  // log("  -c, --cache                     " +"false".blue +"           server memory cache")
+  // log("  -t, --pretty                    " +"false".blue +"           server/compile keep whitespace")
+  log("  -h, --help                                      server/compile keep whitespace")
+  log("  -v, --version                                   server/compile keep whitespace")
+  box(
+`${'PROCESSING'.grey }                          ${'DATA'.grey }                                   
+  ${'.ejs  ->  .html' }                     ${'_data.json  -  directory data' }     
+  ${'.jade ->  .html' }                     ${'_data.js    -  dynamic build data' }
+  ${'.md   ->  .html' }
+  ${'.sass ->  .css ' }                   ${'GENERATION'.grey }
+  ${'.scss ->  .css ' }                     ${'partial("_path/to/partial", {' }
+  ${'.cjs  ->  .js  ' }                     ${'  "title": "Hello World"' }
+  ${'.jsx  ->  .js  ' }                     ${'})' }`
+, { color: 'grey', padding: 2, theme: 'round', align:"left"});
+
 }
 
-program
-  .version(pkg.version)
 
-program
-  .command("init [path]")
-  .usage("initializes a new Harp project in the current directory.\n  See available boilerplates at https://github.com/harp-boilerplates")
-  .option("-b, --boilerplate <github-username/repo>", "use a github repo as a boilerplate", "harp-boilerplates/default")
-  .description("Initialize a new Harp project in current directory")
-  .action(function(path, program){
-    var projectPath     = nodePath.resolve(process.cwd(), path || "")
-    var boilerplatePath = nodePath.resolve(__dirname, "..", "lib", "default_boilerplate")
-    var repo            = program.boilerplate
-
-    // Assume `harp-boilerplates` github org if boilerplate doesn't contain a slash
-    repo.match(/\//) || (repo = "harp-boilerplates/"+repo)
-
-    var done = function() {
-      console.log("Initialized project at", projectPath)
-    }
-
-    fse.mkdirp(projectPath, function(err){
-      if(err) return err
-
-      fse.readdir(projectPath, function(err, contents){
-
-        if(err) return err
-
-        if(contents.length !== 0){
-          console.log("Sorry,", projectPath, "must be empty.")
-          return
-        }
-
-        console.log("Downloading boilerplate: https://github.com/"+repo)
-
-        //fse.writeFileSync("/Desktop/harp-test-output.txt", repo + "::" + projectPath)
-
-        downloadRepo(repo, projectPath, function(err) {
-          if (!err) return done()
-
-          if (require('util').isError(err) && err['code'] === 'ENOTFOUND') {
-            console.error("You're not connected to the Internet, so we'll use the default boilerplate.")
-            fse.copy(boilerplatePath, projectPath, function(err){
-              if (err) return err
-              return done()
-            })
-          } else {
-            return console.error("Template not found:", "https://github.com/"+repo)
-          }
-
-        })
-
-      })
-    })
-  })
-
-program
-  .command("server [path]")
-  .option("-i, --ip <ip>", "Specify IP to bind to")
-  .option("-p, --port <port>", "Specify a port to listen on")
-  .usage("starts a Harp server in current directory, or in the specified directory.")
-  .description("Start a Harp server in current directory")
-  .action(function(path, program){
-    var projectPath = nodePath.resolve(process.cwd(), path || "")
-    var ip          = program.ip || '0.0.0.0'
-    var port        = program.port || 9000
-    harp.server(projectPath, { ip: ip, port: port }, function(){
-      var address = ''
-      if(ip == '0.0.0.0' || ip == '127.0.0.1') {
-        address = 'localhost'
-      } else {
-        address = ip
-      }
-      var hostUrl = "http://" + address + ":" + port + "/"
-      output("Your server is listening at " + hostUrl)
-    })
-  })
-
-program
-  .command("multihost [path]")
-  .option("-p, --port <port>", "Specify a port to listen on")
-  .usage("starts a Harp server to host a directory of Harp projects.")
-  .description("Start a Harp server to host a directory of Harp projects")
-  .action(function(path, program){
-    var projectPath = nodePath.resolve(process.cwd(), path || "")
-    var port        = program.port || 9000
-    harp.multihost(projectPath, { port: port }, function(){
-      if(port == "80"){
-        var loc = "http://lvh.me"
-      }else{
-        var loc = "http://lvh.me:" + port
-      }
-      output("Your server is hosting multiple projects at " + loc)
-    })
-  })
-
-program
-  .command("compile [projectPath] [outputPath]")
-  .option("-o, --output <path>", "Specify the output directory for compiled assets (relative to project path)")
-  .usage("compile your project files to static assets (HTML, JS and CSS). \n  Use this command if you want to host your application without using the Harp web server.")
-  .description("Compile project to static assets (HTML, JS and CSS)")
-  .action(function(projectPath, outputPath, program){
-
-    if(!program){
-      program    = outputPath
-      outputPath = null
-    }
-
-    projectPath = nodePath.resolve(process.cwd(), projectPath || "")
-
-    /**
-     * We deal with output path 3 different ways
-     *
-     *  1. second argument (relative to directory called in)
-     *  2. `--output` argument (relative to project root)
-     *  3. implicitly projectPath + "/www"
-     *
-     */
-
-    if(outputPath){
-      outputPath = nodePath.resolve(process.cwd(), (outputPath || program.output || ''))
-    }else{
-      outputPath = nodePath.resolve(projectPath, (program.output || "www"))
-    }
-
-    harp.compile(projectPath, outputPath, function(errors, output){
-      if(errors) {
-        console.log(JSON.stringify(errors, null, 2))
-        process.exit(1)
-      }
-    })
-  })
-
-program.on("--help", function(){
-  console.log("  Use 'harp <command> --help' to get more information or visit http://harpjs.com/ to learn more.")
-  console.log('')
-})
-
-program.parse(process.argv)
-
-if(program.args.length < 1){
-  program.help()
+var version = function(){
+  console.log("v" + pkg.version)
 }
+
+
+/**
+ * version
+ */
+
+if (argv.version || argv.v) return version()
+
+
+/**
+ * help
+ */
+
+if ((argv["_"].length === 0) || argv.help || argv.h) return help()
+
+
+
+
+
+var harp = require("../")
+
+
+/**
+ * Server
+ */
+
+if (argv["_"].length === 1){
+  var projectPath = path.resolve(process.cwd(), argv["_"][0])
+  var host        = argv.host || '0.0.0.0'
+  var port        = argv.port || 9000
+  var server      = harp.server(projectPath, {})
+
+  server.listen(port, host, function(error){
+    if (error) process.exit(1)
+    box(
+    `${ 'Harp'.blue } ${ ('v' + pkg.version).grey}                                        
+${ ('http://localhost:' + port + "/").underline.cyan }`, { align: "left", color: "grey", padding: 3 })
+  })
+}
+
+
+/**
+ * Compile
+ */
+
+if (argv["_"].length === 2){
+  var projectPath = path.resolve(process.cwd(), argv["_"][0])
+  var buildPath   = path.resolve(process.cwd(), argv["_"][1])
+
+  harp.compile(projectPath, buildPath, function(errors, output){
+    if(errors) {
+      console.log(JSON.stringify(errors, null, 2))
+      process.exit(1)
+    }
+    //console.log("Done!".green)
+  })
+}
+

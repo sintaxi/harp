@@ -9,7 +9,8 @@ describe("slash-indifference", function(){
   var projectPath = path.join(__dirname, "apps/slash-indifference")
 
   before(function(done){
-    harp.server(projectPath, { port: 8119 }, done)
+    var server = harp.server(projectPath)
+    server.listen(8119, done)
   })
 
   describe("file", function(){

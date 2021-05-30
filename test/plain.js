@@ -17,7 +17,8 @@ describe("plain", function(){
     before(function(done){
       harp.compile(projectPath, outputPath, function(errors, output){
         config = output
-        harp.server(projectPath, { port: 8102 }, done)
+        var server = harp.server(projectPath)
+        server.listen(8102, done)
       })
     })
 
@@ -72,7 +73,8 @@ describe("plain", function(){
     before(function(done){
       harp.compile(projectPath, outputPath, function(errors, output){
         config = output
-        harp.server(projectPath, { port: 8103 }, done)
+        var server = harp.server(projectPath)
+        server.listen(8103, done)
       })
     })
 

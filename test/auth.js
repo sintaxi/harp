@@ -9,7 +9,8 @@ describe("basicAuth", function(){
     var projectPath = path.join(__dirname, "apps/auth/single")
 
     before(function(done){
-      harp.server(projectPath, { port: 8310 }, done)
+      var server = harp.server(projectPath)
+      server.listen(8310, done)
     })
 
     it("should be a protected page", function(done){

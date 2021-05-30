@@ -14,7 +14,8 @@ describe("basic", function(){
   before(function(done){
     harp.compile(projectPath, outputPath, function(errors, output){
       config = output
-      harp.server(projectPath, { port: 8100 }, done)
+      var server = harp.server(projectPath)
+      server.listen(8100, done)
     })
   })
 

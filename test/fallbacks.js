@@ -14,9 +14,8 @@ describe("fallbacks", function(){
 
     before(function(done){
       harp.compile(projectPath, outputPath, function(errors, output){
-        harp.server(projectPath, { port: port }, function(){
-          done()
-        })
+        var server = harp.server(projectPath)
+        server.listen(port, done)
       })
     })
 
@@ -49,9 +48,8 @@ describe("fallbacks", function(){
 
     before(function(done){
       harp.compile(projectPath, outputPath, function(errors, output){
-        harp.server(projectPath, { port: port }, function(){
-          done()
-        })
+        var server = harp.server(projectPath)
+        server.listen(port, done)
       })
     })
 
@@ -84,9 +82,8 @@ describe("fallbacks", function(){
 
     before(function(done){
       harp.compile(projectPath, outputPath, function(errors, output){
-        harp.server(projectPath, { port: port }, function(){
-          done()
-        })
+        var server = harp.server(projectPath)
+        server.listen(port, done)
       })
     })
 

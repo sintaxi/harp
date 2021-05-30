@@ -10,7 +10,8 @@ describe("headers", function(){
   var port        = 8901
 
   before(function(done){
-    harp.server(projectPath, { port: port }, done)
+    var server = harp.server(projectPath)
+    server.listen(port, done)
   })
 
   // static
