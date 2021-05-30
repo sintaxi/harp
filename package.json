@@ -57,7 +57,7 @@
     "parseurl": "^1.3.2",
     "pause": "0.1.0",
     "send": "^0.17.1",
-    "terraform": "^1.13.0"
+    "terraform": "1.20.*"
   },
   "devDependencies": {
     "cheerio": "^0.22.0",
