@@ -72,32 +72,32 @@ describe("headers", function(){
     })
   })
 
-  it("should be correct with a valid CoffeeScript file", function(done){
-    request("http://localhost:" + port + "/valid-coffee.js", function(e, r, b){
-      r.statusCode.should.eql(200)
-      r.headers.should.have.property("content-type", "application/javascript; charset=UTF-8")
-      r.headers.should.have.property("content-length")
-      done()
-    })
-  })
+  // it("should be correct with a valid CoffeeScript file", function(done){
+  //   request("http://localhost:" + port + "/valid-coffee.js", function(e, r, b){
+  //     r.statusCode.should.eql(200)
+  //     r.headers.should.have.property("content-type", "application/javascript; charset=UTF-8")
+  //     r.headers.should.have.property("content-length")
+  //     done()
+  //   })
+  // })
 
-  it("should be correct with a valid LESS file", function(done){
-    request("http://localhost:" + port + "/valid-less.css", function(e, r, b){
-      r.statusCode.should.eql(200)
-      r.headers.should.have.property("content-type", "text/css; charset=UTF-8")
-      r.headers.should.have.property("content-length")
-      done()
-    })
-  })
+  // it("should be correct with a valid LESS file", function(done){
+  //   request("http://localhost:" + port + "/valid-less.css", function(e, r, b){
+  //     r.statusCode.should.eql(200)
+  //     r.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+  //     r.headers.should.have.property("content-length")
+  //     done()
+  //   })
+  // })
 
-  it("should be correct with a valid Stylus file", function(done){
-    request("http://localhost:" + port + "/valid-styl.css", function(e, r, b){
-      r.statusCode.should.eql(200)
-      r.headers.should.have.property("content-type", "text/css; charset=UTF-8")
-      r.headers.should.have.property("content-length")
-      done()
-    })
-  })
+  // it("should be correct with a valid Stylus file", function(done){
+  //   request("http://localhost:" + port + "/valid-styl.css", function(e, r, b){
+  //     r.statusCode.should.eql(200)
+  //     r.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+  //     r.headers.should.have.property("content-length")
+  //     done()
+  //   })
+  // })
 
   it("should be correct with a valid SCSS file", function(done){
     request("http://localhost:" + port + "/valid-scss.css", function(e, r, b){
@@ -137,23 +137,23 @@ describe("headers", function(){
     })
   })
 
-  it("should be correct with an invalid LESS file", function(done){
-    request("http://localhost:" + port + "/invalid-less.css", function(e, r, b){
-      r.statusCode.should.eql(200)
-      r.headers.should.have.property("content-type", "text/css; charset=UTF-8")
-      r.headers.should.have.property("content-length")
-      done()
-    })
-  })
+  // it("should be correct with an invalid LESS file", function(done){
+  //   request("http://localhost:" + port + "/invalid-less.css", function(e, r, b){
+  //     r.statusCode.should.eql(200)
+  //     r.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+  //     r.headers.should.have.property("content-length")
+  //     done()
+  //   })
+  // })
 
-  it("should be correct with an invalid Stylus file", function(done){
-    request("http://localhost:" + port + "/invalid-styl.css", function(e, r, b){
-      r.statusCode.should.eql(200)
-      r.headers.should.have.property("content-type", "text/css; charset=UTF-8")
-      r.headers.should.have.property("content-length")
-      done()
-    })
-  })
+  // it("should be correct with an invalid Stylus file", function(done){
+  //   request("http://localhost:" + port + "/invalid-styl.css", function(e, r, b){
+  //     r.statusCode.should.eql(200)
+  //     r.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+  //     r.headers.should.have.property("content-length")
+  //     done()
+  //   })
+  // })
 
   it("should be correct with an invalid SCSS file", function(done){
     request("http://localhost:" + port + "/invalid-scss.css", function(e, r, b){
@@ -174,14 +174,14 @@ describe("headers", function(){
   })
 
   // TODO: This should change to javascript error file.
-  it("should be correct with an invalid CoffeeScript file", function(done){
-    request("http://localhost:" + port + "/invalid-coffee.js", function(e, r, b){
-      r.statusCode.should.eql(500)
-      r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
-      r.headers.should.have.property("content-length")
-      done()
-    })
-  })
+  // it("should be correct with an invalid CoffeeScript file", function(done){
+  //   request("http://localhost:" + port + "/invalid-coffee.js", function(e, r, b){
+  //     r.statusCode.should.eql(500)
+  //     r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+  //     r.headers.should.have.property("content-length")
+  //     done()
+  //   })
+  // })
 
   // direct
 

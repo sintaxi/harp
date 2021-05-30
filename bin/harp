@@ -29,7 +29,7 @@ var help = function(){
   log()
   log("OPTIONS".grey)
   log("  -p, --port                      " +"9000".blue +"            server port to listen on")
-  log("  -h, --host                      " +"127.0.0.1".blue +"       server host to answer to")
+  log("  -h, --host                      " +"0.0.0.0".blue +"         server host to answer to")
   // log("  -c, --cache                     " +"false".blue +"           server memory cache")
   // log("  -t, --pretty                    " +"false".blue +"           server/compile keep whitespace")
   log("  -h, --help                                      server/compile keep whitespace")
