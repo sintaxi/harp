@@ -24,11 +24,11 @@ Pre-compilers are becoming extremely powerful and shipping front-ends as static 
 
 ### Supported Pre-Processors
 
-|                 | Language Superset                                                 | Whitespace Sensitive
-| --------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------
-| **HTML**        | [EJS](https://ejs.co/)                                     | [Jade](http://jade-lang.com/), [Markdown](http://daringfireball.net/projects/markdown/)
-| **CSS**         | [LESS](http://lesscss.org/), [Sass (SCSS)](http://sass-lang.com/) | [Stylus](http://learnboost.github.io/stylus/), [Sass](http://sass-lang.com/)
-| **JavaScript**  | (TBD)                                                             | [CoffeeScript](http://coffeescript.org/)
+- [EJS](https://ejs.co/)
+- [Jade](http://jade-lang.com/)
+- [Markdown](http://daringfireball.net/projects/markdown/) (Unsanitized)
+- [Sass (SCSS)](http://sass-lang.com/)
+- [Sass](http://sass-lang.com/)
 
 ### Resources
 
@@ -36,8 +36,7 @@ Pre-compilers are becoming extremely powerful and shipping front-ends as static 
 - **Platform Documentation** - [harp.io/docs](https://harp.io/docs)
 - **Source Code** - [github.com/sintaxi/harp](https://github.com/sintaxi/harp)
 
-
-Authored and maintained by [@sintaxi](http://twitter.com/sintaxi). Made for the [@HarpPlatform](http://twitter.com/HarpPlatform).
+Authored and maintained by [@sintaxi](http://twitter.com/sintaxi).
 
 ---
 
@@ -47,12 +46,19 @@ Authored and maintained by [@sintaxi](http://twitter.com/sintaxi). Made for the 
 
 ### Quick Start
 
-Creating a new harp application is a breeze...
+Start Harp server by pointing oit
 
-    harp init myproj
-    harp server myproj
+    mkdir ./public
+    harp  ./public
 
-Your Harp application is now running at [http://localhost:9000]()
+Your Harp application is now running at [http://localhost:9000](http://localhost:9000)
+You can now fill your project with ejs, jade, md, sass, scss files to be processed autmatically.
+
+Compile your project...
+
+    harp ./public ./build
+
+Yor dist folder is now ready to be published at a static host such as [Surge.sh](https://surge.sh)
 
 ---
 
@@ -62,35 +68,34 @@ Harp can be used as a library or as a command line utility.
 
 ### CLI Usage
 
-    Usage: harp [command] [options]
+```
+ 
+  Harp 〜 Static Web Server v0.40.0
 
-    Commands:
+  USAGE
+    harp <source>                                   serves project locally
+    harp <source> <build>                           compiles for static host
 
-      init [path]                 initalize new harp application (defaults to current directory)
-      server [path] [options]     start harp server
-      compile [path] [options]    compile project to static assets
-      multihost [path] [options]  start harp server to host directory of harp apps
+  OPTIONS
+    -p, --port                      9000            server port to listen on
+    -h, --host                      0.0.0.0         server host to answer to
+    -h, --help                                      server/compile keep whitespace
+    -v, --version                                   server/compile keep whitespace
 
-    Options:
+ ╭───────────────────────────────────────────────────────────────────────────────╮
+ │                                                                               │
+ │  PROCESSING                          DATA                                     │
+ │    .ejs  ->  .html                     _data.json  -  directory data          │
+ │    .jade ->  .html                     _data.js    -  dynamic build data      │
+ │    .md   ->  .html                                                            │
+ │    .sass ->  .css                    GENERATION                               │
+ │    .scss ->  .css                      partial("_path/to/partial", {          │
+ │    .cjs  ->  .js                         "title": "Hello World"               │
+ │    .jsx  ->  .js                       })                                     │
+ │                                                                               │
+ ╰───────────────────────────────────────────────────────────────────────────────╯
 
-      -h, --help     output usage information
-      -V, --version  output the version number
-
-Start the server in root of your application by running...
-
-    harp server
-
-You may optionally supply a port to listen on...
-
-    harp server --port 8002
-
-Compile an application from the root of your application by running...
-
-    harp compile
-
-You may optionally pass in a path to where you want the compiled assets to go...
-
-    harp compile --output /path/to/cordova/project/www
+```
 
 ### Lib Usage
 
@@ -100,7 +105,8 @@ Serve up a harp application...
 
 ```js
 var harp = require("harp")
-harp.server(projectPath [,args] [,callback])
+harp.server(projectPath [,args])
+server.listen(port, host)
 ```
 
 **Or** compile harp application
@@ -113,31 +119,25 @@ harp.compile(projectPath [,outputPath] [, callback])
 **Or** use as Connect/ExpressJS middleware
 
 ```js
+
+```
+
+```js 
+// Express
 var express = require("express");
 var harp = require("harp");
 var app = express();
-```
-
-```js 
-// Express 3
-app.configure(function(){ 
-  app.use(express.static(__dirname + "/public"));
-  app.use(harp.mount(__dirname + "/public"));
-});
-```
-
-```js 
-// Express 4
 
 app.use(express.static(__dirname + "/public"));
 app.use(harp.mount(__dirname + "/public"));
 
+app.listen(port, host)
 ```
 
 
 ## License
 
-Copyright © 2012–2014 [Chloi Inc](http://chloi.io). All rights reserved.
+Copyright © 2012–2021 [Chloi Inc](http://chloi.io). All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
