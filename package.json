@@ -1,6 +1,6 @@
 {
   "name": "harp",
-  "version": "0.40.1",
+  "version": "0.40.2",
   "description": "Static web server with built in preprocessing",
   "author": "Brock Whitten <brock@chloi.io>",
   "contributors": [
