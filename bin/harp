@@ -81,7 +81,7 @@ if (argv["_"].length === 1){
   var projectPath = path.resolve(process.cwd(), argv["_"][0])
   var host        = argv.host || '0.0.0.0'
   var port        = argv.port || 9000
-  var server      = harp.server(projectPath, {})
+  var server      = harp.server(projectPath, argv)
 
   server.listen(port, host, function(error){
     if (error) process.exit(1)
