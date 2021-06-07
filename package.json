@@ -1,6 +1,6 @@
 {
   "name": "harp",
-  "version": "0.40.2",
+  "version": "0.40.3",
   "description": "Static web server with built in preprocessing",
   "author": "Brock Whitten <brock@chloi.io>",
   "contributors": [
@@ -28,12 +28,11 @@
     "static web server",
     "static site generator",
     "sass",
-    "less",
-    "stylus",
     "markdown",
     "jade",
     "ejs",
-    "coffeescript"
+    "cjs",
+    "jsx"
   ],
   "homepage": "http://harpjs.com",
   "bugs": "http://github.com/sintaxi/harp/issues",
