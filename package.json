@@ -48,7 +48,6 @@
     "colors": "^1.4.0",
     "connect": "^3.6.6",
     "envy-json": "0.2.1",
-    "escape-html": "1.0.3",
     "fs-extra": "1.x",
     "mime-types": "^2.1.24",
     "minimist": "^1.2.5",
