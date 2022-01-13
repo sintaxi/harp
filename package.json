@@ -22,7 +22,8 @@
     "Jurgen Van de Moere <jurgen.van.de.moere@gmail.com>",
     "Marco Emrich <m.emrich@webmasters.de>",
     "Roger K <misterhtmlcss@gmail.com>",
-    "Claus Colloseus <ccprog@gmx.de>"
+    "Claus Colloseus <ccprog@gmx.de>",
+    "mannyluvstacos <mannyis@typingona.computer>"
   ],
   "keywords": [
     "static web server",
@@ -45,7 +46,7 @@
     "async": "0.2.9",
     "basic-auth": "^2.0.1",
     "boxt": "^1.0.0",
-    "colors": "^1.4.0",
+    "@dabh/colors": "^1.4.0",
     "connect": "^3.6.6",
     "envy-json": "0.2.1",
     "fs-extra": "1.x",
