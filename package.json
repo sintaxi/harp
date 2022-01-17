@@ -1,6 +1,6 @@
 {
   "name": "harp",
-  "version": "0.41.1",
+  "version": "0.41.2",
   "description": "Static web server with built in preprocessing",
   "author": "Brock Whitten <brock@chloi.io>",
   "contributors": [
@@ -43,11 +43,11 @@
     "url": "https://github.com/sintaxi/harp.git"
   },
   "dependencies": {
+    "@dabh/colors": "^1.4.0",
     "async": "0.2.9",
     "basic-auth": "^2.0.1",
     "boxt": "^1.1.2",
     "colors": "^1.4.0",
-    "@dabh/colors": "^1.4.0",
     "connect": "^3.6.6",
     "envy-json": "0.2.1",
     "fs-extra": "1.x",
