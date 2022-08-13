@@ -1,5 +1,4 @@
 var should      = require("should")
-var request     = require('request')
 var path        = require("path")
 var fs          = require("fs")
 var exec        = require("child_process").exec
