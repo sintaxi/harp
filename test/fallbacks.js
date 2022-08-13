@@ -11,11 +11,11 @@ describe("fallbacks", function(){
     var projectPath = path.join(__dirname, "apps/fallbacks/two-hundy/plain")
     var outputPath  = path.join(__dirname, "out/fallbacks-two-hundy-plain")
     var port        = 8115
+    var server;
 
     before(function(done){
       harp.compile(projectPath, outputPath, function(errors, output){
-        var server = harp.server(projectPath)
-        server.listen(port, done)
+        server = harp.server(projectPath).listen(port, done)
       })
     })
 
@@ -39,17 +39,21 @@ describe("fallbacks", function(){
       })
     })
 
+    after(function(done){
+      server.close(done)
+    })
+
   })
 
   describe("processed 200 file", function(){
     var projectPath = path.join(__dirname, "apps/fallbacks/two-hundy/processed")
     var outputPath  = path.join(__dirname, "out/fallbacks-two-hundy-processed")
     var port        = 8116
+    var server;
 
     before(function(done){
       harp.compile(projectPath, outputPath, function(errors, output){
-        var server = harp.server(projectPath)
-        server.listen(port, done)
+        server = harp.server(projectPath).listen(port, done)
       })
     })
 
@@ -72,6 +76,10 @@ describe("fallbacks", function(){
         })
       })
     })
+
+    after(function(done){
+      server.close(done)
+    })
   })
 
 
@@ -79,11 +87,11 @@ describe("fallbacks", function(){
     var projectPath = path.join(__dirname, "apps/fallbacks/two-hundy/nested")
     var outputPath  = path.join(__dirname, "out/fallbacks-two-hundy-nested")
     var port        = 8117
+    var server;
 
     before(function(done){
       harp.compile(projectPath, outputPath, function(errors, output){
-        var server = harp.server(projectPath)
-        server.listen(port, done)
+        server = harp.server(projectPath).listen(port, done)
       })
     })
 
@@ -133,6 +141,10 @@ describe("fallbacks", function(){
         //r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
         done()
       })
+    })
+
+    after(function(done){
+      server.close(done)
     })
 
   })
