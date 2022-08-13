@@ -7,10 +7,10 @@ describe("basicAuth", function(){
 
   describe("single", function(done){
     var projectPath = path.join(__dirname, "apps/auth/single")
-
+    var server;
+    
     before(function(done){
-      var server = harp.server(projectPath)
-      server.listen(8310, done)
+      server = harp.server(projectPath).listen(8310, done)
     })
 
     it("should be a protected page", function(done){
@@ -32,6 +32,10 @@ describe("basicAuth", function(){
           r.statusCode.should.eql(200)
           done()
       })
+    })
+
+    after(function(done){
+      server.close(done)
     })
   })
 
