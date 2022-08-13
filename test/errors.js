@@ -11,10 +11,10 @@ describe("errors", function(){
     var projectPath = path.join(__dirname, "apps/err-invalid-config")
     var outputPath  = path.join(__dirname, "out/err-invalid-config")
     var port        = 8111
+    var server;
 
     before(function(done){
-      var server = harp.server(projectPath)
-      server.listen(port, done)
+      server = harp.server(projectPath).listen(port, done)
     })
 
     it("should get error message for invalid harp.json", function(done){
@@ -33,16 +33,20 @@ describe("errors", function(){
         })
       })
     })
+
+    after(function(done){
+      server.close(done)
+    })
   })
 
   describe("err-invalid-data", function(){
     var projectPath = path.join(__dirname, "apps/err-invalid-data")
     var outputPath  = path.join(__dirname, "out/err-invalid-data")
     var port        = 8112
+    var server;
 
     before(function(done){
-      var server = harp.server(projectPath)
-      server.listen(port, done)
+      server = harp.server(projectPath).listen(port, done)
     })
 
     it("should get error message for invalid _data.json", function(done){
@@ -60,6 +64,10 @@ describe("errors", function(){
           done()
         })
       })
+    })
+
+    after(function(done){
+      server.close(done)
     })
   })
 
@@ -67,10 +75,10 @@ describe("errors", function(){
     var projectPath = path.join(__dirname, "apps/err-missing-public")
     var outputPath  = path.join(__dirname, "out/err-missing-public")
     var port        = 8113
+    var server;
 
     before(function(done){
-      var server = harp.server(projectPath)
-      server.listen(port, done)
+      server = harp.server(projectPath).listen(port, done)
     })
 
     it("should get error message for invalid _data.json", function(done){
@@ -89,16 +97,20 @@ describe("errors", function(){
         })
       })
     })
+
+    after(function(done){
+      server.close(done)
+    })
   })
 
   describe("err-missing-public", function(){
     var projectPath = path.join(__dirname, "apps/err-missing-404")
     var outputPath  = path.join(__dirname, "out/err-missing-404")
     var port        = 8114
+    var server;
 
     before(function(done){
-      var server = harp.server(projectPath)
-      server.listen(port, done)
+      server = harp.server(projectPath).listen(port, done)
     })
 
     it("should return proper mime type on 404 page", function(done){
@@ -108,6 +120,10 @@ describe("errors", function(){
         r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
         done()
       })
+    })
+
+    after(function(done){
+      server.close(done)
     })
   })
 
