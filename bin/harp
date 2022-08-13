@@ -2,7 +2,7 @@
 
 var argv    = require('minimist')(process.argv.slice(2))
 var pkg     = require("../package.json")
-var colors  = require("colors")
+var colors  = require("@colors/colors")
 var path    = require("path")
 var boxt    = require("boxt")
 
