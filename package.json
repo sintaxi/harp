@@ -54,7 +54,7 @@
     "minimist": "1.2.6",
     "parseurl": "1.3.3",
     "pause": "0.1.0",
-    "send": "^0.17.1",
+    "send": "0.18.0",
     "terraform": "1.21.2"
   },
   "devDependencies": {
