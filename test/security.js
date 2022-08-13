@@ -8,14 +8,13 @@ var harp        = require("../")
 describe("security", function(){
   var projectPath = path.join(__dirname, "apps/security")
   var outputPath  = path.join(__dirname, "out/security")
-
   var config;
+  var server;
 
   before(function(done){
     harp.compile(projectPath, outputPath, function(errors, output){
       config = output
-      var server = harp.server(projectPath)
-      server.listen(8101, done)
+      server = harp.server(projectPath).listen(8101, done)
     })
   })
 
@@ -35,7 +34,7 @@ describe("security", function(){
 
   after(function(done){
     exec("rm -rf " + outputPath, function(){
-      done()
+      server.close(done)
     })
   })
 

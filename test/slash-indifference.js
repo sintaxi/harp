@@ -7,10 +7,10 @@ var harp        = require("../")
 
 describe("slash-indifference", function(){
   var projectPath = path.join(__dirname, "apps/slash-indifference")
+  var server;
 
   before(function(done){
-    var server = harp.server(projectPath)
-    server.listen(8119, done)
+    server = harp.server(projectPath).listen(8119, done)
   })
 
   describe("file", function(){
@@ -47,6 +47,10 @@ describe("slash-indifference", function(){
         done()
       })
     })
+  })
+
+  after(function(done){
+    server.close(done)
   })
 
 })

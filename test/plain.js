@@ -11,14 +11,13 @@ describe("plain", function(){
   describe("framework-style", function(){
     var projectPath = path.join(__dirname, "apps/plain/framework-style")
     var outputPath  = path.join(__dirname, "out/plain/framework-style")
-
     var config;
+    var server;
 
     before(function(done){
       harp.compile(projectPath, outputPath, function(errors, output){
         config = output
-        var server = harp.server(projectPath)
-        server.listen(8102, done)
+        server = harp.server(projectPath).listen(8102, done)
       })
     })
 
@@ -62,19 +61,22 @@ describe("plain", function(){
       })
     })
 
+    after(function(done){
+      server.close(done)
+    })
+
   })
 
   describe("root-style", function(){
     var projectPath = path.join(__dirname, "apps/plain/root-style")
     var outputPath  = path.join(__dirname, "out/plain/root-style")
-
     var config;
+    var server;
 
     before(function(done){
       harp.compile(projectPath, outputPath, function(errors, output){
         config = output
-        var server = harp.server(projectPath)
-        server.listen(8103, done)
+        server = harp.server(projectPath).listen(8103, done)
       })
     })
 
@@ -116,6 +118,10 @@ describe("plain", function(){
           })
         })
       })
+    })
+
+    after(function(done){
+      server.close(done)
     })
 
   })

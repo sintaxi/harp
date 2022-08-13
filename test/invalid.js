@@ -8,10 +8,10 @@ var harp        = require('../')
 describe("headers", function(){
   var projectPath = path.join(__dirname, "apps/err-invalid-source-files")
   var port        = 8801
+  var server;
 
   before(function(done){
-    var server = harp.server(projectPath)
-    server.listen(port, done)
+    server = harp.server(projectPath).listen(port, done)
   })
 
   it("should return correct mime type for css files", function(done){
@@ -20,6 +20,10 @@ describe("headers", function(){
       b.should.include(harp.pkg.version)
       done()
     })
+  })
+
+  after(function(done){
+    server.close(done)
   })
 
 })
