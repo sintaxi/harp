@@ -1,0 +1,12 @@
+
+echo ""
+echo "  #########################################################"
+echo "  ##                                                     ##"
+echo "  ##   Hook (pre-commit)                                 ##"
+echo "  ##                                                     ##"
+echo "  ##   Rebuild package-lock.json....                     ##"
+echo "  ##   (use --no-verify to skip)                         ##"
+echo "  ##                                                     ##"
+echo "  #########################################################"
+
+npm install --silent

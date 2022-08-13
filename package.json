@@ -43,7 +43,7 @@
     "url": "https://github.com/sintaxi/harp.git"
   },
   "dependencies": {
-    "@colors/colors": "^1.5.0",
+    "@colors/colors": "1.5.0",
     "async": "0.2.9",
     "basic-auth": "^2.0.1",
     "boxt": "^1.1.2",
@@ -63,6 +63,7 @@
     "should": "3.3.2"
   },
   "scripts": {
+    "prepare": "git config core.hooksPath ./hooks",
     "test": "mocha --reporter spec -t 4000",
     "test:fallbacks": "mocha test/fallbacks.js -t 3000",
     "test:helpers": "mocha test/helpers.js -t 3000"
