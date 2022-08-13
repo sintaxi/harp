@@ -8,14 +8,13 @@ var harp        = require("../")
 describe("basic", function(){
   var projectPath = path.join(__dirname, "apps/basic")
   var outputPath  = path.join(__dirname, "out/basic")
-
   var config;
+  var server;
 
   before(function(done){
     harp.compile(projectPath, outputPath, function(errors, output){
       config = output
-      var server = harp.server(projectPath)
-      server.listen(8100, done)
+      server = harp.server(projectPath).listen(8100, done)
     })
   })
 
@@ -129,7 +128,7 @@ describe("basic", function(){
 
   after(function(done){
     exec("rm -rf " + outputPath, function(){
-      done()
+      server.close(done)
     })
   })
 
