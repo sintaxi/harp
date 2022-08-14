@@ -1,5 +1,5 @@
 var should      = require("should")
-var request     = require('request')
+var axios       = require('axios')
 var path        = require("path")
 var fs          = require("fs")
 var exec        = require("child_process").exec
@@ -15,17 +15,17 @@ describe("slash-indifference", function(){
 
   describe("file", function(){
     it("should get 200 without slash", function(done){
-      request('http://localhost:8119/file', { followRedirect: false }, function(e, r, b){
-        r.statusCode.should.eql(200)
-        b.should.eql("<h1>file contents</h1>")
+      axios.get('http://localhost:8119/file', { maxRedirects: 0 }).then(function(r){
+        r.status.should.eql(200)
+        r.data.should.eql("<h1>file contents</h1>")
         done()
       })
     })
 
     it("should get redirected when slash present", function(done){
-      request('http://localhost:8119/file/', { followRedirect: false }, function(e, r, b){
-        r.statusCode.should.eql(301)
-        r.headers["location"].should.eql("/file")
+      axios.get('http://localhost:8119/file/', { maxRedirects: 0 }).catch(function(e){
+        e.response.status.should.eql(301)
+        e.response.headers["location"].should.eql("/file")
         done()
       })
     })
@@ -33,17 +33,17 @@ describe("slash-indifference", function(){
 
   describe("directory", function(){
     it("should get 200 with slash", function(done){
-      request('http://localhost:8119/directory/', { followRedirect: false }, function(e, r, b){
-        r.statusCode.should.eql(200)
-        b.should.eql("<h1>file in directory contents</h1>")
+      axios.get('http://localhost:8119/directory/', { maxRedirects: 0 }).then(function(r){
+        r.status.should.eql(200)
+        r.data.should.eql("<h1>file in directory contents</h1>")
         done()
       })
     })
 
     it("should get redirected when slash absent", function(done){
-      request('http://localhost:8119/directory', { followRedirect: false }, function(e, r, b){
-        r.statusCode.should.eql(301)
-        r.headers["location"].should.eql("/directory/")
+      axios.get('http://localhost:8119/directory', { maxRedirects: 0 }).catch(function(e){
+        e.response.status.should.eql(301)
+        e.response.headers["location"].should.eql("/directory/")
         done()
       })
     })

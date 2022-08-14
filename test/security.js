@@ -1,5 +1,5 @@
 var should      = require("should")
-var request     = require('request')
+var axios       = require('axios')
 var path        = require("path")
 var fs          = require("fs")
 var exec        = require("child_process").exec
@@ -19,15 +19,15 @@ describe("security", function(){
   })
 
   it("should not serve file starting with underscore", function(done){
-    request('http://localhost:8101/_secret.txt', function (e, r, b) {
-      r.statusCode.should.eql(404)
+    axios.get('http://localhost:8101/_secret.txt').catch(function(e){
+      e.response.status.should.eql(404)
       done()
     })
   })
 
   it("should not serve file starting with encoded underscore", function(done){
-    request('http://localhost:8101/%5fsecret.txt', function (e, r, b) {
-      r.statusCode.should.eql(404)
+    axios.get('http://localhost:8101/%5fsecret.txt').catch(function(e){
+      e.response.status.should.eql(404)
       done()
     })
   })
