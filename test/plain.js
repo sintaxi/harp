@@ -1,5 +1,5 @@
 var should      = require("should")
-var request     = require('request')
+var axios       = require('axios')
 var path        = require("path")
 var fs          = require("fs")
 var exec        = require("child_process").exec
@@ -28,9 +28,9 @@ describe("plain", function(){
 
     it("should serve index file", function(done){
       fs.readFile(path.join(outputPath, "index.html"), function(err, contents){
-        request('http://localhost:8102/', function(e, r, b){
-          r.statusCode.should.eql(200)
-          b.should.eql(contents.toString())
+        axios.get('http://localhost:8102/').then(function(r){
+          r.status.should.eql(200)
+          r.data.should.eql(contents.toString())
           done()
         })
       })
@@ -39,9 +39,9 @@ describe("plain", function(){
     it("should serve text file", function(done){
       fs.readFile(path.join(outputPath, "hello.txt"), function(err, contents){
         contents.toString().should.eql("text files are wonderful")
-        request('http://localhost:8102/hello.txt', function(e, r, b){
-          r.statusCode.should.eql(200)
-          b.should.eql(contents.toString())
+        axios.get('http://localhost:8102/hello.txt').then(function(r){
+          r.status.should.eql(200)
+          r.data.should.eql(contents.toString())
           done()
         })
       })
@@ -49,12 +49,12 @@ describe("plain", function(){
 
     it("should have custom 404 page that is raw HTML", function(done){
       fs.readFile(path.join(outputPath, "404.html"), function(err, contents){
-        request('http://localhost:8102/404.html', function(e, r, b){
-          r.statusCode.should.eql(200)
-          b.should.eql(contents.toString())
-          request('http://localhost:8102/missing/path', function(e, r, b){
-            r.statusCode.should.eql(404)
-            b.should.eql(contents.toString())
+        axios.get('http://localhost:8102/404.html').then(function(r){
+          r.status.should.eql(200)
+          r.data.should.eql(contents.toString())
+          axios.get('http://localhost:8102/missing/path').catch(function(e){
+            e.response.status.should.eql(404)
+            e.response.data.should.eql(contents.toString())
             done()
           })
         })
@@ -87,9 +87,9 @@ describe("plain", function(){
 
     it("should serve index file", function(done){
       fs.readFile(path.join(outputPath, "index.html"), function(err, contents){
-        request('http://localhost:8103/', function(e, r, b){
-          r.statusCode.should.eql(200)
-          b.should.eql(contents.toString())
+        axios.get('http://localhost:8103/').then(function(r){
+          r.status.should.eql(200)
+          r.data.should.eql(contents.toString())
           done()
         })
       })
@@ -98,9 +98,9 @@ describe("plain", function(){
     it("should serve text file", function(done){
       fs.readFile(path.join(outputPath, "hello.txt"), function(err, contents){
         contents.toString().should.eql("text files are wonderful")
-        request('http://localhost:8103/hello.txt', function(e, r, b){
-          r.statusCode.should.eql(200)
-          b.should.eql(contents.toString())
+        axios.get('http://localhost:8103/hello.txt').then(function(r){
+          r.status.should.eql(200)
+          r.data.should.eql(contents.toString())
           done()
         })
       })
@@ -108,12 +108,12 @@ describe("plain", function(){
 
     it("should have custom 404 page that is raw HTML", function(done){
       fs.readFile(path.join(outputPath, "404.html"), function(err, contents){
-        request('http://localhost:8103/404.html', function(e, r, b){
-          r.statusCode.should.eql(200)
-          b.should.eql(contents.toString())
-          request('http://localhost:8103/missing/path', function(e, r, b){
-            r.statusCode.should.eql(404)
-            b.should.eql(contents.toString())
+        axios.get('http://localhost:8103/404.html').then(function(r){
+          r.status.should.eql(200)
+          r.data.should.eql(contents.toString())
+          axios.get('http://localhost:8103/missing/path').catch(function(e){
+            e.response.status.should.eql(404)
+            e.response.data.should.eql(contents.toString())
             done()
           })
         })

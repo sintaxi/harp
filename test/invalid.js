@@ -1,5 +1,5 @@
 var should      = require("should")
-var request     = require('request')
+var axios       = require('axios')
 var path        = require('path')
 var harp        = require('../')
 
@@ -15,9 +15,9 @@ describe("headers", function(){
   })
 
   it("should return correct mime type for css files", function(done){
-    request("http://localhost:" + port + "/invalid-jade.html", function(e,r,b){
-      r.statusCode.should.eql(500)
-      b.should.include(harp.pkg.version)
+    axios.get("http://localhost:" + port + "/invalid-jade.html").catch(function(e){
+      e.response.status.should.eql(500)
+      e.response.data.should.include(harp.pkg.version)
       done()
     })
   })
