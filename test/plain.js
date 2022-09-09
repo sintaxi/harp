@@ -16,12 +16,12 @@ describe("plain", function(){
 
     before(function(done){
       harp.compile(projectPath, outputPath, function(errors, output){
-        config = output
+        config = output.config
         server = harp.server(projectPath).listen(8102, done)
       })
     })
 
-    it("should have node version in config", function(done){
+    it("should have harp version in config", function(done){
       config.should.have.property("harp_version")
       done()
     })
@@ -75,12 +75,12 @@ describe("plain", function(){
 
     before(function(done){
       harp.compile(projectPath, outputPath, function(errors, output){
-        config = output
+        config = output.config
         server = harp.server(projectPath).listen(8103, done)
       })
     })
 
-    it("should have node version in config", function(done){
+    it("should have harp version in config", function(done){
       config.should.have.property("harp_version")
       done()
     })

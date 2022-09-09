@@ -117,7 +117,7 @@ if (argv["_"].length === 2){
   console.log(" ", "Generating Site & Bundling Assets...".blue)
   console.log()
 
-  harp.compile(projectPath, buildPath, function(errors, output){
+  harp.compile(projectPath, buildPath, { output: true }, function(errors, output){
     if(errors) {
       console.log(JSON.stringify(errors, null, 2))
       process.exit(1)
