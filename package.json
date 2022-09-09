@@ -1,6 +1,6 @@
 {
   "name": "harp",
-  "version": "0.42.0",
+  "version": "0.43.0",
   "description": "Static web server with built in preprocessing",
   "author": "Brock Whitten <brock@chloi.io>",
   "contributors": [
@@ -55,7 +55,7 @@
     "parseurl": "1.3.3",
     "pause": "0.1.0",
     "send": "0.18.0",
-    "terraform": "1.21.2"
+    "terraform": "1.22.0"
   },
   "devDependencies": {
     "axios": "0.27.2",
