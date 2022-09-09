@@ -19,7 +19,7 @@ var help = function(){
   var box = (...args) => console.log(boxt(...args).split("\n").join("\n "));
 
   log()
-  log("Harp".underline.blue, "〜".grey, "Static Web Server".brightYellow, "v".grey + pkg.version.grey)
+  log("Harp".underline.blue, "〜".grey, pkg.description.brightYellow, "v".grey + pkg.version.grey)
   log()
   // log("Process | Bundle | Generate - Just In Time".grey)
   // log()
@@ -32,8 +32,8 @@ var help = function(){
   log("  -h, --host                      " +"0.0.0.0".blue +"         server host to answer to")
   // log("  -c, --cache                     " +"false".blue +"           server memory cache")
   // log("  -t, --pretty                    " +"false".blue +"           server/compile keep whitespace")
-  log("  -h, --help                                      server/compile keep whitespace")
-  log("  -v, --version                                   server/compile keep whitespace")
+  log("  -h, --help                                      ")
+  log("  -v, --version                                   ")
   box(
 `${'PROCESSING'.grey }                          ${'DATA'.grey }                                   
   ${'.ejs  ->  .html' }                     ${'_data.json  -  directory data' }     
@@ -92,6 +92,18 @@ ${ ('http://localhost:' + port + "/").underline.cyan }`, { align: "left", color:
 }
 
 
+
+
+var duration = function(d){
+  if (d[0] < 1){
+    var ms = d[1].toString().substring(0,3)
+    return  + ms + "ms"
+  } else {
+    var ms = d[1].toString().substring(0,1)
+    return [d[0], ms].join(".") + "s"
+  }
+}
+
 /**
  * Compile
  */
@@ -100,12 +112,20 @@ if (argv["_"].length === 2){
   var projectPath = path.resolve(process.cwd(), argv["_"][0])
   var buildPath   = path.resolve(process.cwd(), argv["_"][1])
 
+  console.log()
+  console.log(" ", `Harp v${ pkg.version }`.yellow)
+  console.log(" ", "Generating Site & Bundling Assets...".blue)
+  console.log()
+
   harp.compile(projectPath, buildPath, function(errors, output){
     if(errors) {
       console.log(JSON.stringify(errors, null, 2))
       process.exit(1)
     }
-    //console.log("Done!".green)
+    console.log()
+    console.log(" ", "Done!".green, `(${ duration(output.stats.duration) })`.grey)
+    console.log()
   })
+
 }
 
