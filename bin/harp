@@ -21,7 +21,7 @@ var help = function(){
   log()
   log("Harp".underline.blue, "〜".grey, pkg.description.brightYellow, "v".grey + pkg.version.grey)
   log()
-  // log("Process | Bundle | Generate - Just In Time".grey)
+  // log("Server | Generator | Bundler".grey)
   // log()
   log("USAGE".grey)
   log("  harp <source>                                   serves project locally")
@@ -30,10 +30,11 @@ var help = function(){
   log("OPTIONS".grey)
   log("  -p, --port                      " +"9000".blue +"            server port to listen on")
   log("  -h, --host                      " +"0.0.0.0".blue +"         server host to answer to")
+  log("  -s, --silent                    " +"false".grey +"           supresses logs")
   // log("  -c, --cache                     " +"false".blue +"           server memory cache")
   // log("  -t, --pretty                    " +"false".blue +"           server/compile keep whitespace")
-  log("  -h, --help                                      ")
-  log("  -v, --version                                   ")
+  log("  -h, --help                                      outputs this help message")
+  log("  -v, --version                                   outputs version of harp")
   box(
 `${'PROCESSING'.grey }                          ${'DATA'.grey }                                   
   ${'.ejs  ->  .html' }                     ${'_data.json  -  directory data' }     
@@ -124,14 +125,15 @@ if (argv["_"].length === 2){
   console.log()
   console.log(" ", `Harp v${ pkg.version }`.yellow)
   console.log(" ", "Generating Site & Bundling Assets...".blue)
-  console.log()
+  if (argv.log) console.log()
 
   harp.compile(projectPath, buildPath, argv, function(errors, output){
     if(errors) {
       console.log(JSON.stringify(errors, null, 2))
       process.exit(1)
     }
-    console.log()
+    
+    if (argv.log) console.log()
     console.log(" ", "Done!".green, `(${ duration(output.stats.duration) })`.grey)
     console.log()
   })

@@ -69,7 +69,7 @@ Harp can be used as a library or as a command line utility.
 
 ```
  
-  Harp 〜 Static Web Server v0.40.0
+  Harp 〜 Static Web Server v0.46.0
 
   USAGE
     harp <source>                                   serves project locally
@@ -78,8 +78,9 @@ Harp can be used as a library or as a command line utility.
   OPTIONS
     -p, --port                      9000            server port to listen on
     -h, --host                      0.0.0.0         server host to answer to
-    -h, --help                                      server/compile keep whitespace
-    -v, --version                                   server/compile keep whitespace
+    -s, --silent                    false           supresses logs
+    -h, --help                                      outputs this help message
+    -v, --version                                   outputs version of harp
 
  ╭───────────────────────────────────────────────────────────────────────────────╮
  │                                                                               │
