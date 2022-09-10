@@ -73,27 +73,6 @@ if ((argv["_"].length === 0) || argv.help || argv.h) return help()
 var harp = require("../")
 
 
-/**
- * Server
- */
-
-if (argv["_"].length === 1){
-  var projectPath = path.resolve(process.cwd(), argv["_"][0])
-  var host        = argv.host || '0.0.0.0'
-  var port        = argv.port || 9000
-  var server      = harp.server(projectPath, argv)
-
-  server.listen(port, host, function(error){
-    if (error) process.exit(1)
-    box(
-    `${ 'Harp'.blue } ${ ('v' + pkg.version).grey}                                        
-${ ('http://localhost:' + port + "/").underline.cyan }`, { align: "left", color: "grey", padding: 3 })
-  })
-}
-
-
-
-
 var duration = function(d){
   if (d[0] < 1){
     var ms = d[1].toString().substring(0,3)
@@ -105,10 +84,40 @@ var duration = function(d){
 }
 
 /**
+ * Server
+ */
+
+if (argv["_"].length === 1){
+  const serverStart = process.hrtime()
+  
+  argv.log        = !(argv.silent || argv.s)
+  var projectPath = path.resolve(process.cwd(), argv["_"][0])
+  var host        = argv.host || '0.0.0.0'
+  var port        = argv.port || 9000
+  
+  var server      = harp.server(projectPath, argv)
+
+  server.listen(port, host, function(error){
+    if (error) process.exit(1)
+
+    var serverReady = process.hrtime(serverStart)
+
+    box(
+    `${ 'Harp'.blue } ${ ('v' + pkg.version).grey}                                        
+${ ('http://localhost:' + port + "/").underline.cyan }
+${ duration(serverReady).grey }`, { align: "left", color: "grey", padding: 3 })
+
+  })
+}
+
+
+/**
  * Compile
  */
 
 if (argv["_"].length === 2){
+  argv.log        = !(argv.silent || argv.s)
+
   var projectPath = path.resolve(process.cwd(), argv["_"][0])
   var buildPath   = path.resolve(process.cwd(), argv["_"][1])
 
@@ -117,7 +126,7 @@ if (argv["_"].length === 2){
   console.log(" ", "Generating Site & Bundling Assets...".blue)
   console.log()
 
-  harp.compile(projectPath, buildPath, { output: true }, function(errors, output){
+  harp.compile(projectPath, buildPath, argv, function(errors, output){
     if(errors) {
       console.log(JSON.stringify(errors, null, 2))
       process.exit(1)
