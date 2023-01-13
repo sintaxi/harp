@@ -1,6 +1,6 @@
 {
   "name": "harp",
-  "version": "0.46.0",
+  "version": "0.46.1",
   "description": "Static Web Server/Generator/Bundler",
   "author": "Brock Whitten <brock@chloi.io>",
   "contributors": [
@@ -23,7 +23,8 @@
     "Marco Emrich <m.emrich@webmasters.de>",
     "Roger K <misterhtmlcss@gmail.com>",
     "Claus Colloseus <ccprog@gmx.de>",
-    "mannyluvstacos <mannyis@typingona.computer>"
+    "mannyluvstacos <mannyis@typingona.computer>",
+    "Marcos Lopez C <MarcosLopezC@live.com>"
   ],
   "keywords": [
     "static web server",
