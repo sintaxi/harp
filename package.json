@@ -36,7 +36,7 @@
     "cjs",
     "jsx"
   ],
-  "homepage": "http://harpjs.com",
+  "homepage": "http://harp.rip",
   "bugs": "http://github.com/sintaxi/harp/issues",
   "main": "./lib/index.js",
   "repository": {

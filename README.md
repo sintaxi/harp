@@ -32,7 +32,7 @@ Pre-compilers are becoming extremely powerful and shipping front-ends as static 
 
 ### Resources
 
-- **Server Documentation** - [harpjs.com/docs/](http://harpjs.com/docs/)
+- **Server Documentation** - [harp.rip/docs/](http://harp.rip/docs/)
 - **Source Code** - [github.com/sintaxi/harp](https://github.com/sintaxi/harp)
 
 Authored and maintained by [@sintaxi](http://twitter.com/sintaxi).
