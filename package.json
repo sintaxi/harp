@@ -66,6 +66,8 @@
     "should": "3.3.2"
   },
   "scripts": {
+    "preversion": "npm test",
+    "version": "npm publish",
     "prepare": "git config core.hooksPath ./hooks",
     "test": "mocha --reporter spec -t 4000",
     "test:fallbacks": "mocha test/fallbacks.js -t 3000",
