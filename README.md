@@ -51,7 +51,7 @@ Start Harp server by pointing oit
     harp  ./public
 
 Your Harp application is now running at [http://localhost:9000](http://localhost:9000)
-You can now fill your project with ejs, jade, md, sass, scss files to be processed autmatically.
+You can now fill your project with ejs, jade, md, sass, scss files to be processed automatically.
 
 Compile your project...
 
