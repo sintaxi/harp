@@ -59,7 +59,7 @@
     "parseurl": "1.3.3",
     "pause": "0.1.0",
     "send": "1.2.1",
-    "terraform": "1.23.1"
+    "terraform": "1.27.0"
   },
   "devDependencies": {
     "axios": "1.18.1",
