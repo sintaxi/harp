@@ -19,7 +19,7 @@ describe("headers", function(){
   it("should be correct with a valid CSS file", function(done){
     axios.get("http://localhost:" + port + "/valid-css.css").then(function(r){
       r.status.should.eql(200)
-      r.headers.should.have.property("content-type", "text/css; charset=UTF-8")
+      r.headers.should.have.property("content-type", "text/css; charset=utf-8")
       r.headers.should.have.property("content-length")
       done()
     })
@@ -28,7 +28,7 @@ describe("headers", function(){
   it("should be correct with a valid HTML file", function(done){
     axios.get("http://localhost:" + port + "/valid-html.html").then(function(r){
       r.status.should.eql(200)
-      r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      r.headers.should.have.property("content-type", "text/html; charset=utf-8")
       r.headers.should.have.property("content-length")
       done()
     })
@@ -37,7 +37,7 @@ describe("headers", function(){
   it("should be correct with a valid JS file", function(done){
     axios.get("http://localhost:" + port + "/valid-js.js").then(function(r){
       r.status.should.eql(200)
-      r.headers.should.have.property("content-type", "application/javascript; charset=UTF-8")
+      r.headers.should.have.property("content-type", "text/javascript; charset=utf-8")
       r.headers.should.have.property("content-length")
       done()
     })
