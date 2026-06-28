@@ -30,6 +30,7 @@ describe("basicAuth", function(){
         }
       }).then(function(response){
         response.status.should.eql(200)
+        response.data.should.not.eql('Access granted')
         done()
       })
     })
