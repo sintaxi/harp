@@ -117,7 +117,7 @@ describe("errors", function(){
       axios.get('http://localhost:'+ port +'/some/missing/path.css').catch(function(e){
         e.response.status.should.eql(404)
         e.response.data.should.include(harp.pkg.version)
-        e.response.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+        e.response.headers.should.have.property("content-type", "text/html; charset=utf-8")
         done()
       })
     })

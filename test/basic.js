@@ -66,7 +66,7 @@ describe("basic", function(){
       contents.toString().should.include("Custom, Page Not Found")
       axios.get('http://localhost:8100/some/missing/path').catch(function(e){
         e.response.status.should.eql(404)
-        e.response.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+        e.response.headers.should.have.property("content-type", "text/html; charset=utf-8")
         e.response.data.should.not.include("Kitchen Sink")
         e.response.data.should.include("Custom, Page Not Found")
         e.response.data.should.eql(contents.toString())
@@ -90,7 +90,7 @@ describe("basic", function(){
   it("should return proper mime type on 404 page", function(done){
     axios.get('http://localhost:8100/some/missing/path.css').catch(function(e){
       e.response.status.should.eql(404)
-      e.response.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+      e.response.headers.should.have.property("content-type", "text/html; charset=utf-8")
       done()
     })
   })

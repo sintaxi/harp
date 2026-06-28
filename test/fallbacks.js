@@ -22,7 +22,7 @@ describe("fallbacks", function(){
     it("should return proper mime type on 200 page", function(done){
       axios.get('http://localhost:'+ port +'/some/fallback/path').then(function(r){
         r.status.should.eql(200)
-        r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+        r.headers.should.have.property("content-type", "text/html; charset=utf-8")
         done()
       })
     })
@@ -32,7 +32,7 @@ describe("fallbacks", function(){
         should.not.exist(err)
         axios.get('http://localhost:'+ port +'/some/missing/path').then(function(r){
           r.status.should.eql(200)
-          r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+          r.headers.should.have.property("content-type", "text/html; charset=utf-8")
           r.data.should.eql(contents.toString())
           done()
         })
@@ -60,7 +60,7 @@ describe("fallbacks", function(){
     it("should return proper mime type on 200 page", function(done){
       axios.get('http://localhost:'+ port +'/some/fallback/path').then(function(r){
         r.status.should.eql(200)
-        r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+        r.headers.should.have.property("content-type", "text/html; charset=utf-8")
         done()
       })
     })
@@ -70,7 +70,7 @@ describe("fallbacks", function(){
         should.not.exist(err)
         axios.get('http://localhost:'+ port +'/some/missing/path').then(function(r){
           r.status.should.eql(200)
-          r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+          r.headers.should.have.property("content-type", "text/html; charset=utf-8")
           r.data.should.eql(contents.toString())
           done()
         })
@@ -98,7 +98,7 @@ describe("fallbacks", function(){
     it("should return 404 on missing path", function(done){
       axios.get('http://localhost:'+ port +'/some/fallback/path').catch(function(e){
         e.response.status.should.eql(404)
-        e.response.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+        e.response.headers.should.have.property("content-type", "text/html; charset=utf-8")
         done()
       })
     })
@@ -106,7 +106,7 @@ describe("fallbacks", function(){
     it("should have fallback 404 page", function(done){
       axios.get('http://localhost:'+ port +'/some/missing/path').catch(function(e){
         e.response.status.should.eql(404)
-        e.response.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+        e.response.headers.should.have.property("content-type", "text/html; charset=utf-8")
         done()
       })
     })
@@ -116,7 +116,7 @@ describe("fallbacks", function(){
         should.not.exist(err)
         axios.get('http://localhost:'+ port +'/app/missing/path').then(function(r){
           r.status.should.eql(200)
-          r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+          r.headers.should.have.property("content-type", "text/html; charset=utf-8")
           r.data.should.eql(contents.toString())
           done()
         })
@@ -128,7 +128,7 @@ describe("fallbacks", function(){
         should.not.exist(err)
         axios.get('http://localhost:'+ port +'/app/').then(function(r){
           r.status.should.eql(200)
-          r.headers.should.have.property("content-type", "text/html; charset=UTF-8")
+          r.headers.should.have.property("content-type", "text/html; charset=utf-8")
           r.data.should.eql(contents.toString())
           done()
         })
