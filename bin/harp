@@ -75,12 +75,11 @@ var harp = require("../")
 
 
 var duration = function(d){
+  // d is a process.hrtime() pair: [seconds, nanoseconds]
   if (d[0] < 1){
-    var ms = d[1].toString().substring(0,3)
-    return  + ms + "ms"
+    return Math.round(d[1] / 1e6) + "ms"
   } else {
-    var ms = d[1].toString().substring(0,1)
-    return [d[0], ms].join(".") + "s"
+    return (d[0] + d[1] / 1e9).toFixed(1) + "s"
   }
 }
 
