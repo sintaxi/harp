@@ -1,6 +1,6 @@
 {
   "name": "harp",
-  "version": "0.48.0",
+  "version": "0.48.1",
   "description": "Static Web Server/Generator/Bundler",
   "author": "Brock Whitten <brock@chloi.io>",
   "contributors": [
