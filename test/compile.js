@@ -53,6 +53,34 @@ describe("compile", function(){
 
   })
 
+  describe("copy failure", function(){
+    var projectPath = path.join(__dirname, "apps", "compile", "copyfail")
+    var outputPath  = path.join(__dirname, "out", "compile-copyfail")
+
+    // Made at runtime since an unreadable file can't live in git
+    before(function(){
+      fs.mkdirSync(projectPath, { recursive: true })
+      fs.writeFileSync(path.join(projectPath, "index.html"), "<h1>hello</h1>")
+      fs.writeFileSync(path.join(projectPath, "unreadable.txt"), "cannot copy this")
+      fs.chmodSync(path.join(projectPath, "unreadable.txt"), 0o000)
+    })
+
+    it("should propagate the error when a file cannot be copied", function(done){
+      harp.compile(projectPath, outputPath, function(error){
+        should.exist(error)
+        done()
+      })
+    })
+
+    after(function(done){
+      fs.chmodSync(path.join(projectPath, "unreadable.txt"), 0o644)
+      exec("rm -rf " + projectPath + " " + outputPath, function() {
+        done();
+      })
+    })
+
+  })
+
   describe("root app with .git dir", function(){
     var projectPath = path.join(__dirname, "apps","compile","root")
     var outputPath  = path.join(__dirname, "out","compile-root")
