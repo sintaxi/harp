@@ -60,6 +60,10 @@
     "send": "1.2.1",
     "terraform": "1.27.0"
   },
+  "overrides": {
+    "diff": "^8.0.3",
+    "serialize-javascript": "^7.0.7"
+  },
   "devDependencies": {
     "axios": "1.18.1",
     "mocha": "11.7.6",
