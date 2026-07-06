@@ -47,7 +47,6 @@
     "@colors/colors": "1.5.0",
     "async": "3.2.6",
     "basic-auth": "2.0.1",
-    "boxt": "1.1.2",
     "connect": "3.7.0",
     "envy-json": "0.2.1",
     "fs-extra": "10.1.0",
@@ -70,10 +69,11 @@
     "should": "3.3.2"
   },
   "scripts": {
-    "preversion": "npm test",
+    "preversion": "npm test && npm run test:smoke",
     "version": "npm publish",
     "prepare": "git config core.hooksPath ./hooks",
     "test": "mocha --reporter spec -t 4000",
+    "test:smoke": "node scripts/smoke.js",
     "test:fallbacks": "mocha test/fallbacks.js -t 3000",
     "test:helpers": "mocha test/helpers.js -t 3000"
   },
